@@ -1,0 +1,94 @@
+name: Calendar Sync (gcalcli)
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_name:
+        description: "ICS artifact name (fallback to repo secret)"
+        required: false
+        default: ""
+  schedule:
+    # 毎朝 09:10 JST (= 00:10 UTC)
+    - cron: "10 0 * * *"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      CALENDAR_ID: ${{ secrets.CALENDER_ID || secrets.CALENDAR_ID }}
+      ARTIFACT_NAME_SECRET: ${{ secrets.ARTIFACT_NAME }}
+    steps:
+      - name: Checkout (optional)
+        uses: actions/checkout@v4
+
+      - name: Decide artifact name
+        id: decide
+        run: |
+          an="${{ github.event.inputs.artifact_name }}"
+          if [ -z "$an" ]; then an="${ARTIFACT_NAME_SECRET:-project-ics}"; fi
+          echo "name=$an" >> "$GITHUB_OUTPUT"
+
+      - name: Download ICS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.decide.outputs.name }}
+          path: ics
+        continue-on-error: true
+
+      - name: Ensure ICS folder
+        run: |
+          mkdir -p ics
+          echo "ICS files:"
+          ls -la ics || true
+
+      - name: Install gcalcli
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcalcli
+
+      - name: Setup credentials (client + oauth)
+        env:
+          GCAL_CLIENT_JSON: ${{ secrets.GCAL_CLIENT_JSON }}
+          GCAL_OAUTH_JSON:  ${{ secrets.GCAL_OAUTH_JSON }}
+        run: |
+          mkdir -p ~/.config/gcalcli
+          mkdir -p ~/.local/share/gcalcli
+          echo "${GCAL_CLIENT_JSON}" > ~/.config/gcalcli/client_secret.json
+          echo "${GCAL_OAUTH_JSON}"  > ~/.local/share/gcalcli/oauth
+          chmod 600 ~/.config/gcalcli/client_secret.json ~/.local/share/gcalcli/oauth
+
+      - name: Sanity check
+        run: |
+          gcalcli list || true
+          echo "Target calendar: ${CALENDAR_ID:-primary}"
+
+      - name: Import ICS files to Google Calendar
+        run: |
+          set -e
+          shopt -s nullglob
+          count=0
+          for f in ics/*.ics; do
+            echo "Importing: $f"
+            if [ -n "${CALENDAR_ID}" ]; then
+              gcalcli --calendar "${CALENDAR_ID}" import "$f"
+            else
+              gcalcli import "$f"
+            fi
+            count=$((count+1))
+          done
+          echo "Imported ${count} file(s)."
+
+      - name: Agenda today (log)
+        run: |
+          gcalcli agenda today || true
+
+      - name: Save agenda log
+        if: always()
+        run: |
+          mkdir -p out
+          gcalcli agenda today --tsv > out/agenda_today.tsv || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: agenda-logs
+          path: out/
