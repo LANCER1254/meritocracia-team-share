@@ -1,0 +1,60 @@
+📘 小説・文章系
+機能	VS Code拡張例	CLI再現
+文字数カウント	Word Count	✅ 完全可能
+原稿用紙換算	Japanese Word Handler	✅
+話数別集計	小説支援拡張	✅
+なろう形式変換	Narou Formatter	✅
+ルビ整形	なろう補助	✅
+行頭字下げ	小説拡張	✅
+空行整理	同上	✅
+会話文検出	同上	✅
+地の文比率	同上	✅
+禁則チェック	同上	✅
+表記揺れ検出	同上	✅
+三点リーダ数	同上	✅
+ダッシュ数	同上	✅
+
+👉 全部Pythonで余裕。
+
+📝 議事録・日記系
+機能	拡張例	CLI
+テンプレ自動生成	Markdown Notes	✅
+日付自動挿入	Daily Notes	✅
+議事録フォーマット	Meeting Notes	✅
+発言者整理	Transcript Tool	✅
+要点抽出	AI拡張	✅（API）
+議事録化	同上	✅
+日記管理	Journal	✅
+日別ファイル生成	同上	✅
+
+👉 ただの ファイル生成 + テンプレ。
+
+📅 スケジュール管理
+機能	拡張	CLI
+今日の予定表示	Calendar	✅
+日付フォルダ生成	同上	✅
+ToDo管理	Todo Tree	✅
+タスク抽出	同上	✅
+締切警告	同上	✅
+進捗率	同上	✅
+CSV連動	同上	✅
+Google連携	同上	⚠ API必要
+
+👉 ローカル管理なら完全再現可能。
+
+🧠 思考整理・構造化
+機能	拡張	CLI
+見出し抽出	Outline	✅
+構造ツリー	同上	✅
+リンク解析	Wiki拡張	✅
+相関整理	Graph拡張	✅（dot）
+設定DB化	Notion拡張	✅（md→json）
+⚙ 技術系（参考）
+機能	CLI
+Lint	✅
+Formatter	✅
+Diff	✅
+Git	✅
+自動保存	✅
+監視	✅（inotify）
+ホットリロード	✅
