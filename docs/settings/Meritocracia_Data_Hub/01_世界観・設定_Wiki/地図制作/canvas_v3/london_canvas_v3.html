@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>MeritMap v3</title>
+<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<!-- 上部ステータス -->
+<div id="info">Loading...</div>
+
+<!-- メインエリア（地図 + サイドバー） -->
+<div id="main-container">
+
+    <!-- 地図 -->
+    <canvas id="map"></canvas>
+
+    <!-- 右側サイドバー -->
+    <div id="sidebar">
+
+        <div class="panel">
+            <h3>📍 都市</h3>
+            <div id="cityList"></div>
+        </div>
+
+        <div class="panel">
+            <h3>🎯 物語拠点</h3>
+            <div id="anchorList"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- 下部レイヤータブ -->
+<div id="layerTabs"></div>
+
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>
