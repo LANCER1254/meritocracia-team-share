@@ -1,3 +1,12 @@
-
 # --- ignore massive generated knowledge DB ---
 docs/settings/Meritocracia_Data_Hub/メリトクラシアデータベース化/
+
+# --- Python virtual environment ---
+.venv/
+
+# --- GIS / map heavy generated data ---
+data/grids/
+*.csv
+
+# --- Native / compiled binaries ---
+*.so
