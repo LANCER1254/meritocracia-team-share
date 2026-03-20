@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>原稿ビューア</title>
+
+<style>
+body {
+  background:#0f1115;
+  color:#e5e7eb;
+  font-family: serif;
+  padding:40px;
+  line-height:1.8;
+  max-width:800px;
+  margin:auto;
+}
+h1 {
+  color:#60a5fa;
+  margin-bottom:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1 id="title">読み込み中...</h1>
+<div id="content">Loading...</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+const params = new URLSearchParams(location.search);
+const file = params.get('file');
+
+if (!file) {
+  document.getElementById('content').innerText = "ファイル未指定";
+} else {
+  fetch(file)
+    .then(res => res.text())
+    .then(text => {
+      document.getElementById('content').innerHTML = marked.parse(text);
+      document.getElementById('title').innerText = file;
+    })
+    .catch(() => {
+      document.getElementById('content').innerText = "読み込み失敗";
+    });
+}
+</script>
+
+</body>
+</html>
