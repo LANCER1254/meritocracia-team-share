@@ -1,75 +1,570 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Meritocracia Hub</title>
-  <style>
-    body {
-      background: #0f172a;
-      color: #e5e7eb;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meritocracia Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@300;400;500&display=swap');
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 40px;
-    }
-
-    .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 900px;
-  margin: auto;
-  justify-items: center;
+:root {
+  --bg:      #070b12;
+  --bg2:     #0c1220;
+  --bg3:     #111827;
+  --gold:    #c8a45a;
+  --gold2:   #e5c97e;
+  --dim:     #5a4e38;
+  --text:    #cfc4ae;
+  --text2:   #7a6e5a;
+  --border:  rgba(200,164,90,0.15);
+  --border2: rgba(200,164,90,0.3);
 }
 
-    .card {
-      background: #1e293b;
-      padding: 30px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: white;
-      transition: 0.2s;
-    }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    .card:hover {
-      background: #334155;
-      transform: scale(1.05);
-    }
-  </style>
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 背景装飾 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 10%, rgba(200,164,90,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 85% 90%, rgba(139,26,26,0.05) 0%, transparent 60%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 80px,
+      rgba(200,164,90,0.015) 80px,
+      rgba(200,164,90,0.015) 81px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ヘッダー */
+header {
+  position: relative;
+  z-index: 2;
+  padding: 48px 48px 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-left h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 8px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.header-left .tagline {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--text2);
+  font-family: 'Cinzel', serif;
+}
+
+.header-right {
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 2px;
+  text-align: right;
+  line-height: 2;
+}
+
+/* メインレイアウト */
+.main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: calc(100vh - 120px);
+}
+
+/* サイドナビ */
+.sidenav {
+  border-right: 1px solid var(--border);
+  padding: 32px 0;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.sidenav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+}
+
+.sidenav-item:hover {
+  color: var(--text);
+  background: rgba(200,164,90,0.04);
+  border-left-color: var(--dim);
+}
+
+.sidenav-item.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(200,164,90,0.06);
+}
+
+.sidenav-icon { font-size: 14px; width: 20px; text-align: center; }
+
+.sidenav-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 12px 24px;
+}
+
+/* コンテンツエリア */
+.content {
+  padding: 40px 48px;
+  overflow-y: auto;
+}
+
+/* カテゴリセクション */
+.section {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-weight: 400;
+}
+
+.section-sub {
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 3px;
+}
+
+/* カードグリッド */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--border2);
+  padding: 20px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.25s;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200,164,90,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.card:hover {
+  border-color: var(--border2);
+  border-top-color: var(--gold);
+  background: var(--bg3);
+  transform: translateY(-2px);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card-icon {
+  font-size: 22px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.card-title {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.card-desc {
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 1px;
+  line-height: 1.8;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+.badge-wip  { background: rgba(200,164,90,0.15); color: var(--dim); }
+.badge-new  { background: rgba(39,174,96,0.15);  color: #2ecc71; }
+.badge-done { background: rgba(41,128,185,0.15); color: #3498db; }
+
+/* 区切りラベル */
+.group-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  font-family: 'Cinzel', serif;
+  margin-bottom: 12px;
+  margin-top: 28px;
+}
+.group-label:first-of-type { margin-top: 0; }
+
+/* ダッシュボード（全体表示） */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.dash-cat {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.dash-cat:hover {
+  border-color: var(--border2);
+  background: var(--bg3);
+}
+
+.dash-cat-icon { font-size: 28px; margin-bottom: 10px; }
+.dash-cat-name {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.dash-cat-count {
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 1px;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
 </head>
 <body>
 
-<h1>Meritocracia Hub</h1>
+<header>
+  <div class="header-left">
+    <h1>MERITOCRACIA</h1>
+    <div class="tagline">PROJECT HUB — INTERNAL</div>
+  </div>
+  <div class="header-right">
+    <div>LANCER</div>
+    <div>2026 — 制作進行中</div>
+  </div>
+</header>
 
-<div class="grid">
-  <a class="card" href="./map/london_canvas_v3.html">
-    🗺 地図
-  </a>
+<div class="main">
 
-  <a class="card" href="./story/index.html">
-    📖 ストーリー進行
-  </a>
+  <!-- サイドナビ -->
+  <nav class="sidenav">
+    <a class="sidenav-item active" data-section="home" href="#">
+      <span class="sidenav-icon">⬛</span> ホーム
+    </a>
+    <div class="sidenav-divider"></div>
+    <a class="sidenav-item" data-section="world" href="#">
+      <span class="sidenav-icon">🌍</span> 世界観・設定
+    </a>
+    <a class="sidenav-item" data-section="character" href="#">
+      <span class="sidenav-icon">👤</span> キャラクター
+    </a>
+    <a class="sidenav-item" data-section="story" href="#">
+      <span class="sidenav-icon">📖</span> ストーリー
+    </a>
+    <a class="sidenav-item" data-section="system" href="#">
+      <span class="sidenav-icon">⚙</span> システム・能力
+    </a>
+    <div class="sidenav-divider"></div>
+    <a class="sidenav-item" data-section="production" href="#">
+      <span class="sidenav-icon">🎮</span> 制作・運営
+    </a>
+    <a class="sidenav-item" data-section="map" href="#">
+      <span class="sidenav-icon">🗺</span> マップ
+    </a>
+  </nav>
 
-  <a class="card" href="./character/index.html">
-    👤 キャラクター
-  </a>
+  <!-- コンテンツ -->
+  <div class="content">
 
-  <a class="card" href="./route/index.html">
-    🧭 ルート分岐
-  </a>
+    <!-- ホーム -->
+    <div class="section active" id="section-home">
+      <div class="section-header">
+        <div class="section-title">HUB</div>
+        <div class="section-sub">MERITOCRACIA PROJECT</div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dash-cat" onclick="switchSection('world')">
+          <div class="dash-cat-icon">🌍</div>
+          <div class="dash-cat-name">世界観・設定</div>
+          <div class="dash-cat-count">神話 / 宗教 / 国家</div>
+        </div>
+        <div class="dash-cat" onclick="switchSection('character')">
+          <div class="dash-cat-icon">👤</div>
+          <div class="dash-cat-name">キャラクター</div>
+          <div class="dash-cat-count">主要人物 / セル</div>
+        </div>
+        <div class="dash-cat" onclick="switchSection('story')">
+          <div class="dash-cat-icon">📖</div>
+          <div class="dash-cat-name">ストーリー</div>
+          <div class="dash-cat-count">タイムライン / ルート</div>
+        </div>
+        <div class="dash-cat" onclick="switchSection('system')">
+          <div class="dash-cat-icon">⚙</div>
+          <div class="dash-cat-name">システム・能力</div>
+          <div class="dash-cat-count">心音 / 天使契約</div>
+        </div>
+        <div class="dash-cat" onclick="switchSection('production')">
+          <div class="dash-cat-icon">🎮</div>
+          <div class="dash-cat-name">制作・運営</div>
+          <div class="dash-cat-count">体験版 / 進行管理</div>
+        </div>
+        <div class="dash-cat" onclick="switchSection('map')">
+          <div class="dash-cat-icon">🗺</div>
+          <div class="dash-cat-name">マップ</div>
+          <div class="dash-cat-count">都市 / 拠点</div>
+        </div>
+      </div>
+    </div>
 
-  <a class="card" href="./mythology/index.html">
-    🌌 神話構造
-  </a>
-  
-  <a class="card" href="./system/shion.html">
-    🧠 心音システム
-  </a>
+    <!-- 世界観・設定 -->
+    <div class="section" id="section-world">
+      <div class="section-header">
+        <div class="section-title">世界観・設定</div>
+        <div class="section-sub">WORLD & LORE</div>
+      </div>
+      <div class="group-label">神話・天界</div>
+      <div class="card-grid">
+        <a class="card" href="./mythology/index.html">
+          <span class="card-icon">🌌</span>
+          <div class="card-title">神話構造</div>
+          <div class="card-desc">メタトロン転生・天界階層・神の思想</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+        <a class="card" href="#">
+          <span class="card-icon">⚖</span>
+          <div class="card-title">天界法体系</div>
+          <div class="card-desc">三神構造・ルシファー・カオス</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+      </div>
+      <div class="group-label">国家・社会</div>
+      <div class="card-grid">
+        <a class="card" href="#">
+          <span class="card-icon">🏛</span>
+          <div class="card-title">メリトクラシア国家</div>
+          <div class="card-desc">能力主義体制・審問庁・建国史</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+        <a class="card" href="#">
+          <span class="card-icon">✝</span>
+          <div class="card-title">天啓教・宗教設定</div>
+          <div class="card-desc">星導教会・均衡解放戦線・教義</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+        <a class="card" href="#">
+          <span class="card-icon">🩸</span>
+          <div class="card-title">血統アーカイブ</div>
+          <div class="card-desc">保有国・運用ルール</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- キャラクター -->
+    <div class="section" id="section-character">
+      <div class="section-header">
+        <div class="section-title">キャラクター</div>
+        <div class="section-sub">CHARACTERS</div>
+      </div>
+      <div class="group-label">主要人物</div>
+      <div class="card-grid">
+        <a class="card" href="./character/index.html">
+          <span class="card-icon">👤</span>
+          <div class="card-title">キャラクター一覧</div>
+          <div class="card-desc">ジェイド・カーネル・ガレス・ミレイユ</div>
+          <span class="card-badge badge-done">DONE</span>
+        </a>
+      </div>
+      <div class="group-label">炎翼セル</div>
+      <div class="card-grid">
+        <a class="card" href="#">
+          <span class="card-icon">🔥</span>
+          <div class="card-title">炎翼セル識別リスト</div>
+          <div class="card-desc">C-01アーク / R-02ノクス / R-03セラ 他</div>
+          <span class="card-badge badge-done">DONE</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ストーリー -->
+    <div class="section" id="section-story">
+      <div class="section-header">
+        <div class="section-title">ストーリー</div>
+        <div class="section-sub">STORY & ROUTE</div>
+      </div>
+      <div class="card-grid">
+        <a class="card" href="./story/index.html">
+          <span class="card-icon">📅</span>
+          <div class="card-title">ストーリー進行</div>
+          <div class="card-desc">全体タイムライン・編別フィルター</div>
+          <span class="card-badge badge-done">DONE</span>
+        </a>
+        <a class="card" href="./route/index.html">
+          <span class="card-icon">🧭</span>
+          <div class="card-title">ルート分岐</div>
+          <div class="card-desc">本編 / 体験版 / アイリス視点</div>
+          <span class="card-badge badge-done">DONE</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- システム・能力 -->
+    <div class="section" id="section-system">
+      <div class="section-header">
+        <div class="section-title">システム・能力</div>
+        <div class="section-sub">SYSTEMS & ABILITIES</div>
+      </div>
+      <div class="card-grid">
+        <a class="card" href="./system/shion.html">
+          <span class="card-icon">🫀</span>
+          <div class="card-title">心音システム</div>
+          <div class="card-desc">機能段階・メタトロン接続構造</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+        <a class="card" href="#">
+          <span class="card-icon">👼</span>
+          <div class="card-title">天使契約システム</div>
+          <div class="card-desc">分霊ルール・神性エネルギー</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+        <a class="card" href="#">
+          <span class="card-icon">📐</span>
+          <div class="card-title">グローリアテスト</div>
+          <div class="card-desc">試験設計・M-GSL構文整合試験</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 制作・運営 -->
+    <div class="section" id="section-production">
+      <div class="section-header">
+        <div class="section-title">制作・運営</div>
+        <div class="section-sub">PRODUCTION</div>
+      </div>
+      <div class="card-grid">
+        <a class="card" href="#">
+          <span class="card-icon">🎮</span>
+          <div class="card-title">体験版プロット</div>
+          <div class="card-desc">裁きの名のもとに・Scene構成</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+        <a class="card" href="#">
+          <span class="card-icon">📝</span>
+          <div class="card-title">執筆進行管理</div>
+          <div class="card-desc">Scene完成状況・リライト候補</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- マップ -->
+    <div class="section" id="section-map">
+      <div class="section-header">
+        <div class="section-title">マップ</div>
+        <div class="section-sub">MAP & LOCATIONS</div>
+      </div>
+      <div class="card-grid">
+        <a class="card" href="./map/london_canvas_v3.html">
+          <span class="card-icon">🗺</span>
+          <div class="card-title">MeritMap</div>
+          <div class="card-desc">都市・物語拠点・レイヤー表示</div>
+          <span class="card-badge badge-wip">WIP</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
+<script>
+function switchSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidenav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.querySelector(`[data-section="${id}"]`).classList.add('active');
+}
+
+document.querySelectorAll('.sidenav-item').forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    switchSection(item.dataset.section);
+  });
+});
+</script>
 </body>
 </html>
