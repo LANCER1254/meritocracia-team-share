@@ -2,51 +2,342 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>原稿ビューア</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>閲覧中... | Meritocracia</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400;500&display=swap');
+
+:root {
+  --bg:     #070b12;
+  --bg2:    #0c1220;
+  --gold:   #c8a45a;
+  --gold2:  #e5c97e;
+  --text:   #cfc4ae;
+  --text2:  #7a6e5a;
+  --border: rgba(200,164,90,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-  background:#0f1115;
-  color:#e5e7eb;
-  font-family: serif;
-  padding:40px;
-  line-height:1.8;
-  max-width:800px;
-  margin:auto;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-h1 {
-  color:#60a5fa;
-  margin-bottom:20px;
+
+/* ヘッダー */
+header {
+  flex-shrink: 0;
+  z-index: 20;
+  background: rgba(7,11,18,0.97);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.back-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-btn:hover { color: var(--gold); }
+
+.header-center {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.header-ep {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+}
+
+/* メインレイアウト：サイドバー＋本文を横並び・独立スクロール */
+.layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* サイドバー */
+.sidebar {
+  width: 190px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 0 40px;
+}
+
+.sidebar-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  padding: 0 16px 10px;
+}
+
+/* アコーディオン */
+.acc-group { border-bottom: 1px solid var(--border); }
+
+.acc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+.acc-header:hover         { background: rgba(200,164,90,0.04); }
+.acc-header.open          { background: rgba(200,164,90,0.06); }
+
+.acc-range {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text2);
+  transition: color 0.15s;
+}
+.acc-header:hover .acc-range,
+.acc-header.open  .acc-range { color: var(--gold); }
+
+.acc-arrow {
+  font-size: 7px;
+  color: var(--text2);
+  transition: transform 0.2s, color 0.2s;
+}
+.acc-header.open .acc-arrow {
+  transform: rotate(90deg);
+  color: var(--gold);
+}
+
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.acc-body.open { max-height: 800px; }
+
+.ep-link {
+  display: block;
+  padding: 6px 16px 6px 26px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text2);
+  text-decoration: none;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+}
+.ep-link:hover {
+  color: var(--text);
+  border-left-color: rgba(200,164,90,0.3);
+}
+.ep-link.current {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(200,164,90,0.05);
+}
+
+/* 本文エリア（独立スクロール） */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px 60px 80px;
+}
+
+.article-meta {
+  margin-bottom: 44px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-ep {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.article-title {
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  line-height: 1.6;
+}
+
+/* Markdownスタイル */
+#content { font-size: 15px; line-height: 2.3; letter-spacing: 0.5px; }
+#content h1  { display: none; }
+#content h2  {
+  font-family: 'Cinzel', serif;
+  font-size: 12px; letter-spacing: 4px; color: var(--gold);
+  margin: 48px 0 16px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border); font-weight: 400;
+}
+#content h3  { font-size: 13px; letter-spacing: 2px; color: var(--text2); margin: 28px 0 10px; font-weight: 400; }
+#content p   { margin-bottom: 1.6em; }
+#content hr  { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+#content strong { color: var(--gold2); font-weight: 500; }
+#content em     { color: var(--text2); font-style: normal; }
+#content blockquote {
+  border-left: 2px solid var(--gold); padding: 8px 20px; margin: 20px 0;
+  color: var(--text2); background: rgba(200,164,90,0.03);
+}
+
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 300px; font-family: 'Cinzel', serif;
+  font-size: 11px; letter-spacing: 4px; color: var(--text2);
+}
+
+/* ページ下部ナビ */
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--border);
+}
+.footer-btn {
+  padding: 10px 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--text2);
+  font-size: 11px; letter-spacing: 2px;
+  text-decoration: none; transition: all 0.2s;
+}
+.footer-btn:hover { border-color: var(--gold); color: var(--gold); }
+.footer-btn.hidden { visibility: hidden; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 </style>
-
 </head>
-
 <body>
 
-<h1 id="title">読み込み中...</h1>
-<div id="content">Loading...</div>
+<header>
+  <a class="back-btn" href="../index.html">← STORY</a>
+  <span class="header-center">MERITOCRACIA</span>
+  <span class="header-ep" id="header-ep">EP.—</span>
+</header>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-label">EPISODES</div>
+    <div id="accordion"></div>
+  </nav>
+
+  <div class="main">
+    <div class="article-meta">
+      <div class="article-ep" id="article-ep">EPISODE —</div>
+      <div class="article-title" id="article-title">読み込み中...</div>
+    </div>
+    <div id="content"><div class="loading">LOADING</div></div>
+    <div class="footer-nav">
+      <a class="footer-btn" id="footer-prev">← 前話</a>
+      <a class="footer-btn" id="footer-next">次話 →</a>
+    </div>
+  </div>
+</div>
 
 <script>
-const params = new URLSearchParams(location.search);
-const file = params.get('file');
+const TOTAL = 90;
+const GROUP = 10;
 
-if (!file) {
-  document.getElementById('content').innerText = "ファイル未指定";
-} else {
-  fetch(file)
-    .then(res => res.text())
+const params  = new URLSearchParams(location.search);
+const filePrm = params.get('file') || 'ep01.md';
+const mt      = filePrm.match(/ep(\d+)/i);
+const epNum   = mt ? parseInt(mt[1]) : 1;
+
+function pad(n)   { return String(n).padStart(2,'0'); }
+function epUrl(n) { return `viewer.html?file=ep${pad(n)}.md`; }
+
+// アコーディオン生成
+function buildAccordion() {
+  const wrap = document.getElementById('accordion');
+  const currentGroup = Math.ceil(epNum / GROUP);
+  const groupCount   = Math.ceil(TOTAL / GROUP);
+
+  for (let g = 1; g <= groupCount; g++) {
+    const from = (g - 1) * GROUP + 1;
+    const to   = Math.min(g * GROUP, TOTAL);
+
+    const div = document.createElement('div');
+    div.className = 'acc-group';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'acc-header' + (g === currentGroup ? ' open' : '');
+    hdr.innerHTML = `<span class="acc-range">${from} – ${to}</span><span class="acc-arrow">▶</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'acc-body' + (g === currentGroup ? ' open' : '');
+
+    for (let ep = from; ep <= to; ep++) {
+      const a = document.createElement('a');
+      a.className = 'ep-link' + (ep === epNum ? ' current' : '');
+      a.href = epUrl(ep);
+      a.textContent = `第${ep}話`;
+      body.appendChild(a);
+    }
+
+    hdr.addEventListener('click', () => {
+      const isOpen = hdr.classList.contains('open');
+      wrap.querySelectorAll('.acc-header').forEach(h => h.classList.remove('open'));
+      wrap.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { hdr.classList.add('open'); body.classList.add('open'); }
+    });
+
+    div.appendChild(hdr);
+    div.appendChild(body);
+    wrap.appendChild(div);
+  }
+}
+
+// ナビ更新
+function updateNav() {
+  document.getElementById('header-ep').textContent  = `EP.${pad(epNum)}`;
+  document.getElementById('article-ep').textContent = `EPISODE ${pad(epNum)}`;
+
+  const fp = document.getElementById('footer-prev');
+  const fn = document.getElementById('footer-next');
+  if (epNum > 1)     fp.href = epUrl(epNum - 1); else fp.classList.add('hidden');
+  if (epNum < TOTAL) fn.href = epUrl(epNum + 1); else fn.classList.add('hidden');
+}
+
+// Markdown読み込み
+function loadContent() {
+  fetch(`ep${pad(epNum)}.md`)
+    .then(r => { if (!r.ok) throw new Error(); return r.text(); })
     .then(text => {
+      const tm = text.match(/^#\s+(.+)/m);
+      const title = tm ? tm[1].replace(/[#*`]/g,'').trim() : `第${epNum}話`;
+      document.getElementById('article-title').textContent = title;
+      document.title = `${title} | Meritocracia`;
       document.getElementById('content').innerHTML = marked.parse(text);
-      document.getElementById('title').innerText = file;
     })
     .catch(() => {
-      document.getElementById('content').innerText = "読み込み失敗";
+      document.getElementById('article-title').textContent = `第${epNum}話`;
+      document.getElementById('content').innerHTML = '<div class="loading">ファイルが見つかりません</div>';
     });
 }
-</script>
 
+buildAccordion();
+updateNav();
+loadContent();
+</script>
 </body>
 </html>
