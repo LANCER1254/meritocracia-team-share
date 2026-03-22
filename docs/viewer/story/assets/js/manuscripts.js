@@ -1,0 +1,492 @@
+２<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ストーリー進行 | Meritocracia</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap');
+
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1525;
+    --gold: #c9a84c;
+    --gold2: #e8c97a;
+    --red: #8b1a1a;
+    --red2: #c0392b;
+    --blue: #1a3a5c;
+    --blue2: #2980b9;
+    --text: #d4c5a9;
+    --text2: #8a7a64;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 背景テクスチャ */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(139,26,26,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(26,58,92,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 40px 40px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .back-btn {
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .back-btn:hover { opacity: 1; }
+
+  header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-weight: 400;
+  }
+
+  header .subtitle {
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 3px;
+    margin-top: 4px;
+  }
+
+  /* フィルターバー */
+  .filter-bar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 8px;
+    padding: 20px 40px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  /* メインタイムライン */
+  .timeline-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 40px 80px;
+  }
+
+  /* 中央縦線 */
+  .timeline-wrap::before {
+    content: '';
+    position: absolute;
+    left: 88px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent);
+  }
+
+  /* 年表ブロック */
+  .era {
+    margin-bottom: 8px;
+  }
+
+  .era-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    padding: 8px 0;
+  }
+
+  .era-year {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .era-dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--gold);
+    background: var(--bg);
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: background 0.2s;
+  }
+  .era-label:hover .era-dot {
+    background: var(--gold);
+  }
+
+  .era-title {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  /* イベントカード */
+  .events {
+    padding-left: 86px;
+    margin-bottom: 8px;
+    display: grid;
+    gap: 6px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+  }
+  .events.open {
+    max-height: 2000px;
+  }
+
+  .event-card {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+  .event-card:hover {
+    background: rgba(201,168,76,0.04);
+    border-color: rgba(201,168,76,0.4);
+    border-left-color: var(--gold2);
+  }
+
+  .event-card.red { border-left-color: var(--red2); }
+  .event-card.red:hover { border-left-color: #e74c3c; }
+  .event-card.blue { border-left-color: var(--blue2); }
+  .event-card.blue:hover { border-left-color: #3498db; }
+  .event-card.dark { border-left-color: #6c3483; }
+
+  .event-tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    font-family: 'Cinzel', serif;
+  }
+  .tag-prologue { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .tag-terror   { background: rgba(192,57,43,0.2);   color: #e74c3c; }
+  .tag-glory    { background: rgba(41,128,185,0.2);   color: #3498db; }
+  .tag-officer  { background: rgba(108,52,131,0.2);   color: #9b59b6; }
+  .tag-demo     { background: rgba(39,174,96,0.2);    color: #2ecc71; }
+  .tag-hidden   { background: rgba(100,100,100,0.2);  color: #888; }
+
+  .event-title {
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .event-desc {
+    font-size: 11px;
+    color: var(--text2);
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+  }
+
+  .event-chars {
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .char-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--text2);
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* 凡例 */
+  .legend {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 20px;
+    padding: 0 40px 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: var(--text2);
+    letter-spacing: 1px;
+  }
+  .legend-line {
+    width: 16px;
+    height: 2px;
+  }
+
+  /* スクロールバー */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <a class="back-btn" href="../index.html">← HUB</a>
+    <h1>STORY TIMELINE</h1>
+    <div class="subtitle">MERITOCRACIA — 全体進行</div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-line" style="background:#c9a84c"></div> プロローグ</div>
+  <div class="legend-item"><div class="legend-line" style="background:#c0392b"></div> テロ事件編</div>
+  <div class="legend-item"><div class="legend-line" style="background:#2980b9"></div> グローリアテスト編</div>
+  <div class="legend-item"><div class="legend-line" style="background:#6c3483"></div> 士官学校編</div>
+  <div class="legend-item"><div class="legend-line" style="background:#2ecc71"></div> 体験版限定</div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">すべて</button>
+  <button class="filter-btn" data-filter="prologue">プロローグ</button>
+  <button class="filter-btn" data-filter="terror">テロ事件編</button>
+  <button class="filter-btn" data-filter="glory">グローリアテスト編</button>
+  <button class="filter-btn" data-filter="officer">士官学校編</button>
+  <button class="filter-btn" data-filter="demo">体験版限定</button>
+</div>
+
+<div class="timeline-wrap" id="timeline"></div>
+
+<script>
+const data = [
+  {
+    year: "Year +0",
+    title: "建国",
+    arc: "prologue",
+    events: [
+      {
+        tag: "prologue", tagLabel: "PROLOGUE",
+        title: "メリトクラシア建国",
+        desc: "能力主義国家メリトクラシア建国。旧体制崩壊、功績主義の理念が国家基盤となる。",
+        chars: [],
+        color: ""
+      }
+    ]
+  },
+  {
+    year: "Year +6",
+    title: "堕天使接触",
+    arc: "prologue",
+    events: [
+      {
+        tag: "prologue", tagLabel: "PROLOGUE",
+        title: "ベルフェゴール接触",
+        desc: "6歳のジェイド、堕天使ベルフェゴールと接触。この経験がジェイドの特殊能力覚醒の起点となる。",
+        chars: ["ジェイド", "ベルフェゴール"],
+        color: ""
+      }
+    ]
+  },
+  {
+    year: "Year +8",
+    title: "中央市場テロ事件",
+    arc: "terror",
+    events: [
+      {
+        tag: "demo", tagLabel: "DEMO",
+        title: "【体験版】教会バイト編（ルカ視点）",
+        desc: "建国記念日前日。ルカが教会で炎翼セルの儀式に巻き込まれる。ペンダントがカーネルへ渡る。",
+        chars: ["ルカ", "ノクス", "セラ", "アーク", "神父エリオス"],
+        color: "dark"
+      },
+      {
+        tag: "demo", tagLabel: "DEMO",
+        title: "【体験版】テロ当日・ミレイユ死亡",
+        desc: "体験版ルート限定。建国記念日当日、中央市場テロ発生。ミレイユ死亡、カーネル重傷・生存。",
+        chars: ["ジェイド", "ミレイユ", "カーネル"],
+        color: "red"
+      },
+      {
+        tag: "terror", tagLabel: "TERROR",
+        title: "中央市場テロ（本編）",
+        desc: "均衡解放戦線・炎翼セルによる天使分霊召喚テロ。カーネル死亡。ジェイドの人格形成の原点。",
+        chars: ["ジェイド", "カーネル", "ガレス", "ミレイユ", "炎翼セル"],
+        color: "red"
+      },
+      {
+        tag: "terror", tagLabel: "TERROR",
+        title: "影武者逮捕・疑念",
+        desc: "国家がテロ犯逮捕を発表。しかし逮捕者は影武者。ジェイドが心音システムで違和感を察知。",
+        chars: ["ジェイド"],
+        color: "red"
+      }
+    ]
+  },
+  {
+    year: "Year +10",
+    title: "本編開始",
+    arc: "glory",
+    events: [
+      {
+        tag: "glory", tagLabel: "GLORY TEST",
+        title: "グローリアテスト編・開幕",
+        desc: "ジェイド10歳。審問庁への道を志し、グローリアテストへの挑戦を開始する。",
+        chars: ["ジェイド"],
+        color: "blue"
+      },
+      {
+        tag: "glory", tagLabel: "GLORY TEST",
+        title: "数学最適化試験",
+        desc: "安全制約により答えがP=8のみとなる数学問題。一つの許容解しか存在しないシステムの暗示。",
+        chars: ["ジェイド"],
+        color: "blue"
+      },
+      {
+        tag: "glory", tagLabel: "GLORY TEST",
+        title: "M-GSL構文整合試験",
+        desc: "魔法構文論理テスト10問。法規制的推論を模した試験。",
+        chars: ["ジェイド"],
+        color: "blue"
+      }
+    ]
+  },
+  {
+    year: "士官学校編",
+    title: "士官学校編",
+    arc: "officer",
+    events: [
+      {
+        tag: "officer", tagLabel: "ACADEMY",
+        title: "士官学校編・開幕",
+        desc: "審問庁付属士官学校へ入学。AI・社会問題が背景世界として描かれる。",
+        chars: ["ジェイド"],
+        color: "dark"
+      }
+    ]
+  }
+];
+
+const arcColors = {
+  prologue: "#c9a84c",
+  terror:   "#c0392b",
+  glory:    "#2980b9",
+  officer:  "#6c3483",
+  demo:     "#2ecc71"
+};
+
+function render(filter) {
+  const wrap = document.getElementById('timeline');
+  wrap.innerHTML = '';
+
+  data.forEach((era, i) => {
+    const filtered = era.events.filter(e => filter === 'all' || e.tag === filter);
+    if (filtered.length === 0) return;
+
+    const eraDiv = document.createElement('div');
+    eraDiv.className = 'era';
+
+    const label = document.createElement('div');
+    label.className = 'era-label';
+    label.innerHTML = `
+      <span class="era-year">${era.year}</span>
+      <span class="era-dot" style="border-color:${arcColors[era.arc] || '#c9a84c'}"></span>
+      <span class="era-title">${era.title}</span>
+    `;
+
+    const events = document.createElement('div');
+    events.className = 'events open';
+
+    filtered.forEach(ev => {
+      const card = document.createElement('div');
+      card.className = `event-card ${ev.color}`;
+      if (ev.color === 'red') card.style.borderLeftColor = '#c0392b';
+      if (ev.color === 'blue') card.style.borderLeftColor = '#2980b9';
+      if (ev.color === 'dark') card.style.borderLeftColor = '#6c3483';
+
+      const tagClass = `tag-${ev.tag}`;
+      card.innerHTML = `
+        <span class="event-tag ${tagClass}">${ev.tagLabel}</span>
+        <div class="event-title">${ev.title}</div>
+        <div class="event-desc">${ev.desc}</div>
+        ${ev.chars.length ? `<div class="event-chars">${ev.chars.map(c => `<span class="char-badge">${c}</span>`).join('')}</div>` : ''}
+      `;
+      events.appendChild(card);
+    });
+
+    label.addEventListener('click', () => {
+      events.classList.toggle('open');
+    });
+
+    eraDiv.appendChild(label);
+    eraDiv.appendChild(events);
+    wrap.appendChild(eraDiv);
+  });
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+
+render('all');
+</script>
+</body>
+</html>
