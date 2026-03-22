@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>血統アーカイブ | MERITOCRACIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060810;
+  --bg2:#0f1320;
+  --bg3:#141928;
+  --text:#c4cdd8;
+  --muted:#8894a3;
+  --silver:#a8b8cc;
+  --blue:#3a6898;
+  --border:rgba(168,184,204,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Serif JP',serif;
+  line-height:1.9;
+}
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:48px 24px 80px;
+}
+.hero{
+  margin-bottom:40px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+}
+.hero .label{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:4px;
+  color:var(--silver);
+  opacity:.7;
+  margin-bottom:12px;
+}
+.hero h1{
+  font-family:'Cinzel','Noto Serif JP',serif;
+  font-size:34px;
+  font-weight:400;
+  letter-spacing:3px;
+  margin-bottom:14px;
+}
+.hero p{
+  color:var(--muted);
+  max-width:760px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:18px;
+}
+.card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  padding:22px;
+}
+.card h2{
+  font-size:22px;
+  font-weight:500;
+  margin-bottom:4px;
+}
+.card .role{
+  color:var(--silver);
+  font-size:13px;
+  letter-spacing:2px;
+  margin-bottom:16px;
+}
+.block{
+  margin-bottom:16px;
+}
+.block:last-child{margin-bottom:0}
+.block .title{
+  font-size:12px;
+  letter-spacing:2px;
+  color:var(--blue);
+  margin-bottom:8px;
+}
+.list{
+  list-style:none;
+}
+.list li{
+  padding:5px 0;
+  border-bottom:1px solid rgba(168,184,204,0.06);
+}
+.list li:last-child{border-bottom:none}
+.tag{
+  display:inline-block;
+  margin:4px 6px 0 0;
+  padding:4px 10px;
+  border:1px solid var(--border);
+  color:var(--silver);
+  font-size:12px;
+}
+.section{
+  margin-top:42px;
+}
+.section h3{
+  font-size:20px;
+  font-weight:500;
+  margin-bottom:16px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.tree{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  padding:22px;
+  overflow:auto;
+}
+.tree pre{
+  font-family:"Noto Serif JP",serif;
+  font-size:14px;
+  line-height:2;
+  color:var(--text);
+  white-space:pre-wrap;
+}
+.back{
+  display:inline-block;
+  margin-top:36px;
+  color:var(--silver);
+  text-decoration:none;
+}
+.back:hover{opacity:.8}
+@media (max-width:640px){
+  .hero h1{font-size:28px}
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="label">MERITOCRACIA / BLOODLINE ARCHIVE</div>
+      <h1>血統アーカイブ</h1>
+      <p>
+        家系図だけでなく、出自、才能傾向、思想系譜、物語上の位置づけまで統合的に記録する資料。
+        「誰の血を引くか」だけでなく、「何を継いだか」「何を逸脱したか」を可視化する。
+      </p>
+    </header>
+
+    <div class="grid">
+      <article class="card">
+        <h2>ジェイド</h2>
+        <div class="role">例外 / 観測対象 / 境界存在</div>
+
+        <div class="block">
+          <div class="title">家系</div>
+          <ul class="list">
+            <li>父：平民</li>
+            <li>母：ミレイユ</li>
+            <li>姉：カーネル</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="title">継承要素</div>
+          <span class="tag">母系の外見</span>
+          <span class="tag">心音反応</span>
+          <span class="tag">例外性</span>
+        </div>
+
+        <div class="block">
+          <div class="title">血統評価</div>
+          <p>平民出身だが、制度的な分類では測れない逸脱因子を持つ。血統よりも「例外」として記録される存在。</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>ライナルト</h2>
+        <div class="role">貴族 / 正規エリート / 制度の継承者</div>
+
+        <div class="block">
+          <div class="title">家系</div>
+          <ul class="list">
+            <li>グロース家</li>
+            <li>上位階層の貴族家系</li>
+            <li>正統継承者ポジション</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="title">継承要素</div>
+          <span class="tag">秩序</span>
+          <span class="tag">合理</span>
+          <span class="tag">制度信仰</span>
+        </div>
+
+        <div class="block">
+          <div class="title">血統評価</div>
+          <p>血と制度が矛盾なく接続された成功例。能力も思想も「正しく継がれた者」としてアーカイブされる。</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>ユミナ</h2>
+        <div class="role">平民出身 / 制度内成功者 / 教官</div>
+
+        <div class="block">
+          <div class="title">家系</div>
+          <ul class="list">
+            <li>両親：平民</li>
+            <li>姉：クララ</li>
+            <li>本人：審問庁所属 / 教官</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="title">継承要素</div>
+          <span class="tag">正義</span>
+          <span class="tag">責任</span>
+          <span class="tag">努力の完成形</span>
+        </div>
+
+        <div class="block">
+          <div class="title">血統評価</div>
+          <p>平民出身ながら制度の中で最上位へ到達した成功例。血統よりも実績で上書きした記録として特異性が高い。</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>アイリス</h2>
+        <div class="role">他国出身 / 奴隷 / 感情の象徴</div>
+
+        <div class="block">
+          <div class="title">家系</div>
+          <ul class="list">
+            <li>ダークエルフ</li>
+            <li>アルトゥナ出身</li>
+            <li>戦争敗北により奴隷化</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="title">継承要素</div>
+          <span class="tag">喪失</span>
+          <span class="tag">執着</span>
+          <span class="tag">異民族の記憶</span>
+        </div>
+
+        <div class="block">
+          <div class="title">血統評価</div>
+          <p>メリトクラシアの家系図には収まらない外部血統。国家の外から持ち込まれた感情と歴史の記録として重要。</p>
+        </div>
+      </article>
+    </div>
+
+    <section class="section">
+      <h3>簡易系譜ツリー</h3>
+      <div class="tree">
+<pre>
+レオンハルト家
+├─ 父（平民）
+├─ 母：ミレイユ
+├─ 姉：カーネル
+└─ ジェイド
+   └─ 制度分類不能の例外因子
+
+グロース家
+└─ ライナルト
+   └─ 制度と血統の正統継承者
+
+平民家系
+├─ クララ
+└─ ユミナ
+   └─ 平民から制度内最上位へ到達した成功例
+
+アルトゥナ系
+└─ アイリス
+   └─ 外部血統 / 奴隷化 / 感情軸の担い手
+</pre>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>アーカイブ分類メモ</h3>
+      <div class="tree">
+<pre>
+ジェイド      ：血統より例外性が重要
+ライナルト    ：血統と制度が一致した完成形
+ユミナ        ：平民血統を実績で上書きした成功例
+アイリス      ：国家外血統としての異物性と感情軸
+</pre>
+      </div>
+    </section>
+
+    <a class="back" href="./index.html">← Viewerトップへ戻る</a>
+  </div>
+</body>
+</html>
