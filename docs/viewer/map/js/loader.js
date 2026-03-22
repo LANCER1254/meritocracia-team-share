@@ -1,14 +1,24 @@
 import { state } from "./state.js";
 
-// 🔥 GitHub Pages対応パス（ローカルでも動く）
+// 🔥 GitHub Pages対応パス
 const BASE = location.hostname.includes("github.io")
   ? "/meritocracia-team-share/viewer"
   : "";
 
 export async function loadGrid(canvas) {
     const res = await fetch(`${BASE}/data/grids/london_grid.csv`);
+    if (!res.ok) {
+        throw new Error("❌ Failed to load london_grid.csv: " + res.status);
+    }
+
     const text = await res.text();
-    const rows = text.trim().split("\n");
+
+    // 🔥 改行・BOM対策
+    const rows = text
+        .replace(/^\uFEFF/, "")     // BOM除去
+        .replace(/\r/g, "")         // CR除去
+        .trim()
+        .split("\n");
 
     state.gridData = [];
     state.minE = Infinity;
@@ -17,13 +27,20 @@ export async function loadGrid(canvas) {
     state.maxN = -Infinity;
 
     for (let i = 1; i < rows.length; i++) {
+        if (!rows[i]) continue;
+
         const cols = rows[i].split(",");
 
-        const e = parseFloat(cols[0]);
-        const n = parseFloat(cols[1]);
-        const m = parseInt(cols[4]);
+        // 🔥 安全パース（trim必須）
+        const e = parseFloat(cols[0]?.trim());
+        const n = parseFloat(cols[1]?.trim());
+        const m = parseInt(cols[4]?.trim() || "0");
 
-        if (isNaN(e) || isNaN(n)) continue;
+        if (!Number.isFinite(e) || !Number.isFinite(n)) {
+            // デバッグ用（必要ならON）
+            // console.warn("⚠️ skip row:", rows[i]);
+            continue;
+        }
 
         state.minE = Math.min(state.minE, e);
         state.minN = Math.min(state.minN, n);
@@ -33,9 +50,9 @@ export async function loadGrid(canvas) {
         state.gridData.push({ e, n, m });
     }
 
-    // 🔥 データ読み込めてない場合の防御
+    // 🔥 完全防御
     if (state.gridData.length === 0) {
-        console.error("❌ Grid data is empty");
+        console.error("❌ Grid data is empty（CSVパース失敗）");
         return;
     }
 
@@ -55,17 +72,24 @@ export async function loadGrid(canvas) {
 
     console.error(`🔥 Canvas size: ${canvas.width.toFixed(0)} x ${canvas.height.toFixed(0)}`);
     console.error(`🔥 CELL_SIZE: ${state.CELL_SIZE.toFixed(2)}px`);
-    console.error(`🔥 Grid range: E[${state.minE}, ${state.maxE}] N[${state.minN}, ${state.maxN}]`);
+    console.error(`🔥 Grid cells: ${state.gridData.length}`);
 }
 
 export async function loadCities() {
     const res = await fetch(`${BASE}/data/reference/real_cities.csv`);
     const text = await res.text();
-    const rows = text.trim().split("\n");
+
+    const rows = text
+        .replace(/^\uFEFF/, "")
+        .replace(/\r/g, "")
+        .trim()
+        .split("\n");
 
     state.cityData = [];
 
     for (let i = 1; i < rows.length; i++) {
+        if (!rows[i]) continue;
+
         const cols = rows[i].split(",");
 
         state.cityData.push({
