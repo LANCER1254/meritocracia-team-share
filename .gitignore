@@ -6,7 +6,13 @@ docs/settings/Meritocracia_Data_Hub/メリトクラシアデータベース化/
 
 # --- GIS / map heavy generated data ---
 data/grids/
+
+# 🔥 CSVは基本無視するが…
 *.csv
+
+# 🔥 例外：Viewerで使うCSVは許可（ここが重要）
+!docs/viewer/data/grids/*.csv
+!docs/viewer/data/reference/*.csv
 
 # --- Native / compiled binaries ---
 *.so
