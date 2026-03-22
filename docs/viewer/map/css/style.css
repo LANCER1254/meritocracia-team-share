@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  background: #000;
+  color: white;
+  font-family: monospace;
+  overflow: hidden;
+}
+
+/* 上部バー */
+#info {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(0,0,0,0.9);
+  text-align: center;
+  line-height: 40px;
+  font-size: 18px;
+  z-index: 10;
+}
+
+/* メインエリア */
+#main-container {
+  display: flex;
+  margin-top: 40px;
+  height: calc(100vh - 80px);
+}
+
+/* 地図 */
+#map {
+  flex: 1;
+  background: black;
+}
+
+/* 右サイドバー */
+#sidebar {
+  width: 320px;
+  background: rgba(20,20,20,0.95);
+  border-left: 1px solid #333;
+  overflow-y: auto;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* セクション */
+.panel {
+  margin-bottom: 25px;
+}
+
+.panel h3 {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+/* リスト項目 */
+.list-item {
+  padding: 6px 8px;
+  margin: 4px 0;
+  cursor: pointer;
+  background: #222;
+  border-left: 3px solid #444;
+  transition: 0.2s;
+}
+
+.list-item:hover {
+  background: #333;
+}
+
+.list-item.active {
+  background: #0050aa;
+  border-left-color: #00aaff;
+}
+
+/* 下部レイヤータブ */
+#layerTabs {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  padding: 8px;
+  text-align: center;
+}
+
+#layerTabs button {
+  margin: 0 8px;
+  padding: 6px 14px;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#layerTabs button.active {
+  background: #0080ff;
+}

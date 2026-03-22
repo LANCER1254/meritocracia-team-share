@@ -1,0 +1,84 @@
+{
+  "world_layout": {
+    "crs": {
+      "name": "BNG",
+      "epsg": 27700
+    },
+    "travel_model": {
+      "unit": "km",
+      "speed_kmh": {
+        "walk": 4,
+        "carriage": 12,
+        "courier": 18,
+        "rail": 80,
+        "military": 30
+      },
+      "buffer_minutes": {
+        "city_gate": 10,
+        "checkpoint": 15,
+        "transfer": 8
+      }
+    },
+    "anchors": {
+      "symbol_tower": {
+        "label": "象徴塔",
+        "role": "symbol",
+        "bng": [
+          530029,
+          180380
+        ]
+      },
+      "inquisitorial_bureau": {
+        "label": "審問庁",
+        "role": "politics",
+        "bng": [
+          531029,
+          180380
+        ]
+      },
+      "jade_home": {
+        "label": "ジェイド本拠地",
+        "role": "home",
+        "bng": [
+          522029,
+          180380
+        ],
+        "visibility": {
+          "can_see_symbol_tower": true
+        }
+      },
+      "clara_location": {
+        "label": "クララ所在地",
+        "role": "incident",
+        "bng": [
+          527029,
+          180380
+        ]
+      },
+      "corps_1": {
+        "label": "第一兵団",
+        "role": "military",
+        "bng": [
+          532029,
+          181380
+        ]
+      },
+      "corps_3": {
+        "label": "第三兵団",
+        "role": "military",
+        "bng": [
+          535029,
+          180380
+        ]
+      },
+      "corps_2": {
+        "label": "第二兵団",
+        "role": "military",
+        "bng": [
+          560029,
+          180380
+        ]
+      }
+    }
+  }
+}
