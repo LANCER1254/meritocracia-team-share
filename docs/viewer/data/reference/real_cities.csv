@@ -1,0 +1,8 @@
+id,name_en,name_jp,easting,northing,category
+london,London,ロンドン,530029,180380,capital
+cambridge,Cambridge,ケンブリッジ,545088,258463,university
+colchester,Colchester,コルチェスター,599949,225169,city
+oxford,Oxford,オックスフォード,451338,206183,university
+brighton,Brighton,ブライトン,531306,104204,coastal
+birmingham,Birmingham,バーミンガム,407540,287592,industrial
+perth,Perth,パース,311709,723469,regional
