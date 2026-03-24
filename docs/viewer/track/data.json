@@ -1,0 +1,25 @@
+{
+  "week": "2026-03-23",
+  "tasks": [
+    {
+      "name": "アイリス設計",
+      "status": "todo"
+    },
+    {
+      "name": "ヴィオラ設計",
+      "status": "todo"
+    },
+    {
+      "name": "ライナルト設計",
+      "status": "todo"
+    },
+    {
+      "name": "キール設計",
+      "status": "todo"
+    },
+    {
+      "name": "フィーネ設計",
+      "status": "todo"
+    }
+  ]
+}

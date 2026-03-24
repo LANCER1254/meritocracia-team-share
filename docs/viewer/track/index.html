@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Meritocracia Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📊 Project Tracker</h1>
+<p id="week"></p>
+
+<ul id="taskList"></ul>
+
+<script>
+fetch('data.json')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('week').textContent = "Week: " + data.week;
+
+    const list = document.getElementById('taskList');
+
+    data.tasks.forEach(task => {
+      const li = document.createElement('li');
+      li.textContent = task.name + " [" + task.status + "]";
+      list.appendChild(li);
+    });
+  });
+</script>
+
+</body>
+</html>

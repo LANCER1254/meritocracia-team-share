@@ -1,0 +1,14 @@
+body {
+  background: #0f0f0f;
+  color: #ffffff;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  color: gold;
+}
+
+li {
+  margin: 8px 0;
+}
