@@ -46,26 +46,31 @@ body {
 <div id="main">選択してください</div>
 
 <script>
+// index.json読み込み（reports配列形式）
 fetch('/meritocracia-team-share/docs/viewer/index.json')
   .then(res => {
-    if (!res.ok) throw new Error("index.jsonが見つからない");
+    if (!res.ok) throw new Error("index.jsonが見つからない: " + res.status);
     return res.json();
   })
-  .then(data => buildSidebar(data.reports))
+  .then(data => {
+    // reports配列を日付ごとにグルーピング
+    const grouped = {};
+    data.reports.forEach(r => {
+      if (!grouped[r.date]) grouped[r.date] = [];
+      grouped[r.date].push(r.file);  // r.fileは文字列
+    });
+    buildSidebar(grouped);
+  })
   .catch(err => {
     document.getElementById("sidebar").innerHTML = "エラー: " + err.message;
   });
 
-function buildSidebar(reports) {
+// サイドバー構築
+function buildSidebar(grouped) {
   const sidebar = document.getElementById("sidebar");
   sidebar.innerHTML = "";
 
-  const grouped = {};
-  reports.forEach(r => {
-    if (!grouped[r.date]) grouped[r.date] = [];
-    grouped[r.date].push(r.file);
-  });
-
+  // 日付降順
   Object.keys(grouped).sort().reverse().forEach(date => {
     const dateDiv = document.createElement("div");
     dateDiv.className = "date";
@@ -75,25 +80,28 @@ function buildSidebar(reports) {
   });
 }
 
+// ファイル一覧表示
 function showFiles(date, files) {
   const main = document.getElementById("main");
   main.innerHTML = `<h2>${date}</h2>`;
 
-  files.forEach(file => {
+  files.forEach(filename => {
+    // filenameは文字列として保証済み
     const div = document.createElement("div");
     div.className = "file";
-    div.textContent = file;
+    div.textContent = filename;
     div.onclick = () => loadMarkdown(
-      `/ドキュメント/meritocracia-complete/docs/日報/${date}/${file}`
+      `/meritocracia-team-share/docs/viewer/data/${filename}`
     );
     main.appendChild(div);
   });
 }
 
+// Markdown読み込み・表示
 function loadMarkdown(path) {
   fetch(path)
     .then(res => {
-      if (!res.ok) throw new Error(`ファイル読み込み失敗: ${path}`);
+      if (!res.ok) throw new Error("ファイル読み込み失敗: " + path);
       return res.text();
     })
     .then(text => {
