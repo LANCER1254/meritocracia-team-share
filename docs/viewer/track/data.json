@@ -1,25 +1,47 @@
 {
-  "week": "2026-03-23",
+  "week": "2026-W13",
   "tasks": [
     {
-      "name": "アイリス設計",
-      "status": "todo"
+      "name": "ヴィオラ設計資料確定",
+      "status": "doing",
+      "priority": "A",
+      "category": "キャラ設計",
+      "day": 1
     },
     {
-      "name": "ヴィオラ設計",
-      "status": "todo"
+      "name": "キール・フィーネ・フラン一文定義",
+      "status": "todo",
+      "priority": "A",
+      "category": "キャラ設計",
+      "day": 2
     },
     {
-      "name": "ライナルト設計",
-      "status": "todo"
+      "name": "心音システム演出設計",
+      "status": "todo",
+      "priority": "S",
+      "category": "システム設計",
+      "day": 3
     },
     {
-      "name": "キール設計",
-      "status": "todo"
+      "name": "国家機関一覧作成",
+      "status": "todo",
+      "priority": "A",
+      "category": "世界観",
+      "day": 4
     },
     {
-      "name": "フィーネ設計",
-      "status": "todo"
+      "name": "テロ拠点構造設計",
+      "status": "todo",
+      "priority": "A",
+      "category": "敵組織",
+      "day": 5
+    },
+    {
+      "name": "国際情勢整理",
+      "status": "todo",
+      "priority": "B",
+      "category": "世界観",
+      "day": 6
     }
   ]
 }

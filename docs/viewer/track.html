@@ -409,7 +409,7 @@ const PRIORITY_ORDER = { S:0, A:1, B:2, C:3 };
 let allTasks = [];
 let currentFilter = 'all';
 
-fetch('data.json')
+fetch('./track/data.json')
   .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
   .then(data => {
     document.getElementById('week-label').textContent = 'WEEK ' + data.week;
