@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Merit Knowledge Core</title>
+</head>
+<body>
+
+<h1>🧠 Knowledge Viewer</h1>
+
+<input id="search" placeholder="検索..." />
+
+<div>
+  <button class="filter-btn active" data-type="All">All</button>
+  <button class="filter-btn" data-type="Knowledge">Knowledge</button>
+  <button class="filter-btn" data-type="Script">Script</button>
+  <button class="filter-btn" data-type="History">History</button>
+</div>
+
+<div id="search-count"></div>
+
+<div id="card-list"></div>
+
+<hr>
+
+<div id="detail-panel">
+  <button id="detail-close">閉じる</button>
+  <div id="detail-content"></div>
+</div>
+
+<div>
+  <span>ALL: <span id="stat-total"></span></span>
+  <span>KN: <span id="stat-kn"></span></span>
+  <span>SC: <span id="stat-sc"></span></span>
+  <span>HS: <span id="stat-hs"></span></span>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

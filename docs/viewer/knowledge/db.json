@@ -1,0 +1,26 @@
+[
+  {
+    "id": "KN-0001",
+    "type": "Knowledge",
+    "category": "Core",
+    "summary": "MeritCoreは創作統合OS",
+    "detail": "CLI・DB・Viewer・AI生成を統合した制作基盤。",
+    "relation": ["SC-0001", "HS-0001"]
+  },
+  {
+    "id": "SC-0001",
+    "type": "Script",
+    "category": "CLI",
+    "summary": "MeritCore CLIは操作の中核",
+    "detail": "執筆・日報・DB操作を統合したコマンドラインツール。",
+    "relation": ["KN-0001"]
+  },
+  {
+    "id": "HS-0001",
+    "type": "History",
+    "category": "Milestone",
+    "summary": "MeritCore構築完了",
+    "detail": "制作環境をOSレベルで統合した。",
+    "relation": ["KN-0001"]
+  }
+]
