@@ -108,7 +108,9 @@ def rebuild_viewer_data():
     try:
         repo_path = "/home/lancer/DOCS/meritocracia-team-share"
 
-        src = os.path.join(repo_path, "data.json")
+        # 👇 ここ修正
+        src = os.path.join(repo_path, "docs/viewer/track/data.json")
+
         dst = os.path.join(repo_path, "docs/viewer/data/data.json")
 
         shutil.copy(src, dst)
