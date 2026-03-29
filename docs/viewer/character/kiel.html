@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHARACTER PROFILE | KIEL</title>
+
+  <!-- World Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg-main: #0f0f10;
+      --bg-panel: #171718;
+      --bg-panel-2: #1d1d1f;
+      --bg-nav: rgba(12, 12, 13, 0.92);
+      --text-main: #e8e3da;
+      --text-sub: #b8b0a4;
+      --text-dim: #7f786e;
+      --line: #2e2a27;
+      --line-strong: #4e433d;
+
+      --primary-color: #4a4a4a;   /* 鈍い鉄色 */
+      --accent-color: #8b0000;    /* 抑えた血の赤 */
+      --accent-soft: rgba(139, 0, 0, 0.18);
+      --shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+
+      --nav-width: 240px;
+      --content-max: 1100px;
+      --radius: 14px;
+
+      --hero-letter-spacing: 0.18em;
+      --section-gap: 28px;
+      --transition: 180ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(139, 0, 0, 0.10), transparent 28%),
+        linear-gradient(180deg, #111112 0%, #0b0b0c 100%);
+      color: var(--text-main);
+      font-family: 'Noto Serif JP', serif;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ========================
+       Side Navigation
+    ======================== */
+    .side-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--nav-width);
+      height: 100vh;
+      padding: 28px 20px 24px;
+      border-right: 1px solid var(--line);
+      background: var(--bg-nav);
+      backdrop-filter: blur(8px);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .side-nav__top {
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .side-nav__eyebrow {
+      font-family: 'Cinzel', serif;
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0 0 6px;
+    }
+
+    .side-nav__name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      margin: 0;
+    }
+
+    .side-nav__subtitle {
+      margin: 6px 0 0;
+      color: var(--text-sub);
+      font-size: 0.82rem;
+    }
+
+    .side-nav__links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .side-nav__link {
+      display: block;
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: var(--text-sub);
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      transition: color var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .side-nav__link:hover,
+    .side-nav__link.is-active {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .side-nav__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.7;
+    }
+
+    /* ========================
+       Main
+    ======================== */
+    .main {
+      width: 100%;
+      margin-left: var(--nav-width);
+      padding: 36px 32px 60px;
+    }
+
+    .container {
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(139,0,0,0.10), transparent 42%),
+        linear-gradient(160deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)),
+        var(--bg-panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 34px 34px 30px;
+      margin-bottom: 26px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,0,0,0.18) 0%, rgba(139,0,0,0.03) 45%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__eyebrow {
+      margin: 0 0 10px;
+      font-family: 'Cinzel', serif;
+      color: #c98a8a;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .hero__title {
+      margin: 0;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: var(--hero-letter-spacing);
+      text-transform: uppercase;
+    }
+
+    .hero__subtitle {
+      margin: 10px 0 0;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero__quote {
+      margin: 20px 0 0;
+      padding: 14px 16px 14px 18px;
+      border-left: 3px solid var(--accent-color);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-sub);
+      font-size: 0.98rem;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 100%),
+        var(--bg-panel-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card__inner {
+      padding: 24px 24px 22px;
+    }
+
+    .section {
+      scroll-margin-top: 24px;
+    }
+
+    .section__header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section__title {
+      margin: 0;
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section__index {
+      color: var(--text-dim);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section__divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent-color), transparent 82%);
+      margin-bottom: 16px;
+    }
+
+    .profile-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .profile-table th,
+    .profile-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .profile-table th {
+      width: 32%;
+      color: var(--text-sub);
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    .profile-table td {
+      color: var(--text-main);
+      font-size: 0.96rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.025);
+      color: var(--text-sub);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .copy {
+      color: var(--text-main);
+      font-size: 0.97rem;
+    }
+
+    .copy p {
+      margin: 0 0 1em;
+    }
+
+    .copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .sub-block {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .sub-block:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .sub-block__title {
+      margin: 0 0 8px;
+      color: #d8c7bf;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .bullet-list {
+      margin: 10px 0 0;
+      padding-left: 1.2em;
+      color: var(--text-sub);
+    }
+
+    .bullet-list li {
+      margin: 0.25em 0;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .status-row {
+      display: grid;
+      gap: 6px;
+    }
+
+    .status-row__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.94rem;
+    }
+
+    .status-row__label {
+      color: var(--text-main);
+    }
+
+    .status-row__value {
+      color: var(--text-sub);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+    }
+
+    .status-bar {
+      position: relative;
+      height: 8px;
+      border-radius: 999px;
+      background: #2a2725;
+      overflow: hidden;
+    }
+
+    .status-bar__fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #5f1010 0%, #8b0000 60%, #b33838 100%);
+      box-shadow: 0 0 16px rgba(139, 0, 0, 0.28);
+      transition: width 900ms cubic-bezier(.25,.8,.25,1);
+    }
+
+    .duo-compare {
+      display: grid;
+      gap: 14px;
+    }
+
+    .compare-item {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .compare-item__head {
+      margin: 0 0 6px;
+      color: #d8c7bf;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .compare-item__body {
+      margin: 0;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+    }
+
+    .dev-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .dev-item {
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent-color);
+      background: rgba(255,255,255,0.025);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .dev-item__title {
+      margin: 0 0 4px;
+      color: #e3d6cf;
+      font-size: 0.94rem;
+      font-weight: 600;
+    }
+
+    .dev-item__body {
+      margin: 0;
+      color: var(--text-sub);
+      font-size: 0.94rem;
+    }
+
+    .summary-box {
+      margin-top: 24px;
+      padding: 22px 24px;
+      border: 1px solid rgba(139,0,0,0.28);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(139,0,0,0.10), transparent 55%),
+        rgba(255,255,255,0.02);
+    }
+
+    .summary-box__title {
+      margin: 0 0 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .summary-box__text {
+      margin: 0;
+      color: var(--text-main);
+      font-size: 1rem;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ========================
+       Responsive
+    ======================== */
+    @media (max-width: 1100px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .side-nav {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 16px;
+      }
+
+      .side-nav__links {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+      }
+
+      .side-nav__link {
+        white-space: nowrap;
+      }
+
+      .side-nav__footer {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 20px 16px 48px;
+      }
+
+      .hero {
+        padding: 24px 20px 22px;
+      }
+
+      .card__inner {
+        padding: 20px 18px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero__title {
+        letter-spacing: 0.1em;
+      }
+
+      .profile-table th,
+      .profile-table td {
+        display: block;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .profile-table th {
+        padding-bottom: 4px;
+        border-bottom: none;
+      }
+
+      .profile-table td {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav class="side-nav" aria-label="ページ内ナビゲーション">
+      <div class="side-nav__top">
+        <p class="side-nav__eyebrow" id="nav-eyebrow">Character Profile</p>
+        <h1 class="side-nav__name" id="nav-name">KIEL</h1>
+        <p class="side-nav__subtitle" id="nav-subtitle">The Survivor</p>
+      </div>
+
+      <div class="side-nav__links" id="side-nav-links">
+        <!-- JS render -->
+      </div>
+
+      <div class="side-nav__footer">
+        Confidential Document<br />
+        Project Meritocracia
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="container">
+        <header class="hero">
+          <p class="hero__eyebrow" id="hero-eyebrow"></p>
+          <h1 class="hero__title" id="hero-title"></h1>
+          <p class="hero__subtitle" id="hero-subtitle"></p>
+          <blockquote class="hero__quote" id="hero-quote"></blockquote>
+        </header>
+
+        <div class="content-grid">
+          <div class="column" id="left-column">
+            <!-- JS render -->
+          </div>
+
+          <div class="column" id="right-column">
+            <!-- JS render -->
+          </div>
+        </div>
+
+        <footer>
+          <div class="summary-box section" id="summary">
+            <h2 class="summary-box__title">Closing Summary</h2>
+            <p class="summary-box__text" id="summary-text"></p>
+          </div>
+
+          <p class="footer-note" id="footer-note">
+            Confidential Document | Project Code: Survive
+          </p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /**
+     * ============================================================
+     * CHARACTER DATA
+     * ------------------------------------------------------------
+     * 今後の更新はまずここを触る。
+     * 本文に合わせた文言変更・能力修正・セクション追加は
+     * できる限りこのオブジェクト内で完結させる。
+     * ============================================================
+     */
+    const CHARACTER_DATA = {
+      meta: {
+        characterNo: "CHARACTER 05",
+        archetype: "THE SURVIVOR",
+        name: "KIEL",
+        subtitle: "Institutional Victim / Survival First",
+        quote: "「正しさに価値はない。生き残ることだけが、唯一の正解だ」",
+        footerNote: "Confidential Document | Project Code: Survive"
+      },
+
+      profile: {
+        title: "Basic Profile",
+        index: "01",
+        items: [
+          { label: "Name", value: "キール" },
+          { label: "Origin", value: "元奴隷（貴族所有）" },
+          { label: "Current", value: "士官学校特例入学" },
+          { label: "Career", value: "教会 ➔ 前線騎士団（FO）" },
+          { label: "Role", value: "現実担当 / 理想への否定役" }
+        ],
+        tags: [
+          "Survival First",
+          "Ex-Slave",
+          "Close Combat",
+          "Realist",
+          "Institutional Victim"
+        ]
+      },
+
+      capability: {
+        title: "Capability",
+        index: "02",
+        items: [
+          { label: "生存能力", value: 95 },
+          { label: "近接戦闘", value: 85 },
+          { label: "論理判断", value: 70 },
+          { label: "対人共感", value: 15 }
+        ],
+        note: "※ 数値は暫定。本文進行に応じて調整可能。"
+      },
+
+      concept: {
+        title: "Concept",
+        index: "03",
+        paragraphs: [
+          "キールは本作における『現実の体現者』であり、『制度の犠牲者』である。",
+          "支配と選別の中で『生存』以外のすべてを切り捨ててきた彼が、ジェイドという『理想』やフランという『過去』に触れ、再び『守る側』へと変質していく過程を描く。"
+        ]
+      },
+
+      psychology: {
+        title: "Psychology",
+        index: "04",
+        blocks: [
+          {
+            heading: "Survival First",
+            body: "『正しさ』や『理想』は死にゆく者の言葉であり、無価値であると断じる。彼にとって重要なのは、生き延びること、それだけである。"
+          },
+          {
+            heading: "対人態度",
+            body: "他者への関心が薄く、合理的。主従関係や支配構造に対して強いトラウマと拒絶感を持つ。"
+          },
+          {
+            heading: "内面",
+            body: "感情の扱い方を知らず、自身の内なる『揺らぎ』を不具合として処理している。"
+          }
+        ]
+      },
+
+      combat: {
+        title: "Combat Philosophy",
+        index: "05",
+        intro: "生存に特化した『無駄のない最適行動』が信条。",
+        bullets: [
+          "華美な技を排し、回避と急所攻撃に徹する近接戦闘スタイル。",
+          "目的（生存・勝利）に関わらない不必要な戦闘は徹底して避ける。",
+          "勝つためではなく、生き残るために戦う。",
+          "感情ではなく、危険度と損耗で状況を判断する。"
+        ]
+      },
+
+      relation: {
+        title: "Theme & Relation",
+        index: "06",
+        compare: [
+          {
+            head: "キール vs ライナルト",
+            body: "ライナルトが『制度が生んだ最高傑作』であるなら、キールは『制度が切り捨てた最底辺』である。両者は同じ制度の両極を象徴する。"
+          },
+          {
+            head: "キール vs ジェイド",
+            body: "当初はジェイドの理想主義を否定するが、行動を共にする中で、その青臭さを切り捨てきれない違和感を抱き始める。"
+          },
+          {
+            head: "キール vs フラン",
+            body: "教会時代の過去を知る人物。再会は、キールが封印した感情を再起動させるトリガーとなる。"
+          }
+        ]
+      },
+
+      development: {
+        title: "Development Track",
+        index: "07",
+        intro: "現在は骨格完成度70%。今後は『静的キャラから動的キャラへの転換』を主軸に拡張する。",
+        items: [
+          {
+            title: "感情のフェーズ移行",
+            body: "固定された生存者から、ジェイドの影響で変化していく内面のグラデーションを設計する。"
+          },
+          {
+            title: "例外行動の定義",
+            body: "何をきっかけに、合理判断を捨ててまでキールが動くのか。そのスイッチを明文化する。"
+          },
+          {
+            title: "フランとの距離感",
+            body: "過去の負債をどう受容し、あるいは拒絶し、関係を再構築するかを検討する。"
+          },
+          {
+            title: "最終的な立ち位置",
+            body: "最終決戦後、彼が『仲間』として残るのか、あるいは『自由な野良』に戻るのかを決める。"
+          }
+        ]
+      },
+
+      summary: "生き残ることしか信じていなかった少年が、それでも守ってしまう側に回る物語。キールは、極限状態での人間性とは何かを読者に突きつける存在であり、その合理性が崩れる瞬間こそが感情的ピークになる。",
+
+      /**
+       * サイドナビや配置順をあとから変えたい時はここだけ触ればいい。
+       * column: "left" or "right"
+       */
+      layout: [
+        { key: "profile", anchor: "profile", column: "left", label: "Profile" },
+        { key: "capability", anchor: "capability", column: "left", label: "Capability" },
+        { key: "concept", anchor: "concept", column: "right", label: "Concept" },
+        { key: "psychology", anchor: "psychology", column: "right", label: "Psychology" },
+        { key: "combat", anchor: "combat", column: "left", label: "Combat" },
+        { key: "relation", anchor: "relation", column: "right", label: "Relation" },
+        { key: "development", anchor: "development", column: "left", label: "Development" },
+        { key: "summary", anchor: "summary", column: "right", label: "Summary" }
+      ]
+    };
+
+    /**
+     * ============================================================
+     * Utility
+     * ============================================================
+     */
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function createSectionWrapper({ id, title, index, innerHtml }) {
+      return `
+        <section class="card section" id="${escapeHtml(id)}">
+          <div class="card__inner">
+            <div class="section__header">
+              <span class="section__index">${escapeHtml(index || "")}</span>
+              <h2 class="section__title">${escapeHtml(title || "")}</h2>
+            </div>
+            <div class="section__divider"></div>
+            ${innerHtml}
+          </div>
+        </section>
+      `;
+    }
+
+    /**
+     * ============================================================
+     * Section Renderers
+     * ============================================================
+     */
+    function renderProfileSection(data) {
+      const rows = data.items.map(item => `
+        <tr>
+          <th>${escapeHtml(item.label)}</th>
+          <td>${escapeHtml(item.value)}</td>
+        </tr>
+      `).join("");
+
+      const tags = (data.tags || []).map(tag => `
+        <span class="tag">${escapeHtml(tag)}</span>
+      `).join("");
+
+      return createSectionWrapper({
+        id: "profile",
+        title: data.title,
+        index: data.index,
+        innerHtml: `
+          <table class="profile-table">
+            <tbody>${rows}</tbody>
+          </table>
+          <div class="tag-list">${tags}</div>
+        `
+      });
+    }
+
+    function renderCapabilitySection(data) {
+      const items = data.items.map(item => `
+        <div class="status-row">
+          <div class="status-row__meta">
+            <span class="status-row__label">${escapeHtml(item.label)}</span>
+            <span class="status-row__value">${escapeHtml(item.value)} / 100</span>
+          </div>
+          <div class="status-bar">
+            <div class="status-bar__fill" data-value="${escapeHtml(item.value)}"></div>
+          </div>
+        </div>
+      `).join("");
+
+      return createSectionWrapper({
+        id: "capability",
+        title: data.title,
+        index: data.index,
+        innerHtml: `
+          <div class="status-list">${items}</div>
+          ${data.note ? `<div class="sub-block"><p class="copy">${escapeHtml(data.note)}</p></div>` : ""}
+        `
+      });
+    }
+
+    function renderConceptSection(data) {
+      const paragraphs = data.paragraphs.map(text => `<p>${escapeHtml(text)}</p>`).join("");
+      return createSectionWrapper({
+        id: "concept",
+        title: data.title,
+        index: data.index,
+        innerHtml: `<div class="copy">${paragraphs}</div>`
+      });
+    }
+
+    function renderPsychologySection(data) {
+      const blocks = data.blocks.map(block => `
+        <div class="sub-block">
+          <h3 class="sub-block__title">${escapeHtml(block.heading)}</h3>
+          <div class="copy"><p>${escapeHtml(block.body)}</p></div>
+        </div>
+      `).join("");
+
+      return createSectionWrapper({
+        id: "psychology",
+        title: data.title,
+        index: data.index,
+        innerHtml: blocks
+      });
+    }
+
+    function renderCombatSection(data) {
+      const bullets = (data.bullets || []).map(text => `<li>${escapeHtml(text)}</li>`).join("");
+      return createSectionWrapper({
+        id: "combat",
+        title: data.title,
+        index: data.index,
+        innerHtml: `
+          <div class="copy">
+            <p>${escapeHtml(data.intro || "")}</p>
+            <ul class="bullet-list">${bullets}</ul>
+          </div>
+        `
+      });
+    }
+
+    function renderRelationSection(data) {
+      const compare = (data.compare || []).map(item => `
+        <article class="compare-item">
+          <h3 class="compare-item__head">${escapeHtml(item.head)}</h3>
+          <p class="compare-item__body">${escapeHtml(item.body)}</p>
+        </article>
+      `).join("");
+
+      return createSectionWrapper({
+        id: "relation",
+        title: data.title,
+        index: data.index,
+        innerHtml: `<div class="duo-compare">${compare}</div>`
+      });
+    }
+
+    function renderDevelopmentSection(data) {
+      const items = (data.items || []).map(item => `
+        <article class="dev-item">
+          <h3 class="dev-item__title">${escapeHtml(item.title)}</h3>
+          <p class="dev-item__body">${escapeHtml(item.body)}</p>
+        </article>
+      `).join("");
+
+      return createSectionWrapper({
+        id: "development",
+        title: data.title,
+        index: data.index,
+        innerHtml: `
+          <div class="copy"><p>${escapeHtml(data.intro || "")}</p></div>
+          <div class="dev-list">${items}</div>
+        `
+      });
+    }
+
+    const SECTION_RENDERERS = {
+      profile: renderProfileSection,
+      capability: renderCapabilitySection,
+      concept: renderConceptSection,
+      psychology: renderPsychologySection,
+      combat: renderCombatSection,
+      relation: renderRelationSection,
+      development: renderDevelopmentSection
+    };
+
+    /**
+     * ============================================================
+     * Page Render
+     * ============================================================
+     */
+    function renderMeta(meta) {
+      document.getElementById("nav-eyebrow").textContent = meta.characterNo || "";
+      document.getElementById("nav-name").textContent = meta.name || "";
+      document.getElementById("nav-subtitle").textContent = meta.archetype || "";
+      document.getElementById("hero-eyebrow").textContent = `${meta.characterNo || ""} / ${meta.archetype || ""}`;
+      document.getElementById("hero-title").textContent = meta.name || "";
+      document.getElementById("hero-subtitle").textContent = meta.subtitle || "";
+      document.getElementById("hero-quote").textContent = meta.quote || "";
+      document.getElementById("footer-note").textContent = meta.footerNote || "";
+    }
+
+    function renderSections(data) {
+      const leftColumn = document.getElementById("left-column");
+      const rightColumn = document.getElementById("right-column");
+
+      data.layout.forEach(entry => {
+        if (entry.key === "summary") return;
+
+        const source = data[entry.key];
+        const renderer = SECTION_RENDERERS[entry.key];
+        if (!source || !renderer) return;
+
+        const html = renderer(source);
+        if (entry.column === "right") {
+          rightColumn.insertAdjacentHTML("beforeend", html);
+        } else {
+          leftColumn.insertAdjacentHTML("beforeend", html);
+        }
+      });
+
+      document.getElementById("summary-text").textContent = data.summary || "";
+    }
+
+    function renderSideNav(data) {
+      const nav = document.getElementById("side-nav-links");
+      const links = data.layout.map(item => `
+        <a class="side-nav__link" href="#${escapeHtml(item.anchor)}" data-target="${escapeHtml(item.anchor)}">
+          ${escapeHtml(item.label)}
+        </a>
+      `).join("");
+      nav.innerHTML = links;
+    }
+
+    function animateStatusBars() {
+      const bars = document.querySelectorAll(".status-bar__fill");
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const value = Number(el.dataset.value || 0);
+          el.style.width = `${Math.max(0, Math.min(100, value))}%`;
+          obs.unobserve(el);
+        });
+      }, { threshold: 0.35 });
+
+      bars.forEach(bar => observer.observe(bar));
+    }
+
+    function activateScrollSpy() {
+      const links = [...document.querySelectorAll(".side-nav__link")];
+      const sections = links
+        .map(link => document.getElementById(link.dataset.target))
+        .filter(Boolean);
+
+      if (!sections.length) return;
+
+      const updateActive = () => {
+        const offset = window.innerWidth <= 900 ? 120 : 80;
+        let currentId = sections[0].id;
+
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top - offset <= 0) {
+            currentId = section.id;
+          }
+        });
+
+        links.forEach(link => {
+          link.classList.toggle("is-active", link.dataset.target === currentId);
+        });
+      };
+
+      updateActive();
+      window.addEventListener("scroll", updateActive, { passive: true });
+      window.addEventListener("resize", updateActive);
+    }
+
+    function init() {
+      renderMeta(CHARACTER_DATA.meta);
+      renderSideNav(CHARACTER_DATA);
+      renderSections(CHARACTER_DATA);
+      animateStatusBars();
+      activateScrollSpy();
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

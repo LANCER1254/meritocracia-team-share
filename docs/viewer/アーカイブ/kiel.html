@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER PROFILE | KIEL</title>
+    <style>
+        :root {
+            --primary-color: #4a4a4a; /* 鈍い鉄色 */
+            --accent-color: #8b0000;  /* 抑えられた血の赤 */
+            --bg-dark: #121212;
+            --text-gray: #b0b0b0;
+            --border-color: #333;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            background: linear-gradient(145deg, #1a1a1a, #121212);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        .char-name {
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .catchphrase {
+            font-style: italic;
+            color: var(--text-gray);
+            margin-top: 10px;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-table th, .profile-table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-table th {
+            color: var(--text-gray);
+            width: 30%;
+            font-weight: normal;
+        }
+
+        .tag-container {
+            margin-top: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #222;
+            border: 1px solid var(--primary-color);
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            color: var(--text-gray);
+        }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+
+        .status-bar {
+            height: 4px;
+            background: #333;
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .status-fill {
+            height: 100%;
+            background: var(--accent-color);
+        }
+
+        .memo {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .footer-note {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <p class="char-name">CHARACTER 05 / THE SURVIVOR</p>
+        <h1>KIEL</h1>
+        <p class="catchphrase">「生き残ることに価値はない。だが、死ぬことにはもっと価値がない」</p>
+    </header>
+
+    <div class="grid">
+        <div class="left-col">
+            <section>
+                <h2>Basic Profile</h2>
+                <table class="profile-table">
+                    <tr><th>Name</th><td>キール</td></tr>
+                    <tr><th>Origin</th><td>元奴隷（貴族所有）</td></tr>
+                    <tr><th>Affiliation</th><td>士官学校特例入学 / FO接続</td></tr>
+                    <tr><th>Status</th><td>生存至上主義者 / 準市民</td></tr>
+                </table>
+                <div class="tag-container">
+                    <span class="tag">Rational</span>
+                    <span class="tag">Close Combat</span>
+                    <span class="tag">Ex-Slave</span>
+                    <span class="tag">Observer of Reality</span>
+                </div>
+            </section>
+
+            <section style="margin-top: 30px;">
+                <h2>Capability</h2>
+                <div class="memo">
+                    生存能力 <div class="status-bar"><div class="status-fill" style="width: 95%;"></div></div>
+                    近接戦闘 <div class="status-bar"><div class="status-fill" style="width: 85%;"></div></div>
+                    論理思考 <div class="status-bar"><div class="status-fill" style="width: 70%;"></div></div>
+                    対人共感 <div class="status-bar"><div class="status-fill" style="width: 15%;"></div></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="right-col">
+            <section class="section-box">
+                <h2>Concept</h2>
+                <p class="memo">
+                    支配と選別の最底辺を生き抜いた「制度の被害者」。<br>
+                    救済を説く教会や、戦力としてのみ評価する騎士団（FO）を経て、徹底した個人生存主義を確立した。<br><br>
+                    ジェイドの持つ「理想」を最も冷徹に否定するポジションにありながら、内面には捨てきれなかった「過去（フラン）」や「情」をノイズとして抱えている。
+                </p>
+            </section>
+
+            <section class="section-box">
+                <h2>Psychology</h2>
+                <p class="memo">
+                    <strong>■ 表層：</strong> 無口で合理的。他者への関心を排し、最適解のみを選択する。<br>
+                    <strong>■ 内面：</strong> 主従関係への強い拒絶。感情を「生存を脅かすエラー」として処理する癖がある。
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="section-box" style="border-top: 1px solid var(--accent-color); margin-top: 20px;">
+            <h2>Development Log</h2>
+            <p class="memo">
+                生存することしか信じていなかった少年が、やがて「自らの意志で誰かを守る」という、非合理な選択肢を選び取るまでの物語を歩む。
+            </p>
+        </div>
+        <p class="footer-note">CONFIDENTIAL DOCUMENT | PROJECT CODE: SURVIVE</p>
+    </footer>
+</div>
+
+</body>
+</html>

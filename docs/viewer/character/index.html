@@ -2,36 +2,53 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>キャラクター｜メリトクラシア</title>
 
 <style>
 body {
   background:#0d0d0d;
   color:#fff;
-  font-family:sans-serif;
+  font-family: 'Noto Serif JP', serif;
+  margin:0;
+}
+
+/* タイトル */
+h1 {
+  margin-top:40px;
   text-align:center;
 }
 
-h1 {
-  margin-top:40px;
+/* 🔥 グリッド化 */
+.card-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+  gap:20px;
+  max-width:900px;
+  margin:40px auto;
+  padding:0 20px;
 }
 
+/* カード */
 .card {
   background:#1a1a1a;
-  margin:20px auto;
-  padding:20px;
-  width:300px;
-  border-radius:10px;
-  transition:0.3s;
+  padding:30px 20px;
+  border-radius:12px;
+  transition:0.25s;
+  text-align:center;
+  border:1px solid #222;
 }
 
 .card:hover {
-  background:#333;
+  transform:translateY(-5px);
+  border-color:#8b0000;
+  background:#222;
 }
 
+/* リンク */
 a {
-  color:#fff;
   text-decoration:none;
+  color:#fff;
 }
 </style>
 </head>
@@ -40,37 +57,62 @@ a {
 
 <h1>キャラクター</h1>
 
-<a href="jade.html">
-  <div class="card">
-    <h2>ジェイド</h2>
-    <p>答えを持たない観測者</p>
-  </div>
-</a>
+<div class="card-grid">
 
-<a href="reinhardt.html">
-  <div class="card">
-    <h2>ライナルト</h2>
-    <p>制度の正義</p>
-  </div>
-</a>
+  <a href="jade.html">
+    <div class="card">
+      <h2>ジェイド</h2>
+      <p>答えを持たない観測者</p>
+    </div>
+  </a>
 
-<a href="yumina.html">
-  <div class="card">
-    <h2>ユミナ</h2>
-    <p>正義の象徴</p>
-  </div>
-</a>
+  <a href="reinhardt.html">
+    <div class="card">
+      <h2>ライナルト</h2>
+      <p>制度の正義</p>
+    </div>
+  </a>
 
-<a href="character/iris.html">
-  <div class="card">
-    <h2>アイリス</h2>
-    <p>感情の象徴</p>
-  </div>
+  <a href="yumina.html">
+    <div class="card">
+      <h2>ユミナ</h2>
+      <p>正義の象徴</p>
+    </div>
+  </a>
 
+  <!-- パス修正 -->
+  <a href="iris.html">
+    <div class="card">
+      <h2>アイリス</h2>
+      <p>感情の象徴</p>
+    </div>
+  </a>
+
+  <!-- aタグ修正済み -->
   <a href="viola.html">
-  <div class="card">
-    <h2>ヴィオラ</h2>
-    <p>理性の揺らぎ</p>
-  </div>
+    <div class="card">
+      <h2>ヴィオラ</h2>
+      <p>理性の揺らぎ</p>
+    </div>
+  </a>
 
-</a>
+  <!-- 🔥 キール追加 -->
+  <a href="kiel.html">
+    <div class="card">
+      <h2>キール</h2>
+      <p>現実の体現者</p>
+    </div>
+  </a>
+
+  <!-- 🔥 フラン（今後） -->
+  <a href="fran.html">
+    <div class="card">
+      <h2>フラン</h2>
+      <p>感情の爆発点</p>
+    </div>
+  </a>
+
+</div>
+
+</body>
+</html>
