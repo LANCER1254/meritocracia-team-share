@@ -99,6 +99,25 @@ def auto_git_push():
     except Exception as e:
         print(f"⚠ Gitエラー: {e}")
 # =========================
+# Viewerデータ更新
+# =========================
+import shutil
+import os
+
+def rebuild_viewer_data():
+    try:
+        repo_path = "/home/lancer/DOCS/meritocracia-team-share"
+
+        src = os.path.join(repo_path, "data.json")
+        dst = os.path.join(repo_path, "docs/viewer/data/data.json")
+
+        shutil.copy(src, dst)
+
+        print("📊 Viewer用データ更新完了")
+
+    except Exception as e:
+        print(f"⚠ Viewer更新エラー: {e}")
+# =========================
 # CLI
 # =========================
 def main():
@@ -120,7 +139,6 @@ def main():
         list_tasks()
         return
 
-    # タスク名（スペース対応）
     task_name = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else None
 
     # =========================
@@ -134,6 +152,7 @@ def main():
         success = add_task(task_name)
 
         if success:
+            rebuild_viewer_data()   # ← 追加（ここも重要）
             auto_git_push()
         return
 
@@ -148,14 +167,15 @@ def main():
         success = update_status(task_name, command)
 
         if success:
+            rebuild_viewer_data()
             auto_git_push()
+
         return
 
-    # =========================
-    # 不明コマンド
-    # =========================
     print("❌ 不明なコマンド")
-
-
+    
+# =========================
+# エントリーポイント
+# =========================
 if __name__ == "__main__":
     main()
