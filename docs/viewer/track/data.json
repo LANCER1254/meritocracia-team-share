@@ -42,6 +42,18 @@
       "priority": "B",
       "category": "世界観",
       "day": 6
+    },
+    {
+      "name": "アイリスキャラ設計",
+      "status": "todo"
+    },
+    {
+      "name": "テスト",
+      "status": "todo"
+    },
+    {
+      "name": "最終テスト",
+      "status": "todo"
     }
   ]
 }

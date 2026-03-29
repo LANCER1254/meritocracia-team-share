@@ -43,6 +43,28 @@ def update_status(task_name, new_status):
 
 
 # =========================
+# タスク追加
+# =========================
+def add_task(task_name):
+    data = load_data()
+
+    # 重複チェック
+    for task in data.get("tasks", []):
+        if task["name"] == task_name:
+            print("⚠ 既に存在するタスクです")
+            return False
+
+    data["tasks"].append({
+        "name": task_name,
+        "status": "todo"
+    })
+
+    save_data(data)
+    print(f"✅ ADD: {task_name}")
+    return True
+
+
+# =========================
 # 一覧表示
 # =========================
 def list_tasks():
@@ -55,24 +77,34 @@ def list_tasks():
 
 
 # =========================
-# Git自動push（任意）
+# Git自動push
 # =========================
 def auto_git_push():
     try:
-        subprocess.run("git add .", shell=True, check=True)
-        subprocess.run('git commit -m "auto: task update"', shell=True, check=True)
-        subprocess.run("git push", shell=True, check=True)
+        repo_path = "/home/lancer/DOCS/meritocracia-team-share"
+
+        subprocess.run("git add .", shell=True, check=True, cwd=repo_path)
+
+        subprocess.run(
+            'git commit -m "auto: task update"',
+            shell=True,
+            check=False,
+            cwd=repo_path
+        )
+
+        subprocess.run("git push", shell=True, check=True, cwd=repo_path)
+
         print("🚀 Git push 完了")
+
     except Exception as e:
         print(f"⚠ Gitエラー: {e}")
-
-
 # =========================
 # CLI
 # =========================
 def main():
     if len(sys.argv) < 2:
         print("使い方:")
+        print('  python task.py add "タスク名"')
         print('  python task.py done "タスク名"')
         print('  python task.py doing "タスク名"')
         print('  python task.py todo "タスク名"')
@@ -81,24 +113,48 @@ def main():
 
     command = sys.argv[1]
 
+    # =========================
+    # LIST
+    # =========================
     if command == "list":
         list_tasks()
         return
 
-    if len(sys.argv) < 3:
-        print("❌ タスク名を入力してください")
+    # タスク名（スペース対応）
+    task_name = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else None
+
+    # =========================
+    # ADD
+    # =========================
+    if command == "add":
+        if not task_name:
+            print("❌ タスク名を入力してください")
+            return
+
+        success = add_task(task_name)
+
+        if success:
+            auto_git_push()
         return
 
-    task_name = sys.argv[2]
-
+    # =========================
+    # ステータス更新
+    # =========================
     if command in ["done", "doing", "todo"]:
+        if not task_name:
+            print("❌ タスク名を入力してください")
+            return
+
         success = update_status(task_name, command)
 
         if success:
-            # 自動Git（いらなければコメントアウト）
             auto_git_push()
-    else:
-        print("❌ 不明なコマンド")
+        return
+
+    # =========================
+    # 不明コマンド
+    # =========================
+    print("❌ 不明なコマンド")
 
 
 if __name__ == "__main__":
