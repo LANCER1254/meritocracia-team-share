@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHARACTER PROFILE | FRAN</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-base: #f4c6d0;
+    --bg-shell: rgba(255, 255, 255, 0.18);
+    --section-bg: rgba(255, 255, 255, 0.46);
+    --border-primary: rgba(255, 255, 255, 0.58);
+    --border-soft: rgba(255, 255, 255, 0.32);
+    --border-accent: #ffffff;
+
+    --text-main: #3a2e2e;
+    --text-sub: #6b4b4b;
+    --text-dim: rgba(58, 46, 46, 0.62);
+
+    --header-bg: #8e8e8e;
+    --header-text: #ffffff;
+    --header-sub: rgba(255,255,255,0.78);
+
+    --shadow: rgba(0, 0, 0, 0.08);
+    --accent-line: rgba(255,255,255,0.72);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0;
+    background:
+        radial-gradient(circle at top center, rgba(255,255,255,0.24) 0%, transparent 38%),
+        linear-gradient(180deg, #f6ccd5 0%, #efc0cb 100%);
+    color: var(--text-main);
+    font-family: 'Noto Serif JP', serif;
+    line-height: 1.9;
+}
+
+/* レイアウト */
+.layout { display: flex; }
+.main { margin-left: 240px; width: 100%; }
+
+/* 左ナビ */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    padding: 28px 20px;
+    background: rgba(12, 12, 13, 0.95);
+    backdrop-filter: blur(8px);
+    border-right: 1px solid #2e2a27;
+    color: #e8e3da;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.side-nav__top {
+    padding-bottom: 18px;
+    border-bottom: 1px solid #2e2a27;
+}
+
+.side-nav__name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+}
+
+.side-nav__links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.side-nav__link {
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: #b8b0a4;
+    text-decoration: none;
+}
+
+.side-nav__link:hover {
+    color: #fff;
+}
+
+/* 元デザイン */
+.container {
+    max-width: 980px;
+    margin: 40px auto;
+    background: var(--bg-shell);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px var(--shadow);
+    backdrop-filter: blur(4px);
+}
+
+header {
+    background: var(--header-bg);
+    padding: 32px 40px 28px;
+}
+
+.char-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.38em;
+    color: var(--header-sub);
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+}
+
+.catchphrase {
+    color: #fbeaf0;
+}
+
+.content { padding: 32px; }
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- 左ナビ -->
+<nav class="side-nav">
+  <div class="side-nav__top">
+    <p>CHARACTER 07</p>
+    <h1 class="side-nav__name">FRAN</h1>
+    <p>THE CONSUMED</p>
+  </div>
+
+  <div class="side-nav__links">
+    <a class="side-nav__link">PROFILE</a>
+    <a class="side-nav__link">CONCEPT</a>
+    <a class="side-nav__link">PSYCHOLOGY</a>
+    <a class="side-nav__link">RELATION</a>
+    <a class="side-nav__link">DEVELOPMENT</a>
+    <a class="side-nav__link">SUMMARY</a>
+  </div>
+</nav>
+
+<!-- 本文 -->
+<main class="main">
+<div class="container">
+
+
+    <header>
+        <p class="char-tag">CHARACTER 07 / THE CONSUMED</p>
+        <h1>FRAN</h1>
+        <p class="catchphrase">「削られ続けても、まだ消えていない感情の残骸」</p>
+    </header>
+
+    <div class="content">
+        <div class="grid">
+            <div class="left-col">
+                <section class="section-box">
+                    <h2>Core Definition</h2>
+                    <p class="block-quote">「誰かに選ばれることでしか、自分の存在を証明できなかった少女」</p>
+                    <p class="memo" style="margin-top:14px;">
+                        強いわけでも、壊れているわけでもない。<br>
+                        ただ、<span class="muted">消耗しきった果てに反応することを止めてしまった個人の象徴</span>として存在する。
+                    </p>
+                </section>
+
+                <section class="section-box">
+                    <h2>Basic Profile</h2>
+                    <table class="profile-table">
+                        <tr>
+                            <th>State</th>
+                            <td>フェーズ① 設計ロック（意図的未完成）</td>
+                        </tr>
+                        <tr>
+                            <th>Origin</th>
+                            <td>パリア（準奴隷階層）</td>
+                        </tr>
+                        <tr>
+                            <th>Position</th>
+                            <td>使用人階層 / 選ばれる側</td>
+                        </tr>
+                        <tr>
+                            <th>Survival</th>
+                            <td>「誰かの所有物であること」が唯一の生存戦略</td>
+                        </tr>
+                    </table>
+
+                    <div class="tag-container">
+                        <span class="tag">Consumed</span>
+                        <span class="tag">Passive</span>
+                        <span class="tag">Under Construction</span>
+                        <span class="tag">Weakness Remains</span>
+                        <span class="tag">Recovery Route</span>
+                    </div>
+                </section>
+
+                <section class="section-box">
+                    <h2>State Definition</h2>
+                    <p class="memo">
+                        第02話 Scene2-5「灰色の扉前」の描写に基づき、現在状態を以下で固定する。
+                    </p>
+
+                    <div class="subhead">確定事項</div>
+                    <ul class="state-list memo">
+                        <li><strong>慣れによる無反応：</strong> 恐怖がないのではなく、恐怖に慣れすぎて足取りが一定になっている。</li>
+                        <li><strong>壊れていないが、正常でもない：</strong> 感情は死んでいないが、表に出す回路が摩耗している。</li>
+                        <li><strong>存在の退色：</strong> 低彩度、明度差の弱さ。瞳にだけ幽かな光が宿る。</li>
+                    </ul>
+                </section>
+
+                <section class="section-box">
+                    <h2>Structure</h2>
+                    <div class="subhead">背景構造と階層</div>
+                    <ul class="point-list memo">
+                        <li><strong>パリア階層：</strong> 奴隷ではないが、自由でもない社会的最下層。</li>
+                        <li><strong>主従関係への依存：</strong> 自由よりも、明確な主従関係の方に安心を感じてしまう。</li>
+                        <li><strong>キールとの接点：</strong> 教会時代、無意識のキールに助けられた記憶が「初めての救い」になっている。</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="right-col">
+                <section class="section-box">
+                    <h2>Personality & Logic</h2>
+                    <table class="compare-table">
+                        <tr>
+                            <th>表層</th>
+                            <td>無表情、反応が薄い、指示に忠実、静か</td>
+                        </tr>
+                        <tr>
+                            <th>内面</th>
+                            <td>臆病、消耗、しかし完全には折れていない「まだ終わっていない」心</td>
+                        </tr>
+                        <tr>
+                            <th>行動原理</th>
+                            <td>自分で決めない、流れに乗る、選ばれることを待つ</td>
+                        </tr>
+                        <tr>
+                            <th>NGライン</th>
+                            <td>自発的な判断、冷静な戦略、強い意志による単独行動</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="section-box">
+                    <h2>Contrast Axis</h2>
+                    <table class="compare-table">
+                        <tr>
+                            <th>vs ジェイド</th>
+                            <td>「選ぶ側」と「選ばれる側」の対比</td>
+                        </tr>
+                        <tr>
+                            <th>vs キール</th>
+                            <td>「生き残る意志」と「生き残っているだけ」の対比</td>
+                        </tr>
+                        <tr>
+                            <th>vs フィーネ</th>
+                            <td>「判断する者」と「判断を委ねる者」の対比</td>
+                        </tr>
+                        <tr>
+                            <th>vs アイリス</th>
+                            <td>「先に救われた者」と「これから救われる者」の対比</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section class="section-box">
+                    <h2>Design Policy</h2>
+                    <div class="subhead">執筆・設計方針</div>
+                    <ul class="point-list memo">
+                        <li><strong>「成長」ではなく「回復」：</strong> 強くなるのではなく、奪われた選択権を取り戻し、本来の自分に戻る過程を描く。</li>
+                        <li><strong>感情爆発ではなく「静かな変化」：</strong> 劇的覚醒ではなく、少しずつ自分の意志で足を踏み出す変化を重視する。</li>
+                        <li><strong>意図的保留：</strong> 覚醒トリガー、過去詳細、最終的立ち位置は本編で自然発生させる。</li>
+                    </ul>
+                </section>
+
+                <section class="section-box">
+                    <h2>Summary</h2>
+                    <p class="memo">
+                        フランは、本作のテーマである「制度」に最も削られた側の人間である。<br>
+                        彼女が「自分で選ぶこと」を知る物語は、作品全体の救いとして機能する。
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <p class="footer-note">Phase 01 Design Locked | Status: Intentionally Unfinished</p>
+    </div>
+</div>
+
+</body>
+</html>

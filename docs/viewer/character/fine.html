@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHARACTER PROFILE | FINE</title>
+
+<!-- フォント統一 -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary-color: #2d5a27;
+    --accent-color: #c0392b;
+    --sub-color: #2980b9;
+    --bg-dark: #0f1410;
+    --text-gray: #a0a8a0;
+    --border-color: #2c3e2d;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #e8eee8;
+    font-family: 'Noto Serif JP', serif;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    background: linear-gradient(145deg, #162017, #0f1410);
+}
+
+/* 見出し */
+h1, h2 {
+    font-family: 'Cinzel', serif;
+}
+
+header {
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+.char-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+}
+
+.catchphrase {
+    font-style: italic;
+    color: var(--text-gray);
+    border-left: 3px solid var(--sub-color);
+    padding-left: 15px;
+}
+
+/* グリッド */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+}
+
+/* セクション */
+.section-box {
+    background: rgba(255,255,255,0.02);
+    padding: 20px;
+    border: 1px solid rgba(45,90,39,0.2);
+    margin-bottom: 20px;
+}
+
+h2 {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 10px;
+}
+
+/* テーブル */
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.profile-table th,
+.profile-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-table th {
+    color: var(--text-gray);
+    width: 35%;
+}
+
+/* タグ */
+.tag {
+    display: inline-block;
+    border: 1px solid var(--primary-color);
+    padding: 4px 10px;
+    margin: 5px;
+    font-size: 0.75rem;
+}
+
+/* リスト */
+.logic-list {
+    list-style: none;
+    padding: 0;
+}
+
+.logic-list li {
+    margin-bottom: 6px;
+}
+
+/* メモ */
+.memo {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+/* フッター */
+.footer-note {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-top: 30px;
+    color: #3e4a3e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<p class="char-name">CHARACTER 06 / THE LOGICIAN</p>
+<h1>FINE</h1>
+<p class="catchphrase">「最適解は既に出ている。感情による再考は時間の無駄だ」</p>
+</header>
+
+<div class="grid">
+
+<!-- 左 -->
+<div>
+
+<section>
+<h2>Basic Profile</h2>
+<table class="profile-table">
+<tr><th>Name</th><td>フィーネ</td></tr>
+<tr><th>Race</th><td>半エルフ</td></tr>
+<tr><th>Role</th><td>判断（意志・感情の対立軸）</td></tr>
+<tr><th>Definition</th><td>最適解で動く少女</td></tr>
+</table>
+
+<div>
+<span class="tag">Cool-headed</span>
+<span class="tag">Efficiency First</span>
+<span class="tag">Strategist</span>
+<span class="tag">Under Construction</span>
+</div>
+</section>
+
+<section>
+<h2>Judgment Priority</h2>
+<ul class="logic-list">
+<li>① 成功確率</li>
+<li>② 被害規模</li>
+<li>③ 効率</li>
+<li style="opacity:0.4;">④ 感情</li>
+</ul>
+</section>
+
+<section>
+<h2>Life / Behavior</h2>
+<p class="memo">
+■ 食：栄養効率重視。無駄な嗜好は持たない。<br>
+■ 友人：少数。距離はあるが評価は高い。<br>
+■ 入学理由：能力を最大化し、最も合理的に評価される環境の選択。
+</p>
+</section>
+
+</div>
+
+<!-- 右 -->
+<div>
+
+<section class="section-box">
+<h2>Psychology</h2>
+<p class="memo">
+<strong>■ 表層：</strong> クーデレ寄り。冷静沈着で感情を表に出さない。<br><br>
+<strong>■ 内面：</strong> 感情を否定しているのではなく、優先順位を最下位に置いている。<br><br>
+<strong>■ 原則：</strong> 常に最適解を選択する。
+</p>
+</section>
+
+<section class="section-box">
+<h2>Rule / Limitation</h2>
+<p class="memo">
+■ NG：感情で動く／無計画な行動／勝率の低い選択<br><br>
+<strong>■ 例外：</strong> 条件次第で感情が判断を上回る可能性がある
+</p>
+</section>
+
+<section class="section-box">
+<h2>Visual Design</h2>
+<p class="memo">
+深緑：規律と統制<br>
+金髪：血統<br>
+赤：感情トリガー<br>
+青：知性
+</p>
+</section>
+
+</div>
+
+</div>
+
+<footer>
+<p class="memo" style="text-align:center; font-style:italic;">
+完成させないことで完成するキャラ。物語の進展に伴い、その崩れを観測せよ。
+</p>
+<p class="footer-note">Unfinished Prototype | Status: 80% Operational</p>
+</footer>
+
+</div>
+
+</body>
+</html>

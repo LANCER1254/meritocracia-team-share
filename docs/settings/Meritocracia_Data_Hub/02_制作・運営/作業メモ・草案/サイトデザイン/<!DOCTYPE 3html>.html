@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARACTER PROFILE | FRAN (Grey Base)</title>
+    <style>
+        :root {
+            --primary-color: #8e8e8e; /* 灰：消耗と退色・髪色合わせ */
+            --accent-color: #d8b4fe;  /* 淡い紫：瞳の光・残骸 */
+            --bg-dark: #1a1a1a;
+            --text-gray: #7a7a7a;
+            --border-color: #333;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #cfcfcf;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            background: #1c1c1c;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 存在の薄さを表現するグラデーション */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        header {
+            border-bottom: 1px solid var(--text-gray);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+        }
+
+        .char-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            color: var(--text-gray);
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 5px 0;
+            letter-spacing: 0.2em;
+            color: #efefef;
+            font-weight: 300;
+        }
+
+        .catchphrase {
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-top: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        h2 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            border-bottom: 1px thin var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-table th, .profile-table td {
+            text-align: left;
+            padding: 10px 5px;
+            border-bottom: 1px solid #2a2a2a;
+            font-size: 0.9rem;
+        }
+
+        .profile-table th {
+            color: var(--text-gray);
+            width: 40%;
+            font-weight: normal;
+        }
+
+        .section-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 1px solid var(--text-gray);
+        }
+
+        .memo {
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 2;
+        }
+
+        .status-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+            text-align: right;
+        }
+
+        .footer-note {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 0.3em;
+        }
+
+        /* 瞳の光をイメージしたアクセント */
+        .eye-light {
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <p class="char-tag">CHARACTER 07 / THE CONSUMED</p>
+        <h1>FRAN</h1>
+        <p class="catchphrase">「削られ続けても、まだ消えていない感情の残骸」</p>
+    </header>
+
+    <div class="grid">
+        <div class="left-col">
+            <section>
+                <h2>Status Analysis</h2>
+                <table class="profile-table">
+                    <tr><th>Role</th><td>消耗した感情（被害の象徴）</td></tr>
+                    <tr><th>Action</th><td>受動・追従・非判断</td></tr>
+                    <tr><th>Condition</th><td>慣れによる無反応状態</td></tr>
+                    <tr><th>Core</th><td>臆病な本質と、感情の残骸</td></tr>
+                </table>
+            </section>
+        </div>
+
+        <div class="right-col">
+            <section class="section-box">
+                <h2>Definition</h2>
+                <p class="memo">
+                    強いわけでも、壊れているわけでもない。ただ、過酷な環境に削られ、反応することを止めてしまった少女。 <br><br>
+                    第02話での「灰色の扉前」の足取りが示す通り、それは恐怖を超えた「慣れ」であり、制度に摩耗しきった個人の象徴である。
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p class="status-label">EXISTENCE STABILITY: CRITICAL</p>
+        <p class="footer-note">PHASE 01 DESIGN LOCKED | WAITING FOR RECOVERY</p>
+    </footer>
+</div>
+
+</body>
+</html>
