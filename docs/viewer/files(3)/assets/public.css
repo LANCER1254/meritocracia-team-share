@@ -1,0 +1,436 @@
+/* ============================================================
+   MERITOCRACIA — 公開用スタイルシート
+   ファイル: assets/public.css
+   用途: index.html（一般公開）専用
+   index_internal.html とは共有しない（独立CSS）
+   ============================================================ */
+
+/* ============================================================
+   カスタムプロパティ
+   ============================================================ */
+:root {
+  --bg:      #070910;
+  --bg2:     #0b0e18;
+  --bg3:     #101420;
+  --bg4:     #161b28;
+  --gold:    #c8a45a;
+  --gold2:   #e5c97e;
+  --gold3:   #f5dfa0;
+  --text:    #cfc4ae;
+  --text2:   #7a6e5a;
+  --text3:   #3a4858;
+  --border:  rgba(200,164,90,0.12);
+  --border2: rgba(200,164,90,0.25);
+  --red:     #8b2020;
+}
+
+/* ============================================================
+   リセット & ベース
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+/* 背景グリッドテクスチャ */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 0% 0%,   rgba(200,164,90,0.04) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 70% at 100% 100%, rgba(139,32,32,0.05) 0%, transparent 55%),
+    repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(200,164,90,0.007) 120px, rgba(200,164,90,0.007) 121px),
+    repeating-linear-gradient(0deg,  transparent, transparent 120px, rgba(200,164,90,0.007) 120px, rgba(200,164,90,0.007) 121px);
+  pointer-events: none; z-index: 0;
+}
+
+/* ============================================================
+   ヘッダー
+   ============================================================ */
+.site-header {
+  position: relative; z-index: 10;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,9,16,0.95);
+  backdrop-filter: blur(8px);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 48px 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.header-label {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.site-title {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 8px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.site-tagline {
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: var(--text2);
+  margin-top: 8px;
+}
+
+/* 連載再開バッジ */
+.launch-badge {
+  text-align: right;
+  border: 1px solid var(--border2);
+  padding: 12px 20px;
+  background: rgba(200,164,90,0.05);
+}
+
+.badge-date {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: var(--gold2);
+  letter-spacing: 3px;
+}
+
+.badge-text {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   ヒーロー
+   ============================================================ */
+.hero {
+  position: relative; z-index: 1;
+  padding: 80px 48px;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* 背景タイポグラフィ装飾 */
+.hero::before {
+  content: 'MERITOCRACIA';
+  position: absolute;
+  bottom: -20px; right: -10px;
+  font-family: 'Cinzel', serif;
+  font-size: 120px;
+  font-weight: 700;
+  color: rgba(200,164,90,0.03);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 10px;
+}
+
+.hero-inner { max-width: 1100px; margin: 0 auto; }
+
+.hero-catch {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: var(--gold2);
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text2);
+  letter-spacing: 2px;
+  line-height: 2.2;
+  margin-bottom: 32px;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  border: 1px solid var(--border2);
+  padding: 12px 28px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.hero-cta:hover {
+  background: rgba(200,164,90,0.08);
+  border-color: var(--gold);
+  color: var(--gold2);
+}
+
+/* ============================================================
+   カードナビゲーション
+   ============================================================ */
+.card-nav {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ナビカード */
+.nav-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--border);
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+  display: block;
+}
+
+.nav-card:hover {
+  border-top-color: var(--gold);
+  background: var(--bg3);
+  transform: translateY(-2px);
+}
+
+.nav-card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+
+.nav-card-name {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.nav-card-ja {
+  font-size: 11px;
+  color: var(--text2);
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   セクション共通
+   ============================================================ */
+.sections { position: relative; z-index: 1; }
+
+.section-block {
+  border-bottom: 1px solid var(--border);
+  padding: 64px 48px;
+}
+
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.section-num {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: var(--text);
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 32px; height: 1px;
+  background: var(--gold);
+}
+
+/* コンテンツカードグリッド */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+/* コンテンツカード */
+.content-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border2);
+  padding: 20px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.content-card:hover {
+  background: var(--bg3);
+  border-left-color: var(--gold);
+}
+
+.content-card-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.content-card-title {
+  font-size: 15px;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.content-card-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.9;
+  letter-spacing: 0.5px;
+}
+
+/* リンク付きカード */
+.content-card a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-top: 12px;
+  transition: opacity 0.2s;
+}
+
+.content-card a:hover { opacity: 0.7; }
+
+/* ============================================================
+   アクセスセクション
+   ============================================================ */
+.access-section {
+  position: relative; z-index: 1;
+  padding: 64px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.access-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 0;
+}
+
+.access-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.access-num {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.access-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+}
+
+.access-note {
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  margin-top: 16px;
+}
+
+/* ============================================================
+   フッター
+   ============================================================ */
+.site-footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+.footer-copy {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+}
+
+/* ============================================================
+   スクロールバー
+   ============================================================ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ============================================================
+   レスポンシブ
+   ============================================================ */
+@media (max-width: 768px) {
+  .header-inner,
+  .hero,
+  .card-nav,
+  .section-block,
+  .access-section,
+  .site-footer { padding-left: 24px; padding-right: 24px; }
+
+  .site-title { font-size: 24px; letter-spacing: 5px; }
+  .hero-catch  { font-size: 20px; }
+  .hero::before { display: none; }
+  .launch-badge { text-align: left; }
+}

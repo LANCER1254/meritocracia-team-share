@@ -1,0 +1,92 @@
+[
+  {
+    "id": "world-001",
+    "category": "世界観",
+    "tag": "WORLD",
+    "title": "メリトクラシアとは",
+    "desc": "能力主義を国家理念に掲げる都市国家。表向きは機械的平等を標榜するが、その実態は複雑な階層構造を内包している。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "world-002",
+    "category": "世界観",
+    "tag": "SYSTEM",
+    "title": "グローリアテスト",
+    "desc": "国家が管理する選抜試験。合格者のみが審問庁や士官学校への門戸を開かれる。複数科目制で部分合格が認められる。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "world-003",
+    "category": "世界観",
+    "tag": "RELIGION",
+    "title": "天啓教と均衡解放戦線",
+    "desc": "神の啓示を信じる宗教組織と、その過激派が組織した宗教テロ組織。メリトクラシアを異端国家と見なし浄化を目論む。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "char-001",
+    "category": "キャラクター",
+    "tag": "PROTAGONIST",
+    "title": "ジェイド・レオンハルト",
+    "desc": "最下層平民出身の主人公。答えを持たないまま、制度と神と人間の狭間を進む少年。心音解析能力を持つ。",
+    "link": "./viewer/character/jade/presentation.html",
+    "link_label": "詳細を見る →",
+    "public": true
+  },
+  {
+    "id": "char-002",
+    "category": "キャラクター",
+    "tag": "RIVAL",
+    "title": "ライナルト＝グロース",
+    "desc": "正しく積み上げた者が正しく勝つ世界を信じて疑わない少年。制度の完成形として設計されたライバル。",
+    "link": "./viewer/character/reinhardt/presentation.html",
+    "link_label": "詳細を見る →",
+    "public": true
+  },
+  {
+    "id": "story-001",
+    "category": "ストーリー",
+    "tag": "PROLOGUE",
+    "title": "プロローグ：テロ事件編",
+    "desc": "Year+8。建国記念日の中央市場を舞台にした宗教テロ事件。ジェイドの人生を変えた原点となる出来事。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "story-002",
+    "category": "ストーリー",
+    "tag": "MAIN",
+    "title": "本編：グローリアテスト編",
+    "desc": "Year+10。本編開始。ジェイドがグローリアテストに挑み、審問庁への道を目指す物語の幕が上がる。",
+    "link": "./viewer/story/index.html",
+    "link_label": "タイムラインを見る →",
+    "public": true
+  },
+  {
+    "id": "news-001",
+    "category": "NEWS",
+    "tag": "ANNOUNCE",
+    "title": "連載再開のお知らせ",
+    "desc": "2025年5月8日より、小説家になろうにて連載を再開します。新章「グローリアテスト編」からお楽しみください。",
+    "link": "https://ncode.syosetu.com/",
+    "link_label": "なろうで読む →",
+    "public": true
+  },
+  {
+    "id": "internal-001",
+    "category": "制作・運営",
+    "tag": "INTERNAL",
+    "title": "制作進行管理",
+    "desc": "スタッフ内部向けの制作進行ページ。",
+    "link": null,
+    "link_label": null,
+    "public": false
+  }
+]

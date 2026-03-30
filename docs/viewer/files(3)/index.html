@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="メリトクラシア — 能力主義国家を舞台にしたダークファンタジー小説">
+<title>MERITOCRACIA | Official Site</title>
+
+<!-- 共通フォント -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- 公開用CSS（assetsに分離） -->
+<link rel="stylesheet" href="./assets/public.css">
+</head>
+<body>
+
+<!-- ============================================================
+     ヘッダー
+     ============================================================ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <span class="header-label">OFFICIAL SITE</span>
+      <h1 class="site-title">MERITOCRACIA</h1>
+      <p class="site-tagline">メリトクラシア</p>
+    </div>
+    <div class="header-right">
+      <!-- 連載再開告知バッジ -->
+      <div class="launch-badge">
+        <span class="badge-date">2025.05.08</span>
+        <span class="badge-text">連載再開</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     ヒーローセクション
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-catch">功績はすべてに勝る——</p>
+    <p class="hero-sub">
+      能力主義国家メリトクラシアを舞台にした、<br>
+      制度と神と人間が衝突するダークファンタジー。
+    </p>
+    <!-- なろうリンク（URLは後で差し替え） -->
+    <a class="hero-cta" href="https://ncode.syosetu.com/" target="_blank" rel="noopener">
+      小説を読む →
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     ナビゲーションカード
+     JSONから動的生成 → セクションへスクロール
+     ============================================================ -->
+<nav class="card-nav" id="card-nav">
+  <!-- JS で data_public.json のセクション情報から生成 -->
+</nav>
+
+<!-- ============================================================
+     各セクション（JSONカードの動的エリア）
+     ============================================================ -->
+<main class="sections" id="sections">
+  <!-- JS で data_public.json から生成 -->
+</main>
+
+<!-- ============================================================
+     アクセス数プレースホルダ
+     将来的にAPI連携で差し替え予定
+     ============================================================ -->
+<section class="access-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">ACCESS</span>
+      <h2 class="section-title">アクセス</h2>
+    </div>
+    <div class="access-grid">
+      <!-- 累計PV -->
+      <div class="access-card">
+        <div class="access-num" id="pv-count">——</div>
+        <div class="access-label">累計PV</div>
+      </div>
+      <!-- ユニークアクセス -->
+      <div class="access-card">
+        <div class="access-num" id="uv-count">——</div>
+        <div class="access-label">ユニークアクセス</div>
+      </div>
+      <!-- なろうポイント -->
+      <div class="access-card">
+        <div class="access-num" id="narou-point">——</div>
+        <div class="access-label">なろうポイント</div>
+      </div>
+      <!-- 最終更新 -->
+      <div class="access-card">
+        <div class="access-num" id="last-update">——</div>
+        <div class="access-label">最終更新</div>
+      </div>
+    </div>
+    <!-- プレースホルダ注記 -->
+    <p class="access-note">※ 数値は順次実装予定</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     フッター
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-logo">MERITOCRACIA</span>
+    <span class="footer-copy">© 2026 Lancer. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- 公開用JS（assetsに分離） -->
+<script src="./assets/public.js"></script>
+</body>
+</html>
