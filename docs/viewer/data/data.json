@@ -78,6 +78,10 @@
     {
       "name": "カーネル設計",
       "status": "todo"
+    },
+    {
+      "name": "ミレイユ設計",
+      "status": "todo"
     }
   ]
 }
