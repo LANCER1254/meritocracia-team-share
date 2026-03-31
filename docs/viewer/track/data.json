@@ -74,6 +74,10 @@
     {
       "name": "ルカキャラ設計",
       "status": "todo"
+    },
+    {
+      "name": "カーネル設計",
+      "status": "todo"
     }
   ]
 }
