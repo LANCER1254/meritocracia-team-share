@@ -1,0 +1,85 @@
+:root {
+  --bg: #070d18;
+  --panel: #0d1526;
+  --border: rgba(201, 169, 97, 0.25);
+  --gold: #c9a961;
+  --text: #f4efe2;
+  --muted: #a59a7a;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0c1830 0%, #070d18 60%);
+  color: var(--text);
+  font-family: "Noto Serif JP", serif;
+}
+
+.nation-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.nation-header {
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+
+.sub {
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  font-size: 13px;
+}
+
+h1 {
+  font-size: 48px;
+  margin: 10px 0;
+  color: var(--gold);
+}
+
+.lead {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.nation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.nation-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(13, 21, 38, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: 0.25s ease;
+}
+
+.nation-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 0 18px rgba(201, 169, 97, 0.15);
+}
+
+.badge {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 12px;
+  margin-bottom: 10px;
+  letter-spacing: 0.12em;
+}
+
+.nation-card h2 {
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.nation-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
