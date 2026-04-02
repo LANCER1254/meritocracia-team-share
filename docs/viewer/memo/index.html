@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Discord Memo Viewer</title>
+<style>
+body{
+  font-family:sans-serif;
+  margin:0;
+  display:flex;
+  height:100vh;
+}
+#sidebar{
+  width:320px;
+  border-right:1px solid #ddd;
+  overflow:auto;
+  padding:16px;
+}
+#viewer{
+  flex:1;
+  padding:20px;
+  overflow:auto;
+  white-space:pre-wrap;
+  background:#fafafa;
+}
+.card{
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:10px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+.card:hover{
+  background:#f0f0f0;
+}
+small{
+  color:#666;
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h2>📝 Discord Memo</h2>
+  <div id="status">読み込み中...</div>
+  <div id="list"></div>
+</div>
+
+<div id="viewer">左のメモをクリックするとここに表示されます</div>
+
+<script>
+const list = document.getElementById('list');
+const viewer = document.getElementById('viewer');
+const status = document.getElementById('status');
+
+fetch('./data/index.json')
+  .then(r => r.json())
+  .then(data => {
+    status.textContent = `${data.length}件`;
+
+    data.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <b>${item.title}</b><br>
+        <small>[${item.category}]</small>
+      `;
+
+      div.addEventListener('click', () => {
+        fetch(item.path)
+          .then(r => r.text())
+          .then(text => {
+            viewer.textContent = text;
+          })
+          .catch(() => {
+            viewer.textContent = "読み込み失敗";
+          });
+      });
+
+      list.appendChild(div);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+[
+  {
+    "title": "2026-03-31",
+    "path": "meeting/2026-03-31.jsonl",
+    "category": "meeting"
+  },
+  {
+    "title": "2026-04-01",
+    "path": "free/2026-04-01.jsonl",
+    "category": "free"
+  },
+  {
+    "title": "2026-03-31",
+    "path": "free/2026-03-31.jsonl",
+    "category": "free"
+  },
+  {
+    "title": "2026-03-31",
+    "path": "character/2026-03-31.jsonl",
+    "category": "character"
+  }
+]

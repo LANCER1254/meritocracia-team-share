@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iris Earlgray | MERITOCRACIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   IRIS EARLGRAY — CHARACTER PAGE
+   コンセプト: 高級紅茶ブランドのラベル × メイド服の黒白緑金
+   カラー方針: 琥珀背景にPDF公式カラーを乗せる折衷設計
+   ============================================================ */
+
+:root {
+  /* 背景・紅茶系 */
+  --tea-bg:       #2a1a0e;
+  --tea-bg2:      #3d2410;
+  --tea-amber:    #8B4513;
+  --tea-amber2:   #a0521a;
+  --tea-light:    #c4803a;
+  --parchment:    #FFF8E7;
+  --parchment2:   #f5e8c8;
+
+  /* アイリス公式カラー（PDF準拠） */
+  --iris-black:   #1C1B1B;
+  --iris-white:   #F2EDE6;
+  --iris-green:   #2E6135;
+  --iris-gold:    #C5A35A;
+  --iris-skin:    #6A4E3D;
+  --iris-hair:    #E8E8E8;
+  --iris-eye:     #8C5FBF;
+
+  /* テキスト */
+  --text-warm:    #FFF8E7;
+  --text-muted:   #c8a87a;
+  --text-dim:     #7a5a3a;
+
+  /* ボーダー */
+  --border-gold:  rgba(197,163,90,0.4);
+  --border-gold2: rgba(197,163,90,0.8);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--tea-bg);
+  color: var(--text-warm);
+  font-family: 'Noto Serif JP', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 背景テクスチャ */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,69,19,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(46,97,53,0.12) 0%, transparent 50%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(197,163,90,0.02) 60px,
+      rgba(197,163,90,0.02) 61px
+    );
+  pointer-events: none; z-index: 0;
+}
+
+/* ============================================================
+   ラベルコンテナ
+   ============================================================ */
+.label-page {
+  position: relative; z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* 戻るリンク */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--iris-gold); }
+
+/* ============================================================
+   ヘッダー：紅茶ラベル
+   ============================================================ */
+.tea-label-header {
+  border: 1px solid var(--border-gold);
+  outline: 3px solid var(--border-gold);
+  outline-offset: 6px;
+  padding: 36px 40px 28px;
+  text-align: center;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(139,69,19,0.3) 0%, rgba(42,26,14,0.5) 100%);
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+/* 四隅の装飾 */
+.tea-label-header::before,
+.tea-label-header::after {
+  content: '✦';
+  position: absolute;
+  font-size: 18px;
+  color: var(--iris-gold);
+  opacity: 0.6;
+}
+.tea-label-header::before { top: 12px; left: 16px; }
+.tea-label-header::after  { bottom: 12px; right: 16px; }
+
+.corner-tl, .corner-br {
+  position: absolute;
+  font-size: 18px;
+  color: var(--iris-gold);
+  opacity: 0.6;
+}
+.corner-tl { top: 12px; right: 16px; }
+.corner-br { bottom: 12px; left: 16px; }
+
+/* ブランドロゴ */
+.brand-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--iris-gold);
+  opacity: 0.8;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+/* 区切り線 */
+.label-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+.label-divider::before,
+.label-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--iris-gold), transparent);
+}
+.label-divider span {
+  color: var(--iris-gold);
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* キャラ名 */
+.char-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 8vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--iris-white);
+  text-shadow: 0 0 40px rgba(197,163,90,0.3);
+  margin: 4px 0;
+  text-transform: uppercase;
+}
+
+.char-name-ja {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* フレーバーテキスト */
+.flavor-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--parchment2);
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+/* ============================================================
+   湯気エフェクト
+   ============================================================ */
+.steam-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 16px;
+  height: 60px;
+  margin: 20px 0 8px;
+}
+
+.steam {
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to top, transparent, rgba(255,248,231,0.5), transparent);
+  animation: steam-rise 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.steam:nth-child(1) { height: 35px; animation-delay: 0s;    animation-duration: 2.8s; }
+.steam:nth-child(2) { height: 50px; animation-delay: 0.6s;  animation-duration: 3.2s; }
+.steam:nth-child(3) { height: 42px; animation-delay: 1.2s;  animation-duration: 2.6s; }
+.steam:nth-child(4) { height: 38px; animation-delay: 0.3s;  animation-duration: 3.5s; }
+.steam:nth-child(5) { height: 46px; animation-delay: 0.9s;  animation-duration: 3.0s; }
+
+@keyframes steam-rise {
+  0%   { transform: translateY(0) scaleX(1); opacity: 0; }
+  20%  { opacity: 0.8; }
+  60%  { transform: translateY(-28px) scaleX(1.4); opacity: 0.4; }
+  100% { transform: translateY(-50px) scaleX(0.6); opacity: 0; }
+}
+
+/* ============================================================
+   メインコンテンツ
+   ============================================================ */
+.profile-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   カード共通
+   ============================================================ */
+.menu-card {
+  background: rgba(28,27,27,0.7);
+  border: 1px solid var(--border-gold);
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.menu-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(197,163,90,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.menu-card:hover {
+  border-color: var(--border-gold2);
+  box-shadow: 0 0 20px rgba(197,163,90,0.15), inset 0 0 30px rgba(197,163,90,0.05);
+}
+
+.menu-card:hover::before { opacity: 1; }
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--iris-gold);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-gold);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   プロフィールテーブル
+   ============================================================ */
+.status-list {
+  display: grid;
+  row-gap: 10px;
+  font-size: 13px;
+}
+
+.status-list dt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.status-list dd {
+  color: var(--iris-white);
+  letter-spacing: 1px;
+  line-height: 1.6;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(197,163,90,0.1);
+}
+
+.status-list dd:last-child { border-bottom: none; }
+
+/* ============================================================
+   ケイパビリティバー
+   ============================================================ */
+.cap-row {
+  margin-bottom: 12px;
+}
+
+.cap-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.cap-label span:last-child {
+  color: var(--iris-gold);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.cap-bar {
+  height: 2px;
+  background: rgba(197,163,90,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.cap-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--iris-green), var(--iris-gold));
+  border-radius: 1px;
+  animation: bar-in 1.2s ease both;
+}
+
+@keyframes bar-in {
+  from { width: 0 !important; }
+}
+
+/* ============================================================
+   タグ
+   ============================================================ */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-gold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--iris-gold);
+  color: var(--iris-gold);
+  background: rgba(197,163,90,0.08);
+}
+
+/* ============================================================
+   深層心理ボタン・アコーディオン
+   ============================================================ */
+.sugar-cube-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(46,97,53,0.2);
+  border: 1px solid rgba(46,97,53,0.5);
+  color: var(--iris-white);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.sugar-cube-btn:hover {
+  background: rgba(46,97,53,0.35);
+  border-color: var(--iris-green);
+}
+
+.sugar-cube-btn .btn-arrow {
+  font-size: 10px;
+  transition: transform 0.3s;
+  color: var(--iris-gold);
+}
+
+.sugar-cube-btn.open .btn-arrow { transform: rotate(180deg); }
+
+.hidden-notes {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease;
+}
+
+.hidden-notes.open { max-height: 600px; }
+
+.hidden-notes-inner {
+  padding: 16px 0 4px;
+  border-left: 2px solid var(--iris-green);
+  padding-left: 16px;
+  margin-top: 4px;
+}
+
+.hidden-notes-inner p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 2;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.hidden-notes-inner strong {
+  color: var(--parchment);
+  font-weight: 500;
+}
+
+.warning-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(197,163,90,0.5);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   コンセプト・テキストセクション
+   ============================================================ */
+.concept-text {
+  font-size: 13px;
+  line-height: 2.2;
+  color: var(--parchment2);
+  letter-spacing: 0.5px;
+}
+
+.concept-text em {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  color: var(--iris-gold);
+}
+
+/* ============================================================
+   フル幅セクション
+   ============================================================ */
+.full-section {
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   フッター
+   ============================================================ */
+.memory-sediment {
+  margin-top: 48px;
+  text-align: center;
+  padding: 24px;
+  border: 1px solid var(--border-gold);
+  position: relative;
+  background: rgba(28,27,27,0.5);
+}
+
+.memory-sediment::before {
+  content: '— ✦ —';
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--iris-gold);
+  opacity: 0.5;
+  margin-bottom: 12px;
+  letter-spacing: 8px;
+}
+
+.memory-sediment p {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.memory-sediment small {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   アイリスカラースウォッチ（視覚的アクセント）
+   ============================================================ */
+.color-strip {
+  display: flex;
+  height: 3px;
+  margin: 6px 0 20px;
+}
+.color-strip div { flex: 1; }
+
+/* ============================================================
+   レスポンシブ（スマホ優先）
+   ============================================================ */
+@media (max-width: 640px) {
+  .label-page { padding: 20px 14px 60px; }
+  .tea-label-header { padding: 24px 20px 20px; }
+  .char-name { font-size: 2.2rem; }
+  .profile-container { grid-template-columns: 1fr; }
+  .menu-card { padding: 18px; }
+}
+
+/* ============================================================
+   フェードイン
+   ============================================================ */
+.fade-in {
+  animation: fade-in 0.7s ease both;
+}
+.fade-in:nth-child(2) { animation-delay: 0.1s; }
+.fade-in:nth-child(3) { animation-delay: 0.2s; }
+.fade-in:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--tea-bg); }
+::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 2px; }
+
+/* ============================================================
+   NIGHT MODE — 夜化因子UI
+   ============================================================ */
+
+/* Night時のCSS変数上書き */
+body.night-mode {
+  --tea-bg:       #0B1020;
+  --tea-bg2:      #111828;
+  --tea-amber:    #1a2240;
+  --tea-amber2:   #1e2a50;
+  --tea-light:    #2a3a70;
+  --parchment:    #d8e0f0;
+  --parchment2:   #c0cce0;
+
+  /* Night accent */
+  --iris-gold:    #C0C0C0;    /* 金 → 銀 */
+  --border-gold:  rgba(192,192,192,0.25);
+  --border-gold2: rgba(192,192,192,0.6);
+  --text-warm:    #e0e8f8;
+  --text-muted:   #8898bb;
+  --text-dim:     #445070;
+}
+
+/* 背景テクスチャ上書き */
+body.night-mode::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(60,40,120,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(20,50,100,0.2) 0%, transparent 50%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(192,192,192,0.015) 60px,
+      rgba(192,192,192,0.015) 61px
+    );
+}
+
+/* ヘッダー背景 Night */
+body.night-mode .tea-label-header {
+  background: linear-gradient(180deg, rgba(40,20,80,0.5) 0%, rgba(11,16,32,0.7) 100%);
+  border-color: rgba(192,192,192,0.3);
+  outline-color: rgba(192,192,192,0.2);
+}
+
+/* hover時 紫発光 */
+body.night-mode .menu-card:hover {
+  box-shadow: 0 0 24px rgba(140,95,191,0.3), inset 0 0 30px rgba(140,95,191,0.05);
+  border-color: rgba(140,95,191,0.6);
+}
+
+/* 湯気 → 黒粒子エフェクト */
+body.night-mode .steam {
+  background: linear-gradient(to top, transparent, rgba(140,95,191,0.3), rgba(192,192,192,0.15), transparent);
+  animation-name: particle-rise;
+}
+
+@keyframes particle-rise {
+  0%   { transform: translateY(0) scaleX(1) rotate(0deg);  opacity: 0; }
+  20%  { opacity: 0.7; }
+  60%  { transform: translateY(-30px) scaleX(0.6) rotate(8deg); opacity: 0.4; }
+  100% { transform: translateY(-55px) scaleX(0.3) rotate(-5deg); opacity: 0; }
+}
+
+/* ラベルdivider Night */
+body.night-mode .label-divider::before,
+body.night-mode .label-divider::after {
+  background: linear-gradient(to right, transparent, rgba(192,192,192,0.5), transparent);
+}
+
+/* ケイパビリティバー Night */
+body.night-mode .cap-fill {
+  background: linear-gradient(to right, #2E6135, #8C5FBF);
+}
+
+/* タグ hover Night */
+body.night-mode .tag:hover {
+  border-color: #8C5FBF;
+  color: #c0a0f0;
+  background: rgba(140,95,191,0.1);
+}
+
+/* 深層心理ボタン Night */
+body.night-mode .sugar-cube-btn {
+  background: rgba(60,20,100,0.3);
+  border-color: rgba(140,95,191,0.5);
+}
+body.night-mode .sugar-cube-btn:hover {
+  background: rgba(60,20,100,0.5);
+  border-color: #8C5FBF;
+}
+
+/* hidden notes ボーダー Night */
+body.night-mode .hidden-notes-inner {
+  border-left-color: #8C5FBF;
+}
+
+/* カラーストリップ Night（月蝕・銀鎖） */
+body.night-mode .color-strip-night { display: flex !important; }
+body.night-mode .color-strip-day   { display: none !important; }
+
+/* ============================================================
+   モード切替ボタン
+   ============================================================ */
+.mode-toggle-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+#toggleModeBtn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  padding: 7px 18px;
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s;
+  text-transform: uppercase;
+}
+
+#toggleModeBtn:hover {
+  border-color: var(--iris-gold);
+  color: var(--text-warm);
+  background: rgba(197,163,90,0.08);
+}
+
+body.night-mode #toggleModeBtn:hover {
+  border-color: #8C5FBF;
+  color: #c0a0f0;
+  background: rgba(140,95,191,0.1);
+}
+</style>
+</head>
+<body>
+
+<div class="label-page">
+
+  <!-- モード切替ボタン -->
+  <div class="mode-toggle-wrap">
+    <button id="toggleModeBtn">☀ Day / 🌙 Night</button>
+  </div>
+
+  <!-- 戻るリンク -->
+  <a class="back-link" href="../index.html">← CHARACTER LIST</a>
+
+  <!-- ============================================================
+       ヘッダー：紅茶ラベル
+       ============================================================ -->
+  <header class="tea-label-header fade-in">
+    <span class="corner-tl">✦</span>
+    <span class="corner-br">✦</span>
+
+    <div class="brand-logo">Meritocracia — Special Reserve Blend No.05</div>
+
+    <div class="label-divider"><span>❧</span></div>
+
+    <h1 class="char-name">Iris Earlgray</h1>
+    <p class="char-name-ja">アイリス＝アールグレイ</p>
+
+    <div class="label-divider"><span>❧</span></div>
+
+    <!-- 湯気エフェクト -->
+    <div class="steam-container" aria-hidden="true">
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+    </div>
+
+    <p class="flavor-text">
+      "壊れる直前で淹れられた、最も芳醇な一杯"<br>
+      <small style="font-size:10px; letter-spacing:3px; opacity:0.6;">— Best Before : 2026.05.08 —</small>
+    </p>
+  </header>
+
+  <!-- アイリスカラーストリップ（Day） -->
+  <div class="color-strip color-strip-day" aria-hidden="true">
+    <div style="background:#1C1B1B"></div>
+    <div style="background:#F2EDE6"></div>
+    <div style="background:#2E6135"></div>
+    <div style="background:#C5A35A"></div>
+    <div style="background:#6A4E3D"></div>
+    <div style="background:#8C5FBF"></div>
+  </div>
+  <!-- アイリスカラーストリップ（Night） -->
+  <div class="color-strip color-strip-night" aria-hidden="true" style="display:none;">
+    <div style="background:#0B1020"></div>
+    <div style="background:#8C5FBF"></div>
+    <div style="background:#1a2240"></div>
+    <div style="background:#C0C0C0"></div>
+    <div style="background:#2E6135"></div>
+    <div style="background:#d8e0f0"></div>
+  </div>
+
+  <!-- ============================================================
+       プロフィールグリッド
+       ============================================================ -->
+  <main>
+
+    <div class="profile-container">
+
+      <!-- 左：基本情報 -->
+      <div class="menu-card fade-in">
+        <div class="card-title">Profile Menu</div>
+        <dl class="status-list">
+          <dt>Name</dt>
+          <dd>アイリス＝アールグレイ</dd>
+
+          <dt>Race</dt>
+          <dd>ダークエルフ</dd>
+
+          <dt>Origin</dt>
+          <dd>アルトゥナ王国（敗戦国）</dd>
+
+          <dt>Current Status</dt>
+          <dd>元戦争奴隷 / レオンハルト家所属</dd>
+
+          <dt>Specialty</dt>
+          <dd>家事全般・静かな献身</dd>
+        </dl>
+
+        <div class="tag-row">
+          <span class="tag">Dark Elf</span>
+          <span class="tag">War Survivor</span>
+          <span class="tag">Devotion</span>
+          <span class="tag">Fragile Core</span>
+        </div>
+      </div>
+
+      <!-- 右：能力・心理 -->
+      <div class="menu-card fade-in">
+        <div class="card-title">Capability</div>
+
+        <div class="cap-row">
+          <div class="cap-label"><span>献身・家事</span><span>96</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:96%"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-label"><span>生存適応力</span><span>88</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:88%"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-label"><span>感情の読み取り</span><span>72</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:72%"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-label"><span>自己主張</span><span>8</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:8%; background: linear-gradient(to right, #6A4E3D, #8C5FBF);"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-label"><span>自己肯定感</span><span>4</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:4%; background: rgba(140,95,191,0.6);"></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- コンセプト -->
+    <div class="full-section menu-card fade-in">
+      <div class="card-title">Concept</div>
+      <p class="concept-text">
+        支配と喪失の果てに、ただ<em>役に立つこと</em>だけを残した少女。
+        忌み子として生まれ、家族に疎まれ、戦争に消費され——
+        それでも完全には壊れていないのは、
+        壊れる前に<em>時間が止まった</em>からかもしれない。<br><br>
+        ジェイドとの出会いは、彼女にとって生まれて初めての
+        「名前で呼ばれる場所」になる。
+      </p>
+
+      <!-- 深層心理アコーディオン -->
+      <button class="sugar-cube-btn" id="hidden-btn" aria-expanded="false">
+        <span id="hidden-btn-label">深層心理（閲覧注意）</span>
+        <span class="btn-arrow">▼</span>
+      </button>
+
+      <div class="hidden-notes" id="hidden-notes" role="region" aria-labelledby="hidden-btn">
+
+        <!-- Day: 深層心理 -->
+        <div class="hidden-notes-inner" id="notes-day">
+          <div class="warning-label">Classified — Internal Layer</div>
+          <p>
+            <strong>帰属意識の歪み：</strong><br>
+            「役に立てなければ存在してはいけない」という認知は、
+            家庭内での扱いと奴隷期間によって強化された。
+            感謝される行為が「安全の証明」として機能している。
+          </p>
+          <p>
+            <strong>生存罪悪感：</strong><br>
+            家族が処理される中で自分だけが生かされた事実は、
+            「価値があったから」ではなく「再販できたから」という理由によるもの。
+            この認識が自己否定の根幹を形成している。
+          </p>
+          <p>
+            <strong>名前への執着：</strong><br>
+            完全に番号化される直前段階で物語が始まる。
+            名前を呼ばれることへの反応は、単なる親しみではなく
+            人格の存続確認として機能する。
+          </p>
+          <p>
+            <strong>壊れる直前の凍結：</strong><br>
+            芯が残っているのは強さではなく、
+            決定的な消費が未到達だったためのタイムラグに過ぎない。
+            ジェイドの介入がこの凍結を解く鍵になる。
+          </p>
+        </div>
+
+        <!-- Night: 夜化因子記録 -->
+        <div class="hidden-notes-inner" id="notes-night" style="display:none;">
+          <div class="warning-label">Classified — Noctiluca Factor Record</div>
+          <p>
+            <strong>古代エルフ分岐：</strong><br>
+            ダークエルフはエルフ種の隔世変異体。
+            光耐性の低下と引き換えに、夜間知覚・感情読取能力が増幅される。
+            通常系統から「排除」されてきた存在系譜を持つ。
+          </p>
+          <p>
+            <strong>夜化因子の隔世発現：</strong><br>
+            両親・兄弟が全員エルフである中でのダークエルフ誕生は、
+            数世代前の遺伝的形質が発現したもの。
+            「忌み子」「悪魔の子」という烙印はこの発現による家族の恐怖反応。
+          </p>
+          <p>
+            <strong>家庭差別の構造：</strong><br>
+            身体的抑圧・名前の剥奪・事実上の家庭内奴隷化。
+            これらは感情的憎悪ではなく「異物への制御行動」として機能した。
+            アイリス本人は「自分が悪い」と内面化している。
+          </p>
+          <p>
+            <strong>戦争下での価値：</strong><br>
+            臓器回収対象から外された理由は「若年・未使用・再販価値」。
+            家族が処理された直後に商品として登録される連続した地獄構造。
+          </p>
+          <p>
+            <strong>壊れる直前人格：</strong><br>
+            夜化因子の保持者は通常、感情の凍結より感情の過敏化を起こす。
+            アイリスが凍結状態を保てているのは極めて稀なケース——
+            あるいは、まだ本当の意味での破壊が訪れていないだけかもしれない。
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       フッター
+       ============================================================ -->
+  <footer class="memory-sediment">
+    <p>※このページは「レオンハルト家の食卓」の提供でお送りします</p>
+    <small>Meritocracia — Special Blend No.05 / Earl Gray Reserve</small>
+  </footer>
+
+</div><!-- /.label-page -->
+
+<script>
+/* ============================================================
+   深層心理アコーディオン
+   ============================================================ */
+const btn   = document.getElementById('hidden-btn');
+const notes = document.getElementById('hidden-notes');
+
+btn.addEventListener('click', () => {
+  const isOpen = notes.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+});
+
+/* ============================================================
+   Day / Night 切替
+   ============================================================ */
+const toggleBtn  = document.getElementById('toggleModeBtn');
+const notesDay   = document.getElementById('notes-day');
+const notesNight = document.getElementById('notes-night');
+const btnLabel   = document.getElementById('hidden-btn-label');
+
+let isNight = false;
+
+toggleBtn.addEventListener('click', () => {
+  isNight = !isNight;
+  document.body.classList.toggle('night-mode', isNight);
+
+  /* ボタンラベル切替 */
+  toggleBtn.textContent = isNight ? '🌙 Night / ☀ Day' : '☀ Day / 🌙 Night';
+
+  /* hidden notes コンテンツ切替 */
+  notesDay.style.display   = isNight ? 'none'  : 'block';
+  notesNight.style.display = isNight ? 'block' : 'none';
+  btnLabel.textContent     = isNight ? '夜化因子記録（閲覧注意）' : '深層心理（閲覧注意）';
+
+  /* 開いていたら一度閉じてリセット */
+  if (notes.classList.contains('open')) {
+    notes.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', false);
+  }
+});
+</script>
+
+</body>
+</html>

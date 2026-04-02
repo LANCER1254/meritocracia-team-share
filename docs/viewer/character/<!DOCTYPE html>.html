@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iris Earlgray | Nightfall Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   VARIABLE SETTINGS
+   ============================================================ */
+:root {
+  /* Day Mode: Tea & Amber */
+  --bg-main:      #2a1a0e;
+  --label-bg:     linear-gradient(180deg, rgba(139,69,19,0.3) 0%, rgba(42,26,14,0.5) 100%);
+  --accent-color: #C5A35A; /* Gold */
+  --text-main:    #FFF8E7;
+  --steam-color:  rgba(255,248,231,0.5);
+  --border-line:  rgba(197,163,90,0.4);
+}
+
+body.night-mode {
+  /* Night Mode: Moon & Abyss */
+  --bg-main:      #0B1020;
+  --label-bg:     linear-gradient(180deg, rgba(40,20,80,0.5) 0%, rgba(11,16,32,0.7) 100%);
+  --accent-color: #C0C0C0; /* Silver / Nightfall */
+  --text-main:    #d8e0f0;
+  --steam-color:  rgba(140,95,191,0.4); /* Purple Particles */
+  --border-line:  rgba(140,95,191,0.5);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Noto Serif JP', serif;
+  transition: background 0.8s ease, color 0.5s ease;
+  min-height: 100vh;
+  margin: 0; padding: 20px;
+}
+
+.container { max-width: 800px; margin: 0 auto; }
+
+/* ============================================================
+   TEA LABEL HEADER (Day/Night Common)
+   ============================================================ */
+.tea-header {
+  border: 1px solid var(--border-line);
+  padding: 40px;
+  text-align: center;
+  background: var(--label-bg);
+  position: relative;
+  transition: all 0.8s ease;
+}
+
+.char-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  letter-spacing: 0.1em;
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   ANIMATION: STEAM TO PARTICLES
+   ============================================================ */
+.effect-container {
+  display: flex; justify-content: center; gap: 15px; height: 50px; margin: 20px 0;
+}
+.effect-bar {
+  width: 2px;
+  background: linear-gradient(to top, transparent, var(--steam-color), transparent);
+  animation: rise 3s infinite ease-in-out;
+}
+@keyframes rise {
+  0%   { transform: translateY(0); opacity: 0; }
+  50%  { opacity: 0.6; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+/* Night Mode 特有の粒子挙動（歪み） */
+body.night-mode .effect-bar {
+  animation: distort-rise 2.5s infinite ease-in-out;
+  background: radial-gradient(circle, var(--steam-color) 0%, transparent 80%);
+  width: 4px; border-radius: 50%;
+}
+@keyframes distort-rise {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  50%  { transform: translateY(-25px) scale(1.5) rotate(10deg); opacity: 0.8; }
+  100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+}
+
+/* ============================================================
+   UI COMPONENTS
+   ============================================================ */
+.card {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border-line);
+  padding: 20px; margin-top: 20px;
+  transition: all 0.5s;
+}
+.card:hover { border-color: var(--accent-color); box-shadow: 0 0 15px var(--border-line); }
+
+.toggle-btn {
+  background: transparent; border: 1px solid var(--accent-color);
+  color: var(--accent-color); padding: 8px 16px; cursor: pointer;
+  font-family: 'Cormorant Garamond', serif; letter-spacing: 2px;
+}
+
+.hidden-content { display: none; margin-top: 20px; padding-left: 15px; border-left: 2px solid var(--accent-color); }
+.hidden-content.active { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div style="text-align: right; margin-bottom: 10px;">
+    <button class="toggle-btn" id="modeToggle">☀ DAY / 🌙 NIGHT</button>
+  </div>
+
+  <header class="tea-header">
+    <div style="font-size: 10px; letter-spacing: 4px; color: var(--accent-color);">MERITOCRACIA SPECIAL BLEND</div>
+    <h1 class="char-name" id="display-name">Iris Earlgray</h1>
+    
+    <div class="effect-container">
+      <div class="effect-bar" style="animation-delay: 0s;"></div>
+      <div class="effect-bar" style="animation-delay: 0.4s;"></div>
+      <div class="effect-bar" style="animation-delay: 0.8s;"></div>
+    </div>
+
+    <p style="font-style: italic; font-family: 'IM Fell English';">
+       <span id="flavor-text">"壊れる直前で淹れられた、最も芳醇な一杯"</span>
+    </p>
+  </header>
+
+  <div class="card">
+    <h2 style="font-size: 14px; color: var(--accent-color); border-bottom: 1px solid var(--border-line);">Character Analysis</h2>
+    <p id="analysis-text" style="font-size: 13px; line-height: 1.8; margin-top: 10px;">
+      主人のために完璧なアールグレイを淹れる、レオンハルト家の有能なメイド。その献身は、救われたことへの純粋な感謝に基づいている。
+    </p>
+    
+    <button class="toggle-btn" style="margin-top: 15px; font-size: 10px;" id="revealBtn">深層記録を開示</button>
+    
+    <div class="hidden-content" id="secretNote">
+      <div id="note-day">
+        <strong>【生存罪悪感】</strong><br>
+        「再販価値」があったために自分だけが生かされたという事実は、彼女の献身を「義務」ではなく「贖罪」へと変えている。
+      </div>
+      <div id="note-night" style="display:none;">
+        <strong>【夜化因子の揺らぎ】</strong><br>
+        「忌み子」として家族に疎まれ、名前すら奪われていた時間は、彼女の魂を夜の深淵へと固定した。ジェイドの光が届かなければ、彼女は今も暗闇の澱の中に沈んでいた。
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const modeToggle = document.getElementById('modeToggle');
+const body = document.body;
+const displayName = document.getElementById('display-name');
+const flavorText = document.getElementById('flavor-text');
+const analysisText = document.getElementById('analysis-text');
+const noteDay = document.getElementById('note-day');
+const noteNight = document.getElementById('note-night');
+const revealBtn = document.getElementById('revealBtn');
+const secretNote = document.getElementById('secretNote');
+
+let isNight = false;
+
+modeToggle.addEventListener('click', () => {
+  isNight = !isNight;
+  body.classList.toggle('night-mode');
+  
+  if(isNight) {
+    displayName.textContent = "Noctiluca Iris";
+    flavorText.textContent = "「月光に沈殿する、呪術と記憶の澱」";
+    analysisText.textContent = "エルフの家系に生まれた唯一の夜化因子発現体。家族からは悪魔の子として忌み嫌われ、戦争の混乱に乗じて『商品』として処理された過去を持つ 。";
+    noteDay.style.display = "none";
+    noteNight.style.display = "block";
+    revealBtn.textContent = "夜化因子記録を閲覧";
+  } else {
+    displayName.textContent = "Iris Earlgray";
+    flavorText.textContent = "\"壊れる直前で淹れられた、最も芳醇な一杯\"";
+    analysisText.textContent = "主人のために完璧なアールグレイを淹れる、レオンハルト家の有能なメイド。その献身は、救われたことへの純粋な感謝に基づいている。";
+    noteDay.style.display = "block";
+    noteNight.style.display = "none";
+    revealBtn.textContent = "深層記録を開示";
+  }
+});
+
+revealBtn.addEventListener('click', () => {
+  secretNote.classList.toggle('active');
+});
+</script>
+
+</body>
+</html>
