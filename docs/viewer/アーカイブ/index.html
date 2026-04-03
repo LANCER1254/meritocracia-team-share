@@ -432,7 +432,7 @@ header {
     </a>
   </div>
 </div>
-<!-- キャラクター -->
+    <!-- キャラクター -->
     <div class="section" id="section-character">
       <div class="section-header">
         <div class="section-title">キャラクター</div>
@@ -457,10 +457,40 @@ header {
         </a>
       </div>
     </div>
-    <!-- STORY SLOT -->
-<div id="story-module"></div>
 
-  
+   <!-- ストーリー -->
+<div class="section" id="section-story">
+  <div class="section-header">
+    <div class="section-title">ストーリー</div>
+    <div class="section-sub">STORY & ROUTE</div>
+  </div>
+
+  <div class="card-grid">
+
+    <a class="card" href="./story/index.html">
+      <span class="card-icon">📅</span>
+      <div class="card-title">ストーリー進行</div>
+      <div class="card-desc">全体タイムライン・編別フィルター</div>
+      <span class="card-badge badge-done">DONE</span>
+    </a>
+
+    <a class="card" href="./story/old/viewer.html?file=ep01.md">
+      <span class="card-icon">📖</span>
+      <div class="card-title">原稿閲覧</div>
+      <div class="card-desc">旧作メリトクラシア 全90話</div>
+      <span class="card-badge badge-new">NEW</span>
+    </a>
+
+    <a class="card" href="./route/index.html">
+      <span class="card-icon">🧭</span>
+      <div class="card-title">ルート分岐</div>
+      <div class="card-desc">本編 / 体験版 / アイリス視点</div>
+      <span class="card-badge badge-done">DONE</span>
+    </a>
+
+  </div>
+</div>
+
     <!-- システム・能力 -->
     <div class="section" id="section-system">
       <div class="section-header">
@@ -541,21 +571,13 @@ header {
 
 </div>
 </div>
+
 <script>
 function switchSection(id) {
-  document.querySelectorAll('.section').forEach(section => {
-    section.classList.remove('active');
-  });
-
-  document.querySelectorAll('.sidenav-item').forEach(item => {
-    item.classList.remove('active');
-  });
-
-  const target = document.getElementById('section-' + id);
-  if (target) target.classList.add('active');
-
-  const nav = document.querySelector(`[data-section="${id}"]`);
-  if (nav) nav.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidenav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.querySelector(`[data-section="${id}"]`).classList.add('active');
 }
 
 document.querySelectorAll('.sidenav-item').forEach(item => {
@@ -564,25 +586,6 @@ document.querySelectorAll('.sidenav-item').forEach(item => {
     switchSection(item.dataset.section);
   });
 });
-
-/* module loader */
-function loadModule(slotId, path) {
-  fetch(path)
-    .then(res => {
-      if (!res.ok) throw new Error(`Failed to load: ${path}`);
-      return res.text();
-    })
-    .then(html => {
-      const slot = document.getElementById(slotId);
-      if (slot) slot.innerHTML = html;
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
-
-/* story slot */
-loadModule('story-module', './modules/story-section.html');
 </script>
 </body>
 </html>
