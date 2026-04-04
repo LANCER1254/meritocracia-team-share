@@ -1,15 +1,78 @@
-<section class="production-grid">
-  <!-- 📚 Draft LIVE -->
-  <a href="./draft/viewer.html" class="card live-card">
-    <h2>📚 Novel Draft LIVE</h2>
-    <p>初稿原稿を即時閲覧。Merit Writer 同期済み本文の確認導線。</p>
-    <span>LIVE VIEW</span>
-  </a>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plot Index OS</title>
 
-  <!-- 🧠 Plot OS -->
-  <a href="./plot/index.html" class="card plot-card">
-    <h2>🧠 Plot OS</h2>
-    <p>scene / chapter / archive / rewrite queue を統合した構成管理。</p>
-    <span>PLOT SYSTEM</span>
-  </a>
-</section>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: #0f1115;
+      color: #e5e7eb;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      color: #9ca3af;
+      margin-bottom: 24px;
+    }
+
+    #plot-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #1a1d24;
+      border: 1px solid #2b313d;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .card p {
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+
+    .links {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .btn.sub {
+      background: #374151;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Plot Index OS</h1>
+  <p class="sub">中央市場テロ事件 / 導入・中編・後編 / 事件全体表</p>
+
+  <section id="plot-list"></section>
+
+  <script src="./plot.js"></script>
+</body>
+</html>

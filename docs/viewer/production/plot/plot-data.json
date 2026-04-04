@@ -1,0 +1,26 @@
+[
+  {
+    "id": "terror-intro",
+    "title": "中央市場テロ事件｜導入",
+    "phase": "INTRO",
+    "desc": "市場崩壊、炎槍、カーネル死亡まで。",
+    "file": "./viewer.html?file=./chapter/terror/intro.md",
+    "dbLink": "../../db/terror/"
+  },
+  {
+    "id": "terror-middle",
+    "title": "中央市場テロ事件｜中編",
+    "phase": "MIDDLE",
+    "desc": "FO介入、路地裏発見、炎翼セル制圧。",
+    "file": "./viewer.html?file=./chapter/terror/middle.md",
+    "dbLink": "../../db/terror/"
+  },
+  {
+    "id": "terror-final",
+    "title": "中央市場テロ事件｜後編",
+    "phase": "FINAL",
+    "desc": "救護区画、国家の幕引き、ジェイドの誓い。",
+    "file": "./viewer.html?file=./chapter/terror/final.md",
+    "dbLink": "../../db/terror/"
+  }
+]
