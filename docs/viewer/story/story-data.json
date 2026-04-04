@@ -1,0 +1,102 @@
+[
+  {
+    "year": "Year +0",
+    "title": "建国",
+    "arc": "prologue",
+    "events": [
+      {
+        "tag": "prologue",
+        "tagLabel": "PROLOGUE",
+        "title": "メリトクラシア建国",
+        "desc": "能力主義国家メリトクラシア建国。旧体制崩壊、功績主義の理念が国家基盤となる。",
+        "chars": [],
+        "color": ""
+      }
+    ]
+  },
+  {
+    "year": "Year +6",
+    "title": "堕天使接触",
+    "arc": "prologue",
+    "events": [
+      {
+        "tag": "prologue",
+        "tagLabel": "PROLOGUE",
+        "title": "ベルフェゴール接触",
+        "desc": "6歳のジェイド、堕天使ベルフェゴールと接触。この経験がジェイドの特殊能力覚醒の起点となる。",
+        "chars": ["ジェイド", "ベルフェゴール"],
+        "color": ""
+      }
+    ]
+  },
+  {
+    "year": "Year +8",
+    "title": "中央市場テロ事件",
+    "arc": "terror",
+    "events": [
+      {
+        "tag": "demo",
+        "tagLabel": "DEMO",
+        "title": "【体験版】教会バイト編（ルカ視点）",
+        "desc": "建国記念日前日。ルカが教会で炎翼セルの儀式に巻き込まれる。ペンダントがカーネルへ渡る。",
+        "chars": ["ルカ", "ノクス", "セラ", "アーク", "神父エリオス"],
+        "color": "dark"
+      },
+      {
+        "tag": "demo",
+        "tagLabel": "DEMO",
+        "title": "【体験版】テロ当日・ミレイユ死亡",
+        "desc": "体験版ルート限定。建国記念日当日、中央市場テロ発生。ミレイユ死亡、カーネル重傷・生存。",
+        "chars": ["ジェイド", "ミレイユ", "カーネル"],
+        "color": "red"
+      },
+      {
+        "tag": "terror",
+        "tagLabel": "TERROR",
+        "title": "中央市場テロ（本編）",
+        "desc": "均衡解放戦線・炎翼セルによる天使分霊召喚テロ。カーネル死亡。ジェイドの人格形成の原点。",
+        "chars": ["ジェイド", "カーネル", "ガレス", "ミレイユ", "炎翼セル"],
+        "color": "red",
+        "link": "../db/terror/"
+      }
+    ]
+  },
+  {
+    "year": "Year +10",
+    "title": "本編開始",
+    "arc": "glory",
+    "events": [
+      {
+        "tag": "glory",
+        "tagLabel": "GLORY TEST",
+        "title": "数学最適化試験",
+        "desc": "安全制約により答えがP=8のみとなる数学問題。一つの許容解しか存在しないシステムの暗示。",
+        "chars": ["ジェイド"],
+        "color": "blue"
+      },
+      {
+        "tag": "glory",
+        "tagLabel": "GLORY TEST",
+        "title": "M-GSL構文整合試験",
+        "desc": "魔法構文論理テスト10問。法規制的推論を模した試験。",
+        "chars": ["ジェイド"],
+        "color": "blue"
+      }
+    ]
+  },
+  {
+    "year": "士官学校編",
+    "title": "士官学校編",
+    "arc": "officer",
+    "events": [
+      {
+        "tag": "officer",
+        "tagLabel": "ACADEMY",
+        "title": "士官学校編・開幕",
+        "desc": "審問庁付属士官学校へ入学。AI・社会問題が背景世界として描かれる。",
+        "chars": ["ジェイド"],
+        "color": "dark"
+      }
+    ]
+  }
+]

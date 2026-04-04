@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中央市場炎槍事件 | Meritocracia Terror DB</title>
+<link rel="stylesheet" href="./terror.css">
+</head>
+<body>
+
+<div class="terror-shell">
+
+  <!-- ナビ -->
+  <a class="back-link" href="../../index.html">← NATION ARCHIVE</a>
+
+  <!-- ======================================================
+       ① INCIDENT HEADER
+       ====================================================== -->
+  <section class="incident-header">
+    <div class="incident-tag">ZERO編 ／ MERITOCRACIA INCIDENT RECORD</div>
+    <h1 class="incident-title" id="incident-title">読み込み中...</h1>
+    <p class="incident-sub" id="incident-sub"></p>
+
+    <div class="incident-stats">
+      <div class="stat-chip red">
+        <span class="stat-label">死者</span>
+        <span class="stat-val" id="stat-dead">—</span>
+      </div>
+      <div class="stat-chip purple">
+        <span class="stat-label">逃亡・行方不明</span>
+        <span class="stat-val" id="stat-escape">—</span>
+      </div>
+      <div class="stat-chip amber">
+        <span class="stat-label">公式犯人（影武者）</span>
+        <span class="stat-val" id="stat-captured">—</span>
+      </div>
+      <div class="stat-chip">
+        <span class="stat-label">Scene</span>
+        <span class="stat-val">08 – 30</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- エラー表示 -->
+  <div id="error-msg" style="display:none; color:#e05050; font-size:13px; margin-bottom:32px; padding:16px; border:1px solid rgba(139,26,26,0.3); background:rgba(139,26,26,0.08);"></div>
+
+  <!-- ======================================================
+       ② STORY TIMELINE VIEW
+       ====================================================== -->
+  <section class="section-block">
+    <div class="section-eyebrow">02 — STORY TIMELINE</div>
+    <h2 class="section-title">ストーリータイムライン</h2>
+    <div class="timeline" id="timeline-wrap">
+      <!-- JS が生成 -->
+    </div>
+  </section>
+
+  <!-- ======================================================
+       ③ CELL STATUS DB
+       ====================================================== -->
+  <section class="section-block">
+    <div class="section-eyebrow">03 — CELL STATUS DATABASE</div>
+    <h2 class="section-title">炎翼セル メンバーステータス</h2>
+
+    <!-- 凡例 -->
+    <div class="legend" id="status-legend"></div>
+
+    <div class="status-grid" id="status-grid">
+      <!-- JS が生成 -->
+    </div>
+  </section>
+
+  <!-- ======================================================
+       ④ LONG FORESHADOW PANEL
+       ====================================================== -->
+  <section class="section-block">
+    <div class="section-eyebrow">04 — LONG FORESHADOW</div>
+    <h2 class="section-title">長期伏線 考察DB</h2>
+
+    <div class="foreshadow-grid" id="foreshadow-grid">
+      <!-- JS が生成 -->
+    </div>
+  </section>
+
+</div><!-- /.terror-shell -->
+
+<script src="./terror.js"></script>
+</body>
+</html>

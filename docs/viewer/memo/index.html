@@ -68,14 +68,14 @@ fetch('./data/index.json')
 
       div.addEventListener('click', () => {
         fetch(item.path)
-          .then(r => r.text())
-          .then(text => {
-            viewer.textContent = text;
-          })
-          .catch(() => {
-            viewer.textContent = "読み込み失敗";
-          });
-      });
+  .then(r => r.arrayBuffer())
+  .then(buf => {
+    const text = new TextDecoder('utf-8').decode(buf);
+    viewer.textContent = text;
+  })
+  .catch(() => {
+    viewer.textContent = "読み込み失敗";
+  });
 
       list.appendChild(div);
     });

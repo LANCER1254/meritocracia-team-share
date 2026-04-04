@@ -1,0 +1,115 @@
+{
+  "incident": "中央市場炎槍事件",
+  "cell": "炎翼セル",
+  "members": [
+    {
+      "id": "C-01",
+      "name": "アーク",
+      "role": "セルリーダー",
+      "role_en": "Cell Leader",
+      "status": "escape",
+      "status_label": "逃亡・生存",
+      "public_info": "国家未把握",
+      "future_hook": "上位セル接続担当。ZERO終盤黒幕導線。",
+      "threat": "high"
+    },
+    {
+      "id": "R-02",
+      "name": "ノクス",
+      "role": "儀式中枢",
+      "role_en": "Ritual Core",
+      "status": "unknown",
+      "status_label": "生死不明（生存寄り）",
+      "public_info": "死亡扱い",
+      "future_hook": "影武者作戦の主導者候補。自害は偽装の可能性。",
+      "threat": "high"
+    },
+    {
+      "id": "R-03",
+      "name": "セラ",
+      "role": "儀式補助",
+      "role_en": "Ritual Support",
+      "status": "escape",
+      "status_label": "逃亡・生存",
+      "public_info": "行方不明",
+      "future_hook": "ルカとの接点あり。後の証言者候補。迷いを持つ唯一の存在。",
+      "threat": "medium"
+    },
+    {
+      "id": "D-04",
+      "name": "グラム",
+      "role": "爆破担当",
+      "role_en": "Demo Unit",
+      "status": "captured",
+      "status_label": "逮捕（影武者）",
+      "public_info": "実行犯として報道・処刑予定",
+      "future_hook": "公開尋問の替え玉本命。心音解析で「こいつじゃない」が確定する対象。",
+      "threat": "low"
+    },
+    {
+      "id": "D-05",
+      "name": "イグナ",
+      "role": "火炎拡大",
+      "role_en": "Flame Unit",
+      "status": "dead",
+      "status_label": "死亡",
+      "public_info": "戦死扱い",
+      "future_hook": "炎翼セルの狂信性を象徴する存在。",
+      "threat": "none"
+    },
+    {
+      "id": "S-06",
+      "name": "リド",
+      "role": "市場監視",
+      "role_en": "Market Scout",
+      "status": "escape",
+      "status_label": "逃亡・生存",
+      "public_info": "未特定",
+      "future_hook": "元一般人。再登場時に思想崩壊描写が可能な人物。",
+      "threat": "medium"
+    },
+    {
+      "id": "S-07",
+      "name": "ヴェル",
+      "role": "外周警戒",
+      "role_en": "Perimeter Guard",
+      "status": "escape",
+      "status_label": "逃亡・生存",
+      "public_info": "未特定",
+      "future_hook": "残党ネットワーク維持役。逃走ルートを知る数少ない存在。",
+      "threat": "medium"
+    },
+    {
+      "id": "SUPPORT",
+      "name": "ルカ",
+      "role": "教会側被害者",
+      "role_en": "Church Proxy",
+      "status": "civilian",
+      "status_label": "生存（民間）",
+      "public_info": "無関係市民",
+      "future_hook": "ペンダント伏線・贖罪ライン。知らずに利用された補助導線。",
+      "threat": "none"
+    },
+    {
+      "id": "CHURCH",
+      "name": "エリオス",
+      "role": "思想協力者",
+      "role_en": "Church Collaborator",
+      "status": "shadow",
+      "status_label": "要監視・黒幕候補",
+      "public_info": "神父として平常運用",
+      "future_hook": "黒幕候補の中継点。教会地下への接続役。",
+      "threat": "high"
+    }
+  ],
+  "fo_involved": [
+    {
+      "id": "FO-LEAD",
+      "name": "ガーネット・ヴァルグレイ",
+      "role": "FO隊長",
+      "role_en": "FO Commander",
+      "action": "聖剣で炎槍を直接防御。路地裏でノクスの魔法陣を一撃破壊。",
+      "note": "ジェイドに「人が神の槍を止めた」光景を刻んだ人物。"
+    }
+  ]
+}

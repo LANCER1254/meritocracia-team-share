@@ -538,22 +538,16 @@ const drawerOpenBtn = document.getElementById('drawer-open-btn');
 function openDrawer() {
   drawer.classList.add('open');
   overlay.classList.add('open');
-  document.body.style.overflow = 'hidden'; // 背景スクロール封じ
 }
 
 function closeDrawer() {
   drawer.classList.remove('open');
   overlay.classList.remove('open');
-  document.body.style.overflow = '';
 }
 
 drawerOpenBtn.addEventListener('click', openDrawer);
 overlay.addEventListener('click', closeDrawer);
 
-// ドロワー内の話数リンクをタップしたら閉じる
-drawer.addEventListener('click', e => {
-  if (e.target.classList.contains('ep-link')) closeDrawer();
-});
 
 /* ============================================================
    ナビ更新（ヘッダー / 話数バー / フッター）

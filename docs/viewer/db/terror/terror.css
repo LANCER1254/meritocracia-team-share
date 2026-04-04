@@ -1,0 +1,640 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap');
+
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --bg:           #060a11;
+  --bg2:          #0a1020;
+  --bg3:          #0e1628;
+  --panel:        #0d1525;
+  --panel2:       #111d35;
+
+  --gold:         #c9a961;
+  --gold2:        #e8c97a;
+  --gold-dim:     #7a6035;
+  --gold-glow:    rgba(201,169,97,0.15);
+
+  --text:         #d8ccb4;
+  --text2:        #7a6e58;
+  --text3:        #4a4030;
+
+  --border:       rgba(201,169,97,0.14);
+  --border2:      rgba(201,169,97,0.3);
+
+  /* ステータスカラー */
+  --c-dead:       #8b1a1a;
+  --c-dead-glow:  rgba(139,26,26,0.2);
+  --c-dead-text:  #e05050;
+
+  --c-captured:   #b8901a;
+  --c-captured-glow: rgba(184,144,26,0.2);
+  --c-captured-text: #e8c050;
+
+  --c-escape:     #5a2d8a;
+  --c-escape-glow: rgba(90,45,138,0.2);
+  --c-escape-text: #b080f0;
+
+  --c-civilian:   #1a4a7a;
+  --c-civilian-glow: rgba(26,74,122,0.2);
+  --c-civilian-text: #60a8e0;
+
+  --c-unknown:    #3a3a4a;
+  --c-unknown-glow: rgba(58,58,74,0.3);
+  --c-unknown-text: #9090b0;
+
+  --c-shadow:     #0a0a0a;
+  --c-shadow-glow: rgba(201,169,97,0.08);
+  --c-shadow-text: #c9a961;
+
+  /* ハイライト種別 */
+  --hl-death:     rgba(139,26,26,0.12);
+  --hl-pivot:     rgba(60,100,180,0.1);
+  --hl-deception: rgba(90,45,138,0.12);
+  --hl-awakening: rgba(80,160,120,0.1);
+  --hl-oath:      rgba(201,169,97,0.1);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  line-height: 1.8;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(139,26,26,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(20,40,90,0.12) 0%, transparent 60%),
+    repeating-linear-gradient(
+      45deg, transparent, transparent 100px,
+      rgba(201,169,97,0.012) 100px, rgba(201,169,97,0.012) 101px
+    );
+  pointer-events: none; z-index: 0;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.terror-shell {
+  position: relative; z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 20px 100px;
+}
+
+/* ============================================================
+   BACK LINK
+   ============================================================ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 20px 0;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--gold); }
+
+/* ============================================================
+   ① INCIDENT HEADER
+   ============================================================ */
+.incident-header {
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 64px;
+  position: relative;
+}
+
+.incident-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 120px; height: 1px;
+  background: var(--gold);
+}
+
+.incident-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--c-dead-text);
+  opacity: 0.7;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.incident-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.incident-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 36px;
+}
+
+.incident-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.stat-chip .stat-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  text-transform: uppercase;
+}
+
+.stat-chip .stat-val {
+  font-size: 18px;
+  color: var(--gold2);
+}
+
+.stat-chip.red  .stat-val { color: var(--c-dead-text); }
+.stat-chip.purple .stat-val { color: var(--c-escape-text); }
+.stat-chip.amber .stat-val { color: var(--c-captured-text); }
+
+/* ============================================================
+   SECTION LABEL
+   ============================================================ */
+.section-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 1px;
+  background: var(--gold-dim);
+}
+
+.section-block {
+  margin-bottom: 80px;
+}
+
+/* ============================================================
+   ② STORY TIMELINE
+   ============================================================ */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--border2), var(--border), transparent);
+}
+
+/* フェーズ区切り */
+.phase-divider {
+  margin: 40px 0 24px -32px;
+  padding-left: 32px;
+  position: relative;
+}
+
+.phase-divider::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 14px; height: 1px;
+  background: var(--gold-dim);
+}
+
+.phase-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+.phase-label-ja {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+}
+
+/* シーンカード */
+.scene-card {
+  position: relative;
+  margin-bottom: 16px;
+  padding: 20px 22px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  animation: scene-in 0.5s ease both;
+}
+
+.scene-card:hover {
+  border-color: var(--border2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,169,97,0.05);
+}
+
+/* タイムラインのドット */
+.scene-card::before {
+  content: '';
+  position: absolute;
+  left: -29px; top: 24px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border2);
+  border: 1px solid var(--bg);
+  transition: background 0.2s;
+}
+
+.scene-card:hover::before { background: var(--gold); }
+
+/* ハイライト種別 */
+.scene-card.hl-death     { background: var(--hl-death);     border-color: rgba(139,26,26,0.25); }
+.scene-card.hl-pivot     { background: var(--hl-pivot);     border-color: rgba(60,100,180,0.25); }
+.scene-card.hl-deception { background: var(--hl-deception); border-color: rgba(90,45,138,0.25); }
+.scene-card.hl-awakening { background: var(--hl-awakening); border-color: rgba(80,160,120,0.25); }
+.scene-card.hl-oath      { background: var(--hl-oath);      border-color: rgba(201,169,97,0.25); }
+
+.scene-card.hl-death::before     { background: var(--c-dead-text); }
+.scene-card.hl-pivot::before     { background: #6090e0; }
+.scene-card.hl-deception::before { background: var(--c-escape-text); }
+.scene-card.hl-awakening::before { background: #60d0a0; }
+.scene-card.hl-oath::before      { background: var(--gold); }
+
+.scene-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  margin-bottom: 4px;
+}
+
+.scene-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.scene-card.hl-death     .scene-title { color: var(--c-dead-text); }
+.scene-card.hl-awakening .scene-title { color: #80e0b8; }
+.scene-card.hl-oath      .scene-title { color: var(--gold2); }
+.scene-card.hl-deception .scene-title { color: var(--c-escape-text); }
+
+.scene-summary {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.9;
+  margin-bottom: 12px;
+}
+
+.scene-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.scene-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  color: var(--text3);
+}
+
+/* ハイライトバッジ */
+.hl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+  border: 1px solid;
+  text-transform: uppercase;
+}
+
+.hl-badge.death     { color: var(--c-dead-text);     border-color: rgba(139,26,26,0.4);     background: rgba(139,26,26,0.08); }
+.hl-badge.pivot     { color: #6090e0;                border-color: rgba(60,100,180,0.4);    background: rgba(60,100,180,0.08); }
+.hl-badge.deception { color: var(--c-escape-text);   border-color: rgba(90,45,138,0.4);     background: rgba(90,45,138,0.08); }
+.hl-badge.awakening { color: #80e0b8;                border-color: rgba(80,160,120,0.4);    background: rgba(80,160,120,0.08); }
+.hl-badge.oath      { color: var(--gold2);           border-color: rgba(201,169,97,0.4);    background: rgba(201,169,97,0.08); }
+
+@keyframes scene-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================================
+   ③ CELL STATUS DB
+   ============================================================ */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.member-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.member-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* ステータス別カラー */
+.member-card.dead     { border-color: rgba(139,26,26,0.3); }
+.member-card.dead::before     { background: var(--c-dead-text); }
+.member-card.dead:hover       { box-shadow: 0 8px 32px rgba(139,26,26,0.2); }
+
+.member-card.captured { border-color: rgba(184,144,26,0.3); }
+.member-card.captured::before { background: var(--c-captured-text); }
+.member-card.captured:hover   { box-shadow: 0 8px 32px rgba(184,144,26,0.2); }
+
+.member-card.escape   { border-color: rgba(90,45,138,0.3); }
+.member-card.escape::before   { background: var(--c-escape-text); }
+.member-card.escape:hover     { box-shadow: 0 8px 32px rgba(90,45,138,0.2); }
+
+.member-card.civilian { border-color: rgba(26,74,122,0.3); }
+.member-card.civilian::before { background: var(--c-civilian-text); }
+.member-card.civilian:hover   { box-shadow: 0 8px 32px rgba(26,74,122,0.2); }
+
+.member-card.unknown  { border-color: rgba(58,58,74,0.4); }
+.member-card.unknown::before  { background: var(--c-unknown-text); }
+.member-card.unknown:hover    { box-shadow: 0 8px 32px rgba(58,58,74,0.3); }
+
+.member-card.shadow   { border-color: rgba(201,169,97,0.2); }
+.member-card.shadow::before   { background: linear-gradient(to right, var(--gold-dim), var(--c-escape-text)); }
+.member-card.shadow:hover     { box-shadow: 0 8px 32px var(--gold-glow); }
+
+.member-id {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  margin-bottom: 6px;
+}
+
+.member-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.member-role {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text2);
+  margin-bottom: 14px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border: 1px solid;
+  margin-bottom: 14px;
+}
+
+.status-badge.dead     { color: var(--c-dead-text);     border-color: rgba(139,26,26,0.4);  background: var(--c-dead-glow); }
+.status-badge.captured { color: var(--c-captured-text); border-color: rgba(184,144,26,0.4); background: var(--c-captured-glow); }
+.status-badge.escape   { color: var(--c-escape-text);   border-color: rgba(90,45,138,0.4);  background: var(--c-escape-glow); }
+.status-badge.civilian { color: var(--c-civilian-text); border-color: rgba(26,74,122,0.4);  background: var(--c-civilian-glow); }
+.status-badge.unknown  { color: var(--c-unknown-text);  border-color: rgba(58,58,74,0.5);   background: var(--c-unknown-glow); }
+.status-badge.shadow   { color: var(--gold2);           border-color: rgba(201,169,97,0.3); background: var(--c-shadow-glow); }
+
+.member-public {
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--border);
+}
+
+.member-public span { color: var(--text3); font-size: 9px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
+
+.member-hook {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.8;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* FO特別カード */
+.fo-card {
+  background: linear-gradient(135deg, rgba(30,60,120,0.15), var(--panel));
+  border: 1px solid rgba(60,100,200,0.2);
+  padding: 22px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, #4a7fc1, transparent);
+}
+
+.fo-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #4a7fc1;
+  margin-bottom: 8px;
+}
+
+.fo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.fo-action {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+
+/* ============================================================
+   ④ FORESHADOW PANEL
+   ============================================================ */
+.foreshadow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.foreshadow-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 24px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.foreshadow-card:hover { border-color: var(--border2); }
+
+.foreshadow-icon {
+  font-size: 20px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.foreshadow-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.foreshadow-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.foreshadow-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.9;
+}
+
+.foreshadow-connect {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--gold-dim);
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   LEGEND
+   ============================================================ */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+}
+
+.legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .incident-title { font-size: 2rem; }
+  .incident-stats { gap: 8px; }
+  .stat-chip { padding: 7px 12px; }
+  .timeline { padding-left: 24px; }
+  .status-grid { grid-template-columns: 1fr; }
+  .foreshadow-grid { grid-template-columns: 1fr; }
+}
