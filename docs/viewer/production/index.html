@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Production OS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      background: #111;
+      color: #eee;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .card {
+      display: block;
+      padding: 20px;
+      border-radius: 16px;
+      background: #1d1d1d;
+      border: 1px solid #333;
+      color: #fff;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      border-color: #999;
+      transform: translateY(-2px);
+    }
+
+    small {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠 Production Novel OS</h1>
+
+  <div class="grid">
+    <a class="card" href="./draft/viewer.html">
+      <h2>📚 Draft LIVE</h2>
+      <small>初稿本文の即時閲覧</small>
+    </a>
+
+    <a class="card" href="./plot/index.html">
+      <h2>🧠 Plot OS</h2>
+      <small>scene / chapter / archive 管理</small>
+    </a>
+
+    <a class="card" href="./rewrite/">
+      <h2>♻ Rewrite</h2>
+      <small>修正待ち本文バッファ</small>
+    </a>
+
+    <a class="card" href="./scene/">
+      <h2>🎬 Scene Lab</h2>
+      <small>シーン単位の試作・演出確認</small>
+    </a>
+
+    <a class="card" href="./meeting/">
+      <h2>📘 Meeting</h2>
+      <small>議事録・採用ログ</small>
+    </a>
+  </div>
+</body>
+</html>
