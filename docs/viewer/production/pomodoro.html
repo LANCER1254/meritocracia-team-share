@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERITOCRACIA OS — 作業卓</title>
+<style>
+  :root {
+    --bg:      #07090f;
+    --bg2:     #0e1320;
+    --bg3:     #141c2e;
+    --amber:   #c8841a;
+    --amber2:  #e8a030;
+    --amber3:  #f5c060;
+    --dim:     #4a3c28;
+    --text:    #d4c5a9;
+    --text2:   #7a6e5e;
+    --text3:   #4a4030;
+    --green:   #2a8a4a;
+    --green2:  #3dbb66;
+    --red:     #8a2020;
+    --red2:    #cc3333;
+    --border:  rgba(200,132,26,0.18);
+    --shadow:  rgba(0,0,0,0.6);
+    --r:       16px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Georgia', 'Noto Serif JP', serif;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  /* グリッド背景 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,132,26,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,132,26,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* 光源 */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(200,132,26,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ────── 上部ヘッダー ────── */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--amber);
+    opacity: 0.7;
+  }
+
+  .clock-block {
+    text-align: right;
+  }
+
+  #clock-time {
+    font-size: clamp(32px, 7vw, 52px);
+    font-weight: normal;
+    color: var(--amber2);
+    letter-spacing: 4px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #clock-date {
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  /* ────── 2カラムレイアウト ────── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 620px) {
+    .main-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ────── カード共通 ────── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 24px;
+    box-shadow: 0 4px 24px var(--shadow);
+  }
+
+  .card-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--amber);
+    opacity: 0.7;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  /* ────── ポモドーロ ────── */
+  #pomo-mode {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--text2);
+    margin-bottom: 12px;
+    transition: color 0.5s;
+  }
+  #pomo-mode.break { color: var(--green2); }
+
+  /* SVG 円形プログレス */
+  .ring-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .ring-svg {
+    width: clamp(140px, 35vw, 180px);
+    height: clamp(140px, 35vw, 180px);
+    transform: rotate(-90deg);
+  }
+
+  .ring-bg {
+    fill: none;
+    stroke: var(--bg3);
+    stroke-width: 6;
+  }
+
+  .ring-prog {
+    fill: none;
+    stroke: var(--amber);
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s;
+  }
+  .ring-prog.break { stroke: var(--green2); }
+
+  .ring-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  #pomo-timer {
+    font-size: clamp(26px, 6vw, 38px);
+    letter-spacing: 3px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  #pomo-session {
+    font-size: 10px;
+    color: var(--text2);
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  /* ボタン群 */
+  .pomo-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .pomo-btn {
+    flex: 1;
+    padding: 11px 0;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text2);
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pomo-btn:hover {
+    background: rgba(200,132,26,0.12);
+    color: var(--amber2);
+    border-color: var(--amber);
+  }
+
+  .pomo-btn.primary {
+    background: rgba(200,132,26,0.15);
+    color: var(--amber2);
+    border-color: var(--amber);
+  }
+
+  .pomo-btn.primary:hover {
+    background: rgba(200,132,26,0.28);
+    color: var(--amber3);
+  }
+
+  /* ────── 時間割 ────── */
+  #schedule-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .now-banner {
+    background: linear-gradient(135deg, rgba(200,132,26,0.15), rgba(200,132,26,0.05));
+    border: 1px solid rgba(200,132,26,0.35);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .now-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--amber);
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+
+  #now-task {
+    font-size: clamp(16px, 4vw, 20px);
+    color: var(--amber2);
+    letter-spacing: 1px;
+  }
+
+  #now-remaining {
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* スケジュール行 */
+  .schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sch-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: var(--bg3);
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sch-item.past {
+    opacity: 0.35;
+  }
+
+  .sch-item.current {
+    background: rgba(200,132,26,0.10);
+    border-color: rgba(200,132,26,0.4);
+  }
+
+  /* 左光線 */
+  .sch-item.current::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--amber2);
+    border-radius: 2px 0 0 2px;
+  }
+
+  .sch-item.next {
+    border-color: rgba(200,132,26,0.18);
+  }
+
+  .sch-time {
+    font-size: 13px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    width: 44px;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sch-item.past .sch-time { color: var(--text3); }
+  .sch-item.current .sch-time { color: var(--amber2); }
+
+  .sch-sep {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .sch-title {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .sch-item.past .sch-title { color: var(--text3); }
+  .sch-item.current .sch-title { color: var(--text); }
+
+  .sch-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text3);
+    flex-shrink: 0;
+  }
+  .sch-item.current .sch-dot { background: var(--amber2); box-shadow: 0 0 6px var(--amber); }
+  .sch-item.next .sch-dot { background: var(--dim); }
+
+  /* ────── 最下部メモ ────── */
+  .footer-note {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 3px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ヘッダー -->
+  <div class="top-bar">
+    <div class="site-label">MERITOCRACIA — 作業卓</div>
+    <div class="clock-block">
+      <div id="clock-time">00:00:00</div>
+      <div id="clock-date">----/--/--</div>
+    </div>
+  </div>
+
+  <!-- 2カラム -->
+  <div class="main-grid">
+
+    <!-- ─── ポモドーロ ─── -->
+    <div class="card">
+      <span class="card-label">POMODORO TIMER</span>
+      <div id="pomo-mode">WORK</div>
+
+      <div class="ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 100 100">
+          <circle class="ring-bg" cx="50" cy="50" r="42"/>
+          <circle class="ring-prog" id="ring" cx="50" cy="50" r="42"
+            stroke-dasharray="263.9"
+            stroke-dashoffset="0"/>
+        </svg>
+        <div class="ring-center">
+          <div id="pomo-timer">25:00</div>
+          <div id="pomo-session">SESSION 1</div>
+        </div>
+      </div>
+
+      <div class="pomo-btns">
+        <button class="pomo-btn primary" id="btn-start" onclick="pomoStart()">START</button>
+        <button class="pomo-btn" id="btn-pause" onclick="pomoPause()">PAUSE</button>
+        <button class="pomo-btn" id="btn-reset" onclick="pomoReset()">RESET</button>
+      </div>
+    </div>
+
+    <!-- ─── 時間割 ─── -->
+    <div class="card" id="schedule-card">
+      <span class="card-label">TODAY'S SCHEDULE</span>
+
+      <div class="now-banner">
+        <div class="now-label">NOW</div>
+        <div id="now-task">—</div>
+        <div id="now-remaining">次の予定まで —</div>
+      </div>
+
+      <div class="schedule-list" id="sch-list"></div>
+    </div>
+
+  </div>
+
+  <div class="footer-note">LOCAL — NO SERVER — NO EXTERNAL ASSETS</div>
+</div>
+
+<script>
+/* ══════════════════════════
+   時計
+══════════════════════════ */
+const DAYS = ['日','月','火','水','木','金','土'];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById('clock-time').textContent =
+    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  document.getElementById('clock-date').textContent =
+    `${now.getFullYear()}/${pad(now.getMonth()+1)}/${pad(now.getDate())} (${DAYS[now.getDay()]})`;
+}
+
+/* ══════════════════════════
+   時間割データ
+══════════════════════════ */
+const SCHEDULE = [
+  { time: "18:00", label: "執筆" },
+  { time: "19:30", label: "仮眠" },
+  { time: "22:00", label: "会議" },
+  { time: "23:00", label: "シーン27以降" },
+  { time: "02:00", label: "就寝" },
+];
+
+function timeToMinutes(t){
+  const [h, m] = t.split(':').map(Number);
+  // 深夜02:00は翌日扱い → 26:00として計算
+  return (h < 6 ? h + 24 : h) * 60 + m;
+}
+
+function buildSchedule(){
+  const list = document.getElementById('sch-list');
+  list.innerHTML = '';
+  SCHEDULE.forEach((s, i) => {
+    const item = document.createElement('div');
+    item.className = 'sch-item';
+    item.id = `sch-${i}`;
+    item.innerHTML = `
+      <span class="sch-time">${s.time}</span>
+      <div class="sch-sep"></div>
+      <span class="sch-title">${s.label}</span>
+      <span class="sch-dot"></span>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function updateSchedule(){
+  const now = new Date();
+  const nowMin = (now.getHours() < 6 ? now.getHours() + 24 : now.getHours()) * 60 + now.getMinutes();
+
+  let currentIdx = -1;
+
+  // 現在どのブロックに居るか（その時刻を過ぎていて次の時刻未満）
+  for(let i = 0; i < SCHEDULE.length; i++){
+    const start = timeToMinutes(SCHEDULE[i].time);
+    const end   = i + 1 < SCHEDULE.length ? timeToMinutes(SCHEDULE[i+1].time) : start + 24*60;
+    if(nowMin >= start && nowMin < end){
+      currentIdx = i;
+      break;
+    }
+  }
+
+  SCHEDULE.forEach((s, i) => {
+    const el = document.getElementById(`sch-${i}`);
+    el.className = 'sch-item';
+    const t = timeToMinutes(s.time);
+    if(i === currentIdx)      el.classList.add('current');
+    else if(t < nowMin && i !== currentIdx) el.classList.add('past');
+    else if(i === currentIdx + 1) el.classList.add('next');
+  });
+
+  // NOW バナー
+  if(currentIdx >= 0){
+    document.getElementById('now-task').textContent = SCHEDULE[currentIdx].label;
+    if(currentIdx + 1 < SCHEDULE.length){
+      const nextMin = timeToMinutes(SCHEDULE[currentIdx+1].time);
+      const diff = nextMin - nowMin;
+      const h = Math.floor(diff / 60);
+      const m = diff % 60;
+      const label = h > 0 ? `${h}時間${m}分後に「${SCHEDULE[currentIdx+1].label}」` : `${m}分後に「${SCHEDULE[currentIdx+1].label}」`;
+      document.getElementById('now-remaining').textContent = label;
+    } else {
+      document.getElementById('now-remaining').textContent = '本日の予定終了';
+    }
+  } else {
+    document.getElementById('now-task').textContent = '予定時間外';
+    document.getElementById('now-remaining').textContent = '次の予定: ' + SCHEDULE[0].time + ' ' + SCHEDULE[0].label;
+  }
+}
+
+/* ══════════════════════════
+   ポモドーロ
+══════════════════════════ */
+const WORK_SEC  = 25 * 60;
+const BREAK_SEC = 5  * 60;
+const CIRCUMF   = 2 * Math.PI * 42; // ≒ 263.9
+
+let pomoState = {
+  running:  false,
+  isBreak:  false,
+  remain:   WORK_SEC,
+  sessions: 1,
+  interval: null,
+};
+
+function ringSet(ratio){
+  const offset = CIRCUMF * (1 - ratio);
+  document.getElementById('ring').style.strokeDashoffset = offset;
+}
+
+function renderPomo(){
+  const s = pomoState;
+  const total = s.isBreak ? BREAK_SEC : WORK_SEC;
+  const m = Math.floor(s.remain / 60);
+  const sec = s.remain % 60;
+
+  document.getElementById('pomo-timer').textContent = `${pad(m)}:${pad(sec)}`;
+  document.getElementById('pomo-mode').textContent  = s.isBreak ? 'BREAK' : 'WORK';
+  document.getElementById('pomo-mode').className    = s.isBreak ? 'break' : '';
+  document.getElementById('pomo-session').textContent = `SESSION ${s.sessions}`;
+  document.getElementById('ring').className = s.isBreak
+    ? 'ring-prog break' : 'ring-prog';
+
+  ringSet(s.remain / total);
+
+  // ボタン状態
+  document.getElementById('btn-start').textContent = s.running ? 'RUNNING' : 'START';
+  document.getElementById('btn-start').className = s.running
+    ? 'pomo-btn' : 'pomo-btn primary';
+}
+
+function pomoTick(){
+  if(pomoState.remain <= 0){
+    pomoState.isBreak = !pomoState.isBreak;
+    if(!pomoState.isBreak) pomoState.sessions++;
+    pomoState.remain = pomoState.isBreak ? BREAK_SEC : WORK_SEC;
+  } else {
+    pomoState.remain--;
+  }
+  renderPomo();
+}
+
+function pomoStart(){
+  if(pomoState.running) return;
+  pomoState.running = true;
+  pomoState.interval = setInterval(pomoTick, 1000);
+  renderPomo();
+}
+
+function pomoPause(){
+  if(!pomoState.running) return;
+  pomoState.running = false;
+  clearInterval(pomoState.interval);
+  renderPomo();
+}
+
+function pomoReset(){
+  pomoPause();
+  pomoState.isBreak  = false;
+  pomoState.remain   = WORK_SEC;
+  pomoState.sessions = 1;
+  renderPomo();
+}
+
+/* ══════════════════════════
+   初期化・ループ
+══════════════════════════ */
+buildSchedule();
+renderPomo();
+
+setInterval(() => {
+  updateClock();
+  updateSchedule();
+}, 1000);
+
+updateClock();
+updateSchedule();
+</script>
+</body>
+</html>
