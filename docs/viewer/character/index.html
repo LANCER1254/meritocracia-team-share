@@ -31,6 +31,7 @@ h1 {
 
 /* カード */
 .card {
+  position: relative;
   background:#1a1a1a;
   padding:30px 20px;
   border-radius:12px;
@@ -45,13 +46,30 @@ h1 {
   background:#222;
 }
 
+/* 🌙 デイジア専用タグ */
+.tag {
+  position:absolute;
+  top:12px;
+  right:12px;
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:#8b0000;
+  color:#fff;
+  letter-spacing:0.08em;
+}
+
+.vampire-card:hover {
+  border-color:#b22222;
+  box-shadow:0 0 12px rgba(139,0,0,0.35);
+}
+
 /* リンク */
 a {
   text-decoration:none;
   color:#fff;
 }
 </style>
-</head>
 
 <body>
 
@@ -85,6 +103,15 @@ a {
     <div class="card">
       <h2>アイリス</h2>
       <p>感情の象徴</p>
+    </div>
+  </a>
+
+  <!-- 🌙 デイジア追加 -->
+  <a href="daisia/">
+    <div class="card vampire-card">
+      <span class="tag">VAMPIRE</span>
+      <h2>デイジア</h2>
+      <p>夜を越えて朝を選ぶ少女</p>
     </div>
   </a>
 

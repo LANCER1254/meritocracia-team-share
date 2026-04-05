@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daisia Nocturne | MERITOCRACIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./daisia.css">
+</head>
+<body>
+
+<div class="char-page">
+
+  <div id="char-error-msg"
+       style="display:none; color:#e05050; font-size:12px; padding:12px;
+              border:1px solid rgba(139,26,26,0.3); margin-bottom:16px;"></div>
+
+  <div class="mode-toggle-wrap">
+    <button id="char-toggle-btn" class="mode-toggle-btn">
+      <span>🌙 Night / ☀ Dawn</span>
+    </button>
+  </div>
+
+  <a class="char-back-link" href="../index.html">← CHARACTER LIST</a>
+
+  <header class="blood-label-header char-fade-in" data-corner="❋">
+    <span class="char-corner-tl"></span>
+    <span class="char-corner-br"></span>
+    <div id="char-brand-logo" class="char-brand-logo"></div>
+    <div class="char-divider"><span></span></div>
+    <h1 id="char-name-en" class="char-name-en"></h1>
+    <p  id="char-name-ja" class="char-name-ja"></p>
+    <div class="char-divider"><span></span></div>
+    <div id="char-particle-wrap" class="char-particle-wrap" aria-hidden="true"></div>
+    <p id="char-flavor-text" class="char-flavor-text"></p>
+  </header>
+
+  <div id="char-strip-night" class="char-color-strip char-strip-night" aria-hidden="true"></div>
+  <div id="char-strip-dawn"  class="char-color-strip char-strip-dawn"  aria-hidden="true"></div>
+
+  <main>
+
+    <div class="char-profile-grid">
+
+      <div class="char-card char-fade-in">
+        <div class="char-card-title">
+          <span class="char-ring-accent"></span>
+          <span id="char-profile-title"></span>
+        </div>
+        <dl id="char-status-list" class="char-status-list"></dl>
+        <div id="char-tag-row" class="char-tag-row"></div>
+      </div>
+
+      <div class="char-card char-fade-in">
+        <div class="char-card-title">
+          <span class="char-ring-accent"></span>
+          <span id="char-cap-title"></span>
+        </div>
+        <div id="char-cap-wrap"></div>
+      </div>
+
+    </div>
+
+    <div class="char-full-section char-card char-fade-in">
+      <div class="char-card-title">
+        <span class="char-ring-accent"></span>
+        <span id="char-concept-title"></span>
+      </div>
+      <p id="char-concept-text" class="char-concept-text"></p>
+      <div id="char-notes-night" style="margin-top:20px;"></div>
+      <div id="char-notes-dawn"  style="display:none; margin-top:20px;"></div>
+    </div>
+
+  </main>
+
+  <footer class="char-footer">
+    <p id="char-footer-quote"></p>
+    <small id="char-footer-label"></small>
+  </footer>
+
+</div>
+
+<script src="./daisia.js"></script>
+</body>
+</html>
