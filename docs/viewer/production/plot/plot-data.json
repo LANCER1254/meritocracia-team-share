@@ -1,34 +1,42 @@
 [
   {
-    "id": "terror-intro",
-    "title": "中央市場テロ事件｜導入",
-    "phase": "INTRO",
-    "desc": "市場崩壊、炎槍、カーネル死亡まで。",
-    "file": "./viewer.html?file=./chapter/terror/intro.md",
-    "dbLink": "../../db/terror/"
-  },
-  {
-    "id": "terror-middle",
-    "title": "中央市場テロ事件｜中編",
-    "phase": "MIDDLE",
-    "desc": "FO介入、路地裏発見、炎翼セル制圧。",
-    "file": "./viewer.html?file=./chapter/terror/middle.md",
-    "dbLink": "../../db/terror/"
-  },
-  {
-    "id": "terror-final",
-    "title": "中央市場テロ事件｜後編",
-    "phase": "FINAL",
-    "desc": "救護区画、国家の幕引き、ジェイドの誓い。",
+    "id": "final",
+    "title": "final",
+    "category": "terror",
+    "desc": "中央市場テロ事件配下の自動登録プロット",
     "file": "./viewer.html?file=./chapter/terror/final.md",
-    "dbLink": "../../db/terror/"
+    "dbLink": "../../story/"
   },
   {
-    "id": "timeline-main-ep01",
-    "title": "本編 第1話 再構築版",
+    "id": "intro",
+    "title": "intro",
+    "category": "terror",
+    "desc": "中央市場テロ事件配下の自動登録プロット",
+    "file": "./viewer.html?file=./chapter/terror/intro.md",
+    "dbLink": "../../story/"
+  },
+  {
+    "id": "middle",
+    "title": "middle",
+    "category": "terror",
+    "desc": "中央市場テロ事件配下の自動登録プロット",
+    "file": "./viewer.html?file=./chapter/terror/middle.md",
+    "dbLink": "../../story/"
+  },
+  {
+    "id": "ep01_reboot_plot",
+    "title": "EP 01 reboot plot",
     "category": "timeline-main",
-    "desc": "カーネルの葬式からアイリス介入直前までを再構築した本編正史プロット。",
+    "desc": "本編時系列配下の自動登録プロット",
     "file": "./viewer.html?file=./chapter/timeline-main/ep01_reboot_plot.md",
+    "dbLink": "../../story/"
+  },
+  {
+    "id": "ep02_va_protection_plot",
+    "title": "EP 02 va protection plot",
+    "category": "timeline-main",
+    "desc": "本編時系列配下の自動登録プロット",
+    "file": "./viewer.html?file=./chapter/timeline-main/ep02_va_protection_plot.md",
     "dbLink": "../../story/"
   }
 ]
