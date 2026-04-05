@@ -22,5 +22,13 @@
     "desc": "救護区画、国家の幕引き、ジェイドの誓い。",
     "file": "./viewer.html?file=./chapter/terror/final.md",
     "dbLink": "../../db/terror/"
+  },
+  {
+    "id": "timeline-main-ep01",
+    "title": "本編 第1話 再構築版",
+    "category": "timeline-main",
+    "desc": "カーネルの葬式からアイリス介入直前までを再構築した本編正史プロット。",
+    "file": "./viewer.html?file=./chapter/timeline-main/ep01_reboot_plot.md",
+    "dbLink": "../../story/"
   }
 ]
