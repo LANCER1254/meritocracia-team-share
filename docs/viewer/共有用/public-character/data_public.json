@@ -1,0 +1,132 @@
+[
+  {
+    "id": "world-001",
+    "category": "世界観",
+    "tag": "WORLD",
+    "title": "メリトクラシアとは",
+    "desc": "能力主義を国家理念に掲げる都市国家。グローリアテストによる選抜制度を核とし、出自より実力が優先される社会を標榜する。しかしその制度の内側には、誰も語らない歪みが宿っている。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "world-002",
+    "category": "世界観",
+    "tag": "SYSTEM",
+    "title": "グローリアテスト",
+    "desc": "国家が管理する選抜試験。合格者のみが審問庁・士官学校への門を開かれる。複数科目制で部分合格が認められており、平民にとって唯一の階層突破ルートとなっている。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "world-003",
+    "category": "世界観",
+    "tag": "NATION",
+    "title": "国家機関の構造",
+    "desc": "三兵団（ZG・FO・VA）と審問庁・士官学校統括院を中心に構成される中央政府。Duke ロータスを頂点とした統治体制が、秩序・武力・真実の三軸で国家を維持している。",
+    "link": "../db/nation/index.html",
+    "link_label": "国家アーカイブへ →",
+    "public": true
+  },
+  {
+    "id": "world-004",
+    "category": "世界観",
+    "tag": "RANK",
+    "title": "階級と出自",
+    "desc": "貴族・上位市民・平民の三層構造が存在する。建前上は能力主義だが、士官学校への推薦枠・試験情報の非対称性など、構造的な不公平は随所に残っている。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "char-001",
+    "category": "キャラクター",
+    "tag": "PROTAGONIST",
+    "title": "ジェイド・レオンハルト",
+    "desc": "最下層平民出身の主人公。答えを持たないまま、制度と人間の狭間を進む少年。グローリアテストに挑むことで、自分だけの正義を問われていく。",
+    "link": "./public-character/index.html",
+    "link_label": "キャラクター一覧へ →",
+    "public": true
+  },
+  {
+    "id": "char-002",
+    "category": "キャラクター",
+    "tag": "HEROINE",
+    "title": "アイリス＝アールグレイ",
+    "desc": "ダークエルフの少女。元戦争奴隷としてレオンハルト家に仕える。壊れる前に時間が止まったような静けさを持ち、ジェイドとの出会いで初めて「名前で呼ばれる場所」を得る。",
+    "link": "./public-character/index.html",
+    "link_label": "キャラクター一覧へ →",
+    "public": true
+  },
+  {
+    "id": "char-003",
+    "category": "キャラクター",
+    "tag": "CADET",
+    "title": "ヴィオラ＝スティルネン",
+    "desc": "中〜上位貴族出身の士官候補生。正しさを疑ったことのない少女が、制度の外側に触れたとき何を選ぶか——制度の擬人化として設計されたキャラクター。",
+    "link": "./public-character/index.html",
+    "link_label": "キャラクター一覧へ →",
+    "public": true
+  },
+  {
+    "id": "char-004",
+    "category": "キャラクター",
+    "tag": "INSTRUCTOR",
+    "title": "ユミナ",
+    "desc": "平民出身の審問庁所属教官。グローリアテスト最優秀成績で一発合格した実力者。感情ではなく正しさと責任で動く人物だが、制度の内側でその倫理観は静かに揺れている。",
+    "link": "./public-character/index.html",
+    "link_label": "キャラクター一覧へ →",
+    "public": true
+  },
+  {
+    "id": "story-001",
+    "category": "ストーリー",
+    "tag": "PROLOGUE",
+    "title": "ZERO編：テロ事件",
+    "desc": "Year+8。建国記念日の中央市場を舞台にした事件。ジェイドの原点となる出来事が幕を開ける。失ったものと、初めて見た「制度の守護者」が、この少年の方向を決定する。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "story-002",
+    "category": "ストーリー",
+    "tag": "MAIN",
+    "title": "本編：グローリアテスト編",
+    "desc": "Year+10。本編開始。ジェイドが試験に挑む中で、制度・信念・人間関係が複雑に絡み合う。正しい答えのない問いが、次々と彼の前に立ちはだかる。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "news-001",
+    "category": "NEWS",
+    "tag": "ANNOUNCE",
+    "title": "連載再開のお知らせ",
+    "desc": "2025年5月8日より、小説家になろうにて連載を再開します。新章「グローリアテスト編」からお楽しみください。",
+    "link": "https://ncode.syosetu.com/",
+    "link_label": "なろうで読む →",
+    "public": true
+  },
+  {
+    "id": "news-002",
+    "category": "NEWS",
+    "tag": "SITE",
+    "title": "公式サイト公開",
+    "desc": "MERITOCRACIA 公式サイトを公開しました。世界観・登場人物・国家制度の資料を順次公開予定です。",
+    "link": null,
+    "link_label": null,
+    "public": true
+  },
+  {
+    "id": "internal-001",
+    "category": "制作・運営",
+    "tag": "INTERNAL",
+    "title": "制作進行管理",
+    "desc": "スタッフ内部向けの制作進行ページ。",
+    "link": null,
+    "link_label": null,
+    "public": false
+  }
+]

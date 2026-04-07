@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="メリトクラシア — 能力主義国家を舞台にしたダークファンタジー小説">
-<title>MERITOCRACIA | Official Site</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="メリトクラシア — 能力主義国家を舞台にしたダークファンタジー小説">
+  <title>MERITOCRACIA | Official Site</title>
 
-<!-- 共通フォント -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
-
-<!-- 公開用CSS（assetsに分離） -->
-<link rel="stylesheet" href="./assets/public.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/public.css">
 </head>
 <body>
 
-<!-- ============================================================
-     ヘッダー
-     ============================================================ -->
 <header class="site-header">
   <div class="header-inner">
     <div class="header-left">
@@ -25,7 +19,6 @@
       <p class="site-tagline">メリトクラシア</p>
     </div>
     <div class="header-right">
-      <!-- 連載再開告知バッジ -->
       <div class="launch-badge">
         <span class="badge-date">2025.05.08</span>
         <span class="badge-text">連載再開</span>
@@ -34,9 +27,6 @@
   </div>
 </header>
 
-<!-- ============================================================
-     ヒーローセクション
-     ============================================================ -->
 <section class="hero">
   <div class="hero-inner">
     <p class="hero-catch">功績はすべてに勝る——</p>
@@ -44,7 +34,6 @@
       能力主義国家メリトクラシアを舞台にした、<br>
       制度と神と人間が衝突するダークファンタジー。
     </p>
-    <!-- なろうリンク（URLは後で差し替え） -->
     <a class="hero-cta" href="https://ncode.syosetu.com/" target="_blank" rel="noopener">
       小説を読む →
     </a>
@@ -52,24 +41,59 @@
 </section>
 
 <!-- ============================================================
-     ナビゲーションカード
-     JSONから動的生成 → セクションへスクロール
+     固定4導線ポータル
      ============================================================ -->
-<nav class="card-nav" id="card-nav">
-  <!-- JS で data_public.json のセクション情報から生成 -->
-</nav>
+<section class="portal-nav">
+  <div class="portal-nav-inner">
+
+    <a class="portal-card" href="../共有用/public-character/index.html">
+      <span class="portal-card-icon">👤</span>
+      <span class="portal-card-en">CHARACTERS</span>
+      <span class="portal-card-ja">登場人物</span>
+      <span class="portal-card-arrow">VIEW →</span>
+    </a>
+
+    <a class="portal-card" href="../db/nation/index.html">
+  <span class="portal-card-icon">🏛</span>
+  <span class="portal-card-en">NATION / DB</span>
+  <span class="portal-card-ja">国家アーカイブ</span>
+  <span class="portal-card-arrow">VIEW →</span>
+</a>
+
+    <a class="portal-card" href="../tools/work-os/index.html">
+      <span class="portal-card-icon">📋</span>
+      <span class="portal-card-en">AUTHOR'S DESK</span>
+      <span class="portal-card-ja">制作ログ</span>
+      <span class="portal-card-arrow">VIEW →</span>
+    </a>
+
+   <a class="portal-card" href="../共有用/reading-blend/index.html">
+  <span class="portal-card-icon">✒</span>
+  <span class="portal-card-en">ABOUT AUTHOR</span>
+  <span class="portal-card-ja">作者紹介</span>
+  <span class="portal-card-arrow">VIEW →</span>
+</a>
+
+<a class="portal-card" href="../map/index.html">
+  <span class="portal-card-icon">🗺</span>
+  <span class="portal-card-en">WORLD MAP</span>
+  <span class="portal-card-ja">世界地図</span>
+  <span class="portal-card-arrow">VIEW →</span>
+</a>
+
+  </div>
+</section>
 
 <!-- ============================================================
-     各セクション（JSONカードの動的エリア）
+     JSON動的ナビ
      ============================================================ -->
-<main class="sections" id="sections">
-  <!-- JS で data_public.json から生成 -->
-</main>
+<nav class="card-nav" id="card-nav"></nav>
 
 <!-- ============================================================
-     アクセス数プレースホルダ
-     将来的にAPI連携で差し替え予定
+     JSON動的セクション
      ============================================================ -->
+<main class="sections" id="sections"></main>
+
 <section class="access-section">
   <div class="section-inner">
     <div class="section-header">
@@ -77,35 +101,27 @@
       <h2 class="section-title">アクセス</h2>
     </div>
     <div class="access-grid">
-      <!-- 累計PV -->
       <div class="access-card">
         <div class="access-num" id="pv-count">——</div>
         <div class="access-label">累計PV</div>
       </div>
-      <!-- ユニークアクセス -->
       <div class="access-card">
         <div class="access-num" id="uv-count">——</div>
         <div class="access-label">ユニークアクセス</div>
       </div>
-      <!-- なろうポイント -->
       <div class="access-card">
         <div class="access-num" id="narou-point">——</div>
         <div class="access-label">なろうポイント</div>
       </div>
-      <!-- 最終更新 -->
       <div class="access-card">
-        <div class="access-num" id="last-update">——</div>
+        <div class="access-num" id="last-update">2026.04.07</div>
         <div class="access-label">最終更新</div>
       </div>
     </div>
-    <!-- プレースホルダ注記 -->
     <p class="access-note">※ 数値は順次実装予定</p>
   </div>
 </section>
 
-<!-- ============================================================
-     フッター
-     ============================================================ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <span class="footer-logo">MERITOCRACIA</span>
@@ -113,7 +129,6 @@
   </div>
 </footer>
 
-<!-- 公開用JS（assetsに分離） -->
 <script src="./assets/public.js"></script>
 </body>
 </html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Author Profile | Lancer's Reading Blend</title>
+<link rel="stylesheet" href="./blend.css">
+</head>
+<body>
+
+<header class="blend-header" style="padding:50px 20px 40px;">
+  <span class="header-brand">Lancer's Reading Blend</span>
+  <p class="header-subtitle" style="margin-top:8px;">AUTHOR PROFILE</p>
+</header>
+
+<nav class="blend-nav">
+  <a href="./index.html">← Lounge</a>
+  <a href="../index.html">Hub</a>
+</nav>
+
+<div class="profile-wrapper">
+
+  <!-- Hero -->
+  <div class="profile-hero" id="profile-hero">
+    <div id="avatar-wrap"></div>
+    <span class="section-eyebrow" id="disp-blend-type">Selected Blender</span>
+    <h1 class="profile-name" id="disp-name">—</h1>
+    <span class="profile-name-en" id="disp-name-en"></span>
+    <p class="profile-catchphrase" id="disp-catchphrase"></p>
+    <div class="tag-row" id="disp-tags" style="justify-content:center; margin-top:16px;"></div>
+  </div>
+
+  <!-- Bio -->
+  <div class="profile-card">
+    <span class="section-eyebrow">Description</span>
+    <p id="disp-bio" style="margin-top:14px; font-size:0.97rem; color:var(--text-sub); line-height:1.95;"></p>
+  </div>
+
+  <!-- Lancer's Note -->
+  <div class="profile-card" id="note-card">
+    <div class="lancer-note" style="border-radius:12px;">
+      <span class="lancer-note-label" id="note-curator-label">Lancer's Note</span>
+      <p class="lancer-note-text" id="disp-note"></p>
+    </div>
+  </div>
+
+  <!-- Works -->
+  <div class="profile-card" id="works-card" style="display:none;">
+    <span class="section-eyebrow">Works</span>
+    <ul id="disp-works" style="margin-top:14px; list-style:none; display:flex; flex-direction:column; gap:8px;"></ul>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-group" id="disp-ctas" style="margin-top:28px;"></div>
+
+  <!-- permission -->
+  <p class="permission-note" id="disp-permission" style="text-align:center; margin-top:24px;"></p>
+
+  <!-- Back -->
+  <div style="text-align:center;">
+    <a href="./index.html" class="back-link">← Return to Lounge</a>
+  </div>
+
+</div>
+
+<footer class="blend-footer">
+  <p>LANCER'S READING BLEND — MERITOCRACIA OFFICIAL SITE</p>
+</footer>
+
+<button class="mode-toggle" id="mode-toggle-btn">Night</button>
+
+<script src="./blend.js"></script>
+<script>
+/* ── author.js (インライン) ── */
+
+const PLATFORM_LABEL = {
+  narou:    'なろうで読む',
+  kakuyomu: 'カクヨムで読む',
+};
+
+async function init() {
+  const params   = new URLSearchParams(window.location.search);
+  const authorId = params.get('id');
+
+  const data = await fetchAuthors('./authors.json');
+  if (!data) {
+    document.getElementById('disp-name').textContent = 'データ読み込みエラー';
+    return;
+  }
+
+  const author = authorId
+    ? data.authors.find(a => a.id === authorId)
+    : data.authors[0];
+
+  if (!author) {
+    document.getElementById('disp-name').textContent = '作者が見つかりませんでした';
+    return;
+  }
+
+  /* ページタイトル */
+  document.title = `${author.name} | Lancer's Reading Blend`;
+
+  /* アバター */
+  document.getElementById('avatar-wrap').appendChild(makeAvatar(author, 'lg'));
+
+  /* 基本情報 */
+  document.getElementById('disp-blend-type').textContent = author.blend_type || 'Selected Blender';
+  document.getElementById('disp-name').textContent       = author.name;
+  document.getElementById('disp-name-en').textContent    = author.name_en;
+  document.getElementById('disp-catchphrase').textContent = author.catchphrase;
+
+  /* タグ */
+  const tagsWrap = document.getElementById('disp-tags');
+  (author.tags || []).forEach(t => {
+    const pill = document.createElement('span');
+    pill.className = 'tag-pill';
+    pill.textContent = t;
+    tagsWrap.appendChild(pill);
+  });
+
+  /* Bio */
+  document.getElementById('disp-bio').textContent = author.bio;
+
+  /* Lancer's Note */
+  const curator = data.portal?.curator || 'Lancer';
+  document.getElementById('note-curator-label').textContent = `${curator}'s Note`;
+  document.getElementById('disp-note').textContent = author.lancer_note
+    ? `「${author.lancer_note}」`
+    : '—';
+
+  /* Works */
+  if (author.works && author.works.length) {
+    const worksCard = document.getElementById('works-card');
+    worksCard.style.display = '';
+    const ul = document.getElementById('disp-works');
+    author.works.forEach(w => {
+      const li = document.createElement('li');
+      li.style.cssText = 'font-size:0.9rem; color:var(--text-sub); display:flex; align-items:center; gap:8px;';
+      li.innerHTML = `<span style="color:var(--blend-gold);">◆</span> ${w.title}
+        <span style="font-size:0.7rem; color:var(--text-muted); letter-spacing:0.1em;">${w.platform?.toUpperCase() || ''}</span>`;
+      ul.appendChild(li);
+    });
+  }
+
+  /* CTA */
+  const ctas = document.getElementById('disp-ctas');
+  const links = author.links || {};
+
+  const nrBtn = makeCtaBtn('なろうで読む', links.narou, 'primary icon-nr');
+  if (nrBtn) ctas.appendChild(nrBtn);
+
+  const kkBtn = makeCtaBtn('カクヨムで読む', links.kakuyomu, 'icon-kk');
+  if (kkBtn) ctas.appendChild(kkBtn);
+
+  if (links.x) {
+    const xBtn = makeCtaBtn('X をフォロー', links.x, 'icon-x');
+    if (xBtn) ctas.appendChild(xBtn);
+  }
+
+  if (links.official) {
+    const ofBtn = makeCtaBtn('公式サイト', links.official, '');
+    if (ofBtn) ctas.appendChild(ofBtn);
+  }
+
+  /* permission */
+  if (author.permission_date) {
+    document.getElementById('disp-permission').textContent = fmtDate(author.permission_date);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

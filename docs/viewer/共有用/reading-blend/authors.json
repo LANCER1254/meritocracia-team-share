@@ -1,0 +1,59 @@
+{
+  "portal": {
+    "title": "Lancer's Reading Blend",
+    "subtitle": "今夜、おすすめしたい物語",
+    "tagline": "SELECTORS LOUNGE",
+    "curator": "Lancer"
+  },
+  "authors": [
+    {
+      "id": "sample_author_01",
+      "name": "架空の作者 １",
+      "name_en": "Sample Author 01",
+      "catchphrase": "静かな夜に沁みる一杯",
+      "genre": "異世界戦記 / 心理描写",
+      "blend_type": "Master Blender",
+      "permission_date": "2025-04-01",
+      "avatar": "",
+      "avatar_fallback": "架空の作者 １",
+      "bio": "緻密な設定と心理描写で描かれる異世界戦記。国家の在り方を問うその姿勢は、メリトクラシアの世界観とも深く共鳴します。琥珀色の空気が漂う、静謐な筆致が魅力です。",
+      "lancer_note": "この物語は、まるで冷え切った夜に差し出される熱いアールグレイのようです。一口ごとに、閉ざされていた心がほどけていく感覚を味わってください。静かに燃え続ける問いが、読後もずっと胸に残ります。",
+      "works": [
+        { "title": "サンプル作品 A", "platform": "narou" },
+        { "title": "サンプル作品 A", "platform": "kakuyomu" }
+      ],
+      "links": {
+        "narou": "https://ncode.syosetu.com/",
+        "kakuyomu": "https://kakuyomu.jp/",
+        "x": "https://x.com/",
+        "official": ""
+      },
+      "tags": ["戦記", "能力主義", "心理描写", "哲学的"],
+      "featured": true
+    },
+    {
+      "id": "sample_author_02",
+      "name": "架空の作者 ２",
+      "name_en": "Sample Author 02",
+      "catchphrase": "夜と記憶をたゆたう",
+      "genre": "都市ファンタジー / ミステリ",
+      "blend_type": "Selected Blender",
+      "permission_date": "2025-04-03",
+      "avatar": "",
+      "avatar_fallback": "架空の作者 ２",
+      "bio": "現代都市を舞台に、記憶と喪失を織り交ぜた幻想的なミステリ。淡く滲む光と影の描写は、他に類を見ない独自の文体で読者を別世界へと誘います。",
+      "lancer_note": "深夜の読書にこそふさわしい一冊。ページをめくるたびに、自分の記憶と物語の境界が溶けていく奇妙な感覚があります。これはミステリである前に、喪失についての詩です。",
+      "works": [
+        { "title": "サンプル作品 B", "platform": "kakuyomu" }
+      ],
+      "links": {
+        "narou": "",
+        "kakuyomu": "https://kakuyomu.jp/",
+        "x": "https://x.com/",
+        "official": ""
+      },
+      "tags": ["都市", "幻想", "ミステリ", "詩的"],
+      "featured": false
+    }
+  ]
+}

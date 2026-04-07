@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTHORS PORTAL | MERITOCRACIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 温かみのあるダークトーン */
+            --bg-color: #1a1614; 
+            --card-bg: #241f1c;
+            --gold: #b39764; /* アンティークゴールド */
+            --sage: #7a8a71; /* 親しみやすさのセージグリーン */
+            --text-main: #dcd6d0;
+            --text-sub: #968d86;
+            --border: #3d352f;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Serif JP', serif;
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .portal-label {
+            font-family: 'Cinzel', serif;
+            color: var(--sage);
+            letter-spacing: 0.4em;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .author-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .author-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            border-radius: 16px; /* 柔らかさを出す丸み */
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            text-align: center;
+        }
+
+        .author-card:hover {
+            border-color: var(--sage);
+            transform: translateY(-8px);
+            background: #2d2723;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* 著者アイコン（仮） */
+        .author-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            margin: 0 auto 20px;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .author-name {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .author-tagline {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .view-profile {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            border-bottom: 1px solid var(--sage);
+            padding-bottom: 2px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="portal-label">GUEST LOUNGE</span>
+            <h1>共鳴する物語たち</h1>
+            <p style="color:var(--text-sub); margin-top:20px; font-size: 0.9rem;">
+                能力主義国家の書庫にて、特別な物語を紡ぐ作家陣をご紹介します。
+            </p>
+        </header>
+
+        <div class="author-grid">
+            <a href="profile.html?id=sample_author" class="author-card">
+                <div class="author-icon">
+                    <span style="color:var(--gold); font-size:1.5rem;">✒</span>
+                </div>
+                <span class="author-name">作者名サンプル</span>
+                <span class="author-tagline">この物語は、静かなる革命を綴る。</span>
+                <span class="view-profile">View Profile</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

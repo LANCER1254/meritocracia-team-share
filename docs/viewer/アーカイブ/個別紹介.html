@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTHOR PROFILE | MERITOCRACIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        /* CSS変数は一覧ページと共通 */
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --gold: #c5a059;
+            --text-main: #e0e0e0;
+            --text-sub: #a0a0a0;
+            --border: #333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Serif JP', serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-wrapper {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+        }
+
+        .author-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            margin: 10px 0;
+        }
+
+        .section-label {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .recommend-box {
+            border-left: 3px solid var(--gold);
+            padding-left: 20px;
+            font-style: italic;
+            color: var(--text-main);
+        }
+
+        .cta-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-wrapper">
+        <div class="hero-section">
+            <span class="section-label">GUEST AUTHOR</span>
+            <h1 class="author-title" id="disp-name">作者名読み込み中...</h1>
+            <p id="disp-catchphrase" style="color:var(--text-sub);">Catchphrase</p>
+        </div>
+
+        <div class="content-card">
+            <span class="section-label">ABOUT WORK</span>
+            <p id="disp-description">作品紹介テキストが入ります。</p>
+        </div>
+
+        <div class="content-card">
+            <span class="section-label">MERIT RECOMMEND</span>
+            <div class="recommend-box">
+                「ここがこの作品の素晴らしいポイントです。メリトクラシアの読者にもぜひ触れてほしい世界観です」
+            </div>
+        </div>
+
+        <div class="cta-group">
+            <a href="#" class="cta-button" id="link-narou">小説家になろう</a>
+            <a href="#" class="cta-button" id="link-kakuyomu">カクヨム</a>
+        </div>
+
+        <a href="index.html" class="back-link">← BACK TO PORTAL</a>
+    </div>
+
+    <script>
+        // 本来は authors.json を fetch するが、試作用に擬似データを定義
+        const dummyData = {
+            "sample_author": {
+                "name": "霧嶋 凪",
+                "catchphrase": "鉄と魔法が交差する、静かなる戦記の書き手。",
+                "description": "緻密な設定と心理描写で描かれる異世界戦記。国家の在り方を問うその姿勢は、メリトクラシアの世界観とも深く共鳴します。",
+                "narou": "https://ncode.syosetu.com/...",
+                "kakuyomu": "https://kakuyomu.jp/..."
+            }
+        };
+
+        // URLパラメータからIDを取得
+        const params = new URLSearchParams(window.location.search);
+        const authorId = params.get('id');
+
+        if(authorId && dummyData[authorId]) {
+            const data = dummyData[authorId];
+            document.getElementById('disp-name').textContent = data.name;
+            document.getElementById('disp-catchphrase').textContent = data.catchphrase;
+            document.getElementById('disp-description').textContent = data.description;
+            document.getElementById('link-narou').href = data.narou;
+            document.getElementById('link-kakuyomu').href = data.kakuyomu;
+        }
+    </script>
+</body>
+</html>

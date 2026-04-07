@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTHOR PROFILE | Lancer’s Reading Blend</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Noto+Serif+JP:wght@300;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* iris.html 継承：琥珀と羊皮紙のパレット */
+            --amber-dark:   #2a1a0e;
+            --amber-mid:    #3d2410;
+            --amber-light:  #a0521a;
+            --parchment:    #FFF8E7;
+            --parchment-d:  #f5e8c8;
+            --blend-gold:   #c4803a;
+            --text-main:    #3d2410;
+            --text-sub:     #6d4c31;
+        }
+
+        body {
+            background-color: var(--parchment);
+            color: var(--text-main);
+            font-family: 'Noto Serif JP', serif;
+            margin: 0;
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
+            transition: 0.6s ease;
+        }
+
+        /* Night Mode */
+        body.night-mode {
+            background-color: var(--amber-dark);
+            --text-main: var(--parchment);
+            --text-sub: var(--parchment-d);
+        }
+
+        .profile-wrapper {
+            width: 100%;
+            max-width: 750px;
+            padding: 100px 24px;
+        }
+
+        /* ヘッダー演出：紅茶ラベルの気品 */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-label {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            color: var(--amber-light);
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .author-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .author-sign {
+            font-family: 'IM Fell English', serif;
+            font-style: italic;
+            color: var(--blend-gold);
+            font-size: 1.2rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* コンテンツカード：柔らかい浮き上がり */
+        .content-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 50px;
+            border-radius: 32px;
+            border: 1px solid rgba(160, 82, 26, 0.1);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(61,36,16,0.03);
+        }
+
+        body.night-mode .content-card {
+            background: var(--amber-mid);
+            border-color: rgba(196,128,58,0.2);
+        }
+
+        /* おすすめ枠：湯気の余韻エフェクト */
+        .recommend-container {
+            position: relative;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(196,128,58,0.05), transparent);
+            border-radius: 20px;
+            border-left: 3px solid var(--blend-gold);
+        }
+
+        .recommend-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blend-gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .recommend-box {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-main);
+        }
+
+        /* 導線ボタン：エレガントな形状 */
+        .cta-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .cta-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            border-radius: 30px;
+            border: 1px solid var(--amber-mid);
+            color: var(--amber-mid);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: 0.4s;
+            background: transparent;
+        }
+
+        body.night-mode .cta-button {
+            border-color: var(--parchment-d);
+            color: var(--parchment-d);
+        }
+
+        .cta-button:hover {
+            background: var(--blend-gold);
+            border-color: var(--blend-gold);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(160,82,26,0.2);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 100px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+        }
+
+        .back-link:hover {
+            color: var(--blend-gold);
+            border-bottom-color: var(--blend-gold);
+        }
+
+        /* Toggle Button */
+        .mode-toggle {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            background: var(--amber-mid);
+            color: white;
+            border: none;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            font-family: 'Cormorant Garamond', serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            .profile-wrapper { padding: 60px 20px; }
+            .author-title { font-size: 2.2rem; }
+            .cta-group { grid-template-columns: 1fr; }
+            .content-card { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <button class="mode-toggle" id="toggleBtn">Night</button>
+
+    <div class="profile-wrapper">
+        <header class="hero-section">
+            <span class="section-label">Selected Blender</span>
+            <h1 class="author-title" id="disp-name">作者名読み込み中...</h1>
+            <span class="author-sign" id="disp-catchphrase">Signature</span>
+        </header>
+
+        <div class="content-card">
+            <span class="section-label" style="font-size:0.7rem;">Description</span>
+            <p id="disp-description" style="margin-top:20px; font-size: 1.05rem;">
+                作品の世界観や、筆致の魅力をここに綴ります。
+            </p>
+        </div>
+
+        <div class="content-card">
+            <div class="recommend-container">
+                <span class="recommend-label">Lancer's Note</span>
+                <div class="recommend-box">
+                    「この物語は、まるで冷え切った夜に差し出される熱いアールグレイのようです。一口ごとに、閉ざされていた心がほどけていく感覚を味わってください」
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-group">
+            <a href="#" class="cta-button" id="link-narou">小説家になろう で読む</a>
+            <a href="#" class="cta-button" id="link-kakuyomu">カクヨム で読む</a>
+        </div>
+
+        <a href="ジェミニ.html" class="back-link">Return to Lounge</a>
+    </div>
+
+    <script>
+        const btn = document.getElementById('toggleBtn');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            btn.textContent = document.body.classList.contains('night-mode') ? 'Day' : 'Night';
+        });
+
+        const dummyData = {
+            "sample_author": {
+                "name": "霧嶋 凪",
+                "catchphrase": "Nagi Kirishima",
+                "description": "緻密な設定と心理描写で描かれる異世界戦記。国家の在り方を問うその姿勢は、メリトクラシアの世界観とも深く共鳴します。琥珀色の空気が漂う、静謐な筆致が魅力です。",
+                "narou": "#",
+                "kakuyomu": "#"
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const authorId = params.get('id') || 'sample_author';
+
+        if(dummyData[authorId]) {
+            const data = dummyData[authorId];
+            document.getElementById('disp-name').textContent = data.name;
+            document.getElementById('disp-catchphrase').textContent = data.catchphrase;
+            document.getElementById('disp-description').textContent = data.description;
+            document.getElementById('link-narou').href = data.narou;
+            document.getElementById('link-kakuyomu').href = data.kakuyomu;
+        }
+    </script>
+</body>
+</html>
