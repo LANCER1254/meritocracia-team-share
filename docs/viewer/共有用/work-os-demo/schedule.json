@@ -1,0 +1,66 @@
+{
+  "week": "2025-W15",
+  "weekly_progress": 42,
+  "days": {
+    "MON": {
+      "label": "月",
+      "tasks": [
+        { "time": "18:00", "label": "執筆", "cat": "writing", "block": "night" },
+        { "time": "22:00", "label": "シーン確認", "cat": "writing", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    },
+    "TUE": {
+      "label": "火",
+      "tasks": [
+        { "time": "18:00", "label": "執筆", "cat": "writing", "block": "night" },
+        { "time": "19:30", "label": "仮眠", "cat": "rest", "block": "night" },
+        { "time": "22:00", "label": "会議", "cat": "meeting", "block": "night" },
+        { "time": "23:00", "label": "シーン27以降", "cat": "writing", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    },
+    "WED": {
+      "label": "水",
+      "tasks": [
+        { "time": "14:00", "label": "シナリオ会議", "cat": "meeting", "block": "afternoon" },
+        { "time": "18:00", "label": "ep06 本編執筆", "cat": "writing", "block": "night" },
+        { "time": "23:00", "label": "Viewer UI調整", "cat": "dev", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    },
+    "THU": {
+      "label": "木",
+      "tasks": [
+        { "time": "18:00", "label": "執筆", "cat": "writing", "block": "night" },
+        { "time": "22:00", "label": "RAG確認", "cat": "dev", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    },
+    "FRI": {
+      "label": "金",
+      "tasks": [
+        { "time": "18:00", "label": "執筆", "cat": "writing", "block": "night" },
+        { "time": "21:00", "label": "査読・校閲", "cat": "writing", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    },
+    "SAT": {
+      "label": "土",
+      "tasks": [
+        { "time": "13:00", "label": "スタッフMTG", "cat": "meeting", "block": "afternoon" },
+        { "time": "18:00", "label": "音楽確認", "cat": "meeting", "block": "night" },
+        { "time": "22:00", "label": "自由執筆", "cat": "writing", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    },
+    "SUN": {
+      "label": "日",
+      "tasks": [
+        { "time": "18:00", "label": "週次レビュー", "cat": "dev", "block": "night" },
+        { "time": "21:00", "label": "次週計画", "cat": "dev", "block": "night" },
+        { "time": "02:00", "label": "就寝", "cat": "rest", "block": "night" }
+      ]
+    }
+  }
+}

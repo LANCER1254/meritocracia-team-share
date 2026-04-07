@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merit-Schedule OS v2.0</title>
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-sub: #a0a0a0;
+            --accent-green: #2d5a27;
+            --accent-blue: #1e3a5f;
+            --accent-purple: #3e1e5f;
+            --danger: #8b0000;
+            --border: #333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* --- Sticky Header (Pomo & S-Task) --- */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            max-width: 900px;
+            background-color: rgba(15, 15, 15, 0.95);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .pomo-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #pomo-timer {
+            font-family: monospace;
+            font-size: 1.4rem;
+            color: var(--accent-green);
+        }
+
+        .s-task-label {
+            font-size: 0.8rem;
+            background: var(--accent-blue);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* --- Progress Bar --- */
+        .progress-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--card-bg);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-green);
+            width: 70%; /* Dummy */
+        }
+
+        /* --- Weekly Tabs --- */
+        .week-nav {
+            display: flex;
+            overflow-x: auto;
+            width: 100%;
+            max-width: 900px;
+            gap: 5px;
+            padding: 0 10px;
+            scrollbar-width: none;
+        }
+
+        .day-tab {
+            flex: 0 0 80px;
+            padding: 10px;
+            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            color: var(--text-sub);
+        }
+
+        .day-tab.active {
+            border-bottom: 2px solid var(--accent-green);
+            color: var(--text-main);
+            background: #222;
+        }
+
+        /* --- Time Blocks --- */
+        .schedule-content {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .time-block {
+            margin-bottom: 30px;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .task-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-cat {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+
+        .cat-writing { background: var(--accent-green); }
+        .cat-dev { background: var(--accent-blue); }
+        .cat-meeting { background: var(--accent-purple); }
+
+        /* --- Firefox SVG Fix Classes --- */
+        .pomo-ring {
+            transition: stroke 0.3s;
+        }
+        .pomo-ring.is-break { stroke: var(--accent-blue); }
+        .pomo-ring.is-running { stroke: var(--accent-green); }
+
+    </style>
+</head>
+<body>
+
+    <header class="sticky-header">
+        <div class="pomo-mini">
+            <svg width="24" height="24" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="16" fill="none" stroke="#333" stroke-width="3"></circle>
+                <circle id="ps-ring" cx="18" cy="18" r="16" fill="none" stroke="var(--accent-green)" stroke-width="3" 
+                        stroke-dasharray="100 100" transform="rotate(-90 18 18)"></circle>
+            </svg>
+            <span id="pomo-timer">25:00</span>
+            <span class="s-task-label">S: ep06 本編執筆</span>
+        </div>
+        <button id="pomo-ctrl" style="background:none; border:1px solid #555; color:#fff; border-radius:4px; padding:4px 10px;">START</button>
+    </header>
+
+    <div class="progress-container">
+        <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-sub); margin-bottom:5px;">
+            <span>WEEKLY PROGRESS</span>
+            <span>70%</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <nav class="week-nav">
+        <div class="day-tab">MON</div>
+        <div class="day-tab">TUE</div>
+        <div class="day-tab active">WED</div>
+        <div class="day-tab">THU</div>
+        <div class="day-tab">FRI</div>
+        <div class="day-tab">SAT</div>
+        <div class="day-tab">SUN</div>
+    </nav>
+
+    <main class="schedule-content">
+        <div class="time-block">
+            <span class="time-label">◆ Morning (08:00 - 12:00)</span>
+            <div class="task-card">
+                <div>
+                    <span class="task-cat cat-meeting">会議</span>
+                    <span>チーム進捗確認</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="time-block">
+            <span class="time-label">◆ Afternoon (13:00 - 18:00)</span>
+            <div class="task-card">
+                <div>
+                    <span class="task-cat cat-writing">執筆</span>
+                    <span>Meritocracia ep06 本編</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="time-block">
+            <span class="time-label">◆ Night (20:00 - 24:00)</span>
+            <div class="task-card">
+                <div>
+                    <span class="task-cat cat-dev">改修</span>
+                    <span>Viewer UI調整 (Firefox)</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Firefox対策のクラス操作デモ
+        const ring = document.getElementById('ps-ring');
+        const ctrl = document.getElementById('pomo-ctrl');
+        let isRunning = false;
+
+        ctrl.addEventListener('click', () => {
+            isRunning = !isRunning;
+            ctrl.textContent = isRunning ? 'PAUSE' : 'START';
+            
+            // 重要: Firefoxで落ちないようにclassList.toggleを使用
+            ring.classList.toggle('is-running', isRunning);
+            
+            if(isRunning) {
+                console.log("Pomodoro Started: SVG class handled via classList.");
+            }
+        });
+    </script>
+</body>
+</html>
