@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ep01",
+    "title": "修正版第一話",
+    "file": "./chapter/ep01.md"
+  },
+  {
+    "id": "ep02",
+    "title": "幸せな日常",
+    "file": "./chapter/ep02.md"
+  },
+  {
+    "id": "ep03",
+    "title": "名前の重さ",
+    "file": "./chapter/ep03.md"
+  },
+  {
+    "id": "ep04",
+    "title": "教会バイト編",
+    "file": "./chapter/ep04.md"
+  },
+  {
+    "id": "ep05",
+    "title": "教会バイト編 ルカ視点",
+    "file": "./chapter/ep05.md"
+  },
+  {
+    "id": "ep06",
+    "title": "テロ事件導入",
+    "file": "./chapter/ep06.md"
+  }
+]

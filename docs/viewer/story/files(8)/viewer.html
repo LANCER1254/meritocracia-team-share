@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>閲覧中... | Meritocracia</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400;500&display=swap');
+
+/* ============================================================
+   CSS変数
+   ============================================================ */
+:root {
+  --bg:     #070b12;
+  --bg2:    #0c1220;
+  --gold:   #c8a45a;
+  --gold2:  #e5c97e;
+  --text:   #cfc4ae;
+  --text2:  #7a6e5a;
+  --border: rgba(200,164,90,0.15);
+
+  /* モバイル専用 */
+  --header-h:    48px;
+  --ep-bar-h:    44px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============================================================
+   ヘッダー（PC / SP 共通）
+   ============================================================ */
+header {
+  flex-shrink: 0;
+  z-index: 30;
+  background: rgba(7,11,18,0.97);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.back-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.back-btn:hover { color: var(--gold); }
+
+.header-center {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.header-ep {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   スマホ専用：上部EPバー（768px以下のみ表示）
+   ============================================================ */
+.ep-bar { display: none; }
+
+/* ============================================================
+   メインレイアウト（PC：サイドバー + 本文 横並び）
+   ============================================================ */
+.layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ============================================================
+   サイドバー（PC用）
+   ============================================================ */
+.sidebar {
+  width: 190px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 0 40px;
+}
+
+.sidebar-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  padding: 0 16px 10px;
+}
+
+/* ============================================================
+   アコーディオン
+   ============================================================ */
+.acc-group { border-bottom: 1px solid var(--border); }
+
+.acc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+.acc-header:hover        { background: rgba(200,164,90,0.04); }
+.acc-header.open         { background: rgba(200,164,90,0.06); }
+
+.acc-range {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text2);
+  transition: color 0.15s;
+}
+.acc-header:hover .acc-range,
+.acc-header.open  .acc-range { color: var(--gold); }
+
+.acc-arrow {
+  font-size: 7px;
+  color: var(--text2);
+  transition: transform 0.2s, color 0.2s;
+}
+.acc-header.open .acc-arrow {
+  transform: rotate(90deg);
+  color: var(--gold);
+}
+
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.acc-body.open { max-height: 800px; }
+
+.ep-link {
+  display: block;
+  padding: 6px 16px 6px 26px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text2);
+  text-decoration: none;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+}
+.ep-link:hover {
+  color: var(--text);
+  border-left-color: rgba(200,164,90,0.3);
+}
+.ep-link.current {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(200,164,90,0.05);
+}
+
+/* ============================================================
+   本文エリア（PC）
+   ============================================================ */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px 60px 80px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-meta {
+  margin-bottom: 44px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-ep {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.article-title {
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   Markdown スタイル
+   ============================================================ */
+#content { font-size: 15px; line-height: 2.3; letter-spacing: 0.5px; }
+#content h1 { display: none; }
+#content h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 12px; letter-spacing: 4px; color: var(--gold);
+  margin: 48px 0 16px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border); font-weight: 400;
+}
+#content h3  { font-size: 13px; letter-spacing: 2px; color: var(--text2); margin: 28px 0 10px; font-weight: 400; }
+#content p   { margin-bottom: 1.6em; }
+#content hr  { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+#content strong { color: var(--gold2); font-weight: 500; }
+#content em     { color: var(--text2); font-style: normal; }
+#content blockquote {
+  border-left: 2px solid var(--gold); padding: 8px 20px; margin: 20px 0;
+  color: var(--text2); background: rgba(200,164,90,0.03);
+}
+
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 300px; font-family: 'Cinzel', serif;
+  font-size: 11px; letter-spacing: 4px; color: var(--text2);
+}
+
+/* ============================================================
+   フッターナビ（PC：横並び）
+   ============================================================ */
+.footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+  gap: 12px;
+}
+
+.footer-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  text-align: center;
+}
+.footer-btn:hover { border-color: var(--gold); color: var(--gold); }
+.footer-btn.hidden { visibility: hidden; }
+
+/* ============================================================
+   スクロールバー
+   ============================================================ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ============================================================
+   ドロワー（スマホ：EPパネル）
+   ============================================================ */
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0; left: 0;
+  width: min(280px, 85vw);
+  height: 100%;
+  background: #090e1a;
+  border-right: 1px solid var(--border);
+  z-index: 50;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+  padding-top: var(--header-h);
+  -webkit-overflow-scrolling: touch;
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  padding: 16px 16px 10px;
+}
+
+/* ============================================================
+   スマホ用メディアクエリ（768px以下）
+   ============================================================ */
+@media (max-width: 768px) {
+
+  .sidebar { display: none; }
+
+  .ep-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    height: var(--ep-bar-h);
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(9,14,26,0.98);
+    position: relative;
+    z-index: 45;
+    gap: 10px;
+  }
+
+  .ep-bar-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 36px;
+  }
+  .ep-bar-toggle:active { background: rgba(200,164,90,0.08); border-color: var(--gold); }
+
+  .ep-bar-center {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  .main { padding: 24px 18px 60px; }
+
+  #content {
+    font-size: 16px;
+    line-height: 2.4;
+    letter-spacing: 0.3px;
+  }
+
+  .article-title { font-size: 17px; letter-spacing: 2px; }
+  .article-meta  { margin-bottom: 28px; padding-bottom: 20px; }
+
+  .footer-nav {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 48px;
+  }
+
+  .footer-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+
+  .footer-btn.hidden {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+
+  .drawer-overlay { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header>
+  <a class="back-btn" href="./index.html">← DRAFT INDEX</a>
+  <span class="header-center">MERITOCRACIA</span>
+  <span class="header-ep" id="header-ep">EP.—</span>
+</header>
+
+<!-- スマホ専用：EPバー -->
+<div class="ep-bar" id="ep-bar">
+  <button class="ep-bar-toggle" id="drawer-open-btn" aria-label="話数一覧を開く">
+    ☰ EPISODES
+  </button>
+  <span class="ep-bar-center" id="ep-bar-current">EP.—</span>
+  <span></span>
+</div>
+
+<!-- スマホ用ドロワー -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-label">EPISODES</div>
+  <div id="accordion-drawer"></div>
+</div>
+
+<!-- メインレイアウト -->
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-label">EPISODES</div>
+    <div id="accordion"></div>
+  </nav>
+
+  <div class="main">
+    <div class="article-meta">
+      <div class="article-ep" id="article-ep">EPISODE —</div>
+      <div class="article-title" id="article-title">読み込み中...</div>
+    </div>
+    <div id="content"><div class="loading">LOADING</div></div>
+    <div class="footer-nav">
+      <a class="footer-btn hidden" id="footer-prev">← 前話</a>
+      <a class="footer-btn hidden" id="footer-next">次話 →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   STATE
+   現在の ep インデックス（0-based）と全話データを保持
+   ============================================================ */
+let EPISODES = [];   // draft-data.json から取得
+let currentIdx = 0;  // 現在表示中のインデックス
+
+const GROUP = 10;
+
+/* ============================================================
+   URLパラメータからファイルパスを取得
+   ?file=./chapter/ep01.md 形式
+   ============================================================ */
+const params  = new URLSearchParams(location.search);
+const fileParam = params.get('file') || '';
+
+/* ============================================================
+   ビューワーURL生成
+   file パスを encodeURIComponent してパラメータへ
+   ============================================================ */
+function viewerUrl(ep) {
+  return `./viewer.html?file=${encodeURIComponent(ep.file)}`;
+}
+
+/* ============================================================
+   アコーディオン生成
+   PC サイドバー / スマホ ドロワー 両方に使い回す
+   ============================================================ */
+function buildAccordion(container) {
+  container.innerHTML = '';
+
+  const groupCount = Math.ceil(EPISODES.length / GROUP);
+  const currentGroup = Math.ceil((currentIdx + 1) / GROUP);
+
+  for (let g = 1; g <= groupCount; g++) {
+    const from = (g - 1) * GROUP;
+    const to   = Math.min(g * GROUP, EPISODES.length);
+
+    const div = document.createElement('div');
+    div.className = 'acc-group';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'acc-header' + (g === currentGroup ? ' open' : '');
+    // 表示ラベルは「1 – 10」など（1-based）
+    hdr.innerHTML = `<span class="acc-range">${from + 1} – ${to}</span><span class="acc-arrow">▶</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'acc-body' + (g === currentGroup ? ' open' : '');
+
+    for (let i = from; i < to; i++) {
+      const ep = EPISODES[i];
+      const a  = document.createElement('a');
+      a.className = 'ep-link' + (i === currentIdx ? ' current' : '');
+      a.href = viewerUrl(ep);
+      a.textContent = ep.title;
+      body.appendChild(a);
+    }
+
+    hdr.addEventListener('click', () => {
+      const isOpen = hdr.classList.contains('open');
+      container.querySelectorAll('.acc-header').forEach(h => h.classList.remove('open'));
+      container.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { hdr.classList.add('open'); body.classList.add('open'); }
+    });
+
+    div.appendChild(hdr);
+    div.appendChild(body);
+    container.appendChild(div);
+  }
+}
+
+/* ============================================================
+   ドロワー開閉
+   ============================================================ */
+const drawer        = document.getElementById('drawer');
+const overlay       = document.getElementById('drawer-overlay');
+const drawerOpenBtn = document.getElementById('drawer-open-btn');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+drawerOpenBtn.addEventListener('click', openDrawer);
+overlay.addEventListener('click', closeDrawer);
+
+/* ============================================================
+   ナビ更新
+   ============================================================ */
+function updateNav() {
+  const ep = EPISODES[currentIdx];
+  const idLabel = ep ? ep.id.toUpperCase() : '—';
+
+  document.getElementById('header-ep').textContent      = idLabel;
+  document.getElementById('article-ep').textContent     = idLabel;
+  document.getElementById('ep-bar-current').textContent = idLabel;
+
+  const fp = document.getElementById('footer-prev');
+  const fn = document.getElementById('footer-next');
+
+  if (currentIdx > 0) {
+    fp.href = viewerUrl(EPISODES[currentIdx - 1]);
+    fp.classList.remove('hidden');
+  } else {
+    fp.classList.add('hidden');
+  }
+
+  if (currentIdx < EPISODES.length - 1) {
+    fn.href = viewerUrl(EPISODES[currentIdx + 1]);
+    fn.classList.remove('hidden');
+  } else {
+    fn.classList.add('hidden');
+  }
+}
+
+/* ============================================================
+   Markdown 読み込み
+   fetch は episode.file を直接使用（相対パス安定）
+   ============================================================ */
+async function loadContent(ep) {
+  const contentEl = document.getElementById('content');
+  const titleEl   = document.getElementById('article-title');
+
+  contentEl.innerHTML = '<div class="loading">LOADING</div>';
+  titleEl.textContent = '読み込み中...';
+
+  try {
+    const res = await fetch(ep.file);
+    if (!res.ok) throw new Error(`${res.status}`);
+
+    // UTF-8 を明示デコード（文字化け対策）
+    const buf  = await res.arrayBuffer();
+    const text = new TextDecoder('utf-8').decode(buf);
+
+    // タイトル抽出（h1行 or ep.title フォールバック）
+    const tm = text.match(/^#\s+(.+)/m);
+    const title = tm ? tm[1].replace(/[#*`]/g, '').trim() : ep.title;
+
+    titleEl.textContent = title;
+    document.title = `${title} | Meritocracia`;
+    contentEl.innerHTML = marked.parse(text);
+
+    // 本文スクロールをトップへ
+    document.querySelector('.main').scrollTop = 0;
+
+  } catch (err) {
+    titleEl.textContent = ep.title;
+    contentEl.innerHTML = `<div class="loading">ファイルが見つかりません (${ep.file})</div>`;
+    console.error('[viewer] fetch error:', err);
+  }
+}
+
+/* ============================================================
+   初期化
+   draft-data.json を fetch してから全部組み立てる
+   ============================================================ */
+(async () => {
+  try {
+    const res = await fetch('./draft-data.json');
+    if (!res.ok) throw new Error(`draft-data.json の取得に失敗 (${res.status})`);
+    EPISODES = await res.json();
+
+    if (!EPISODES.length) {
+      document.getElementById('article-title').textContent = 'エピソードがありません';
+      document.getElementById('content').innerHTML = '';
+      return;
+    }
+
+    // ?file= パラメータから currentIdx を特定
+    if (fileParam) {
+      const decoded = decodeURIComponent(fileParam);
+      const idx = EPISODES.findIndex(ep => ep.file === decoded);
+      if (idx >= 0) currentIdx = idx;
+    }
+
+    // アコーディオン（PC・ドロワー両方）
+    buildAccordion(document.getElementById('accordion'));
+    buildAccordion(document.getElementById('accordion-drawer'));
+
+    // ナビ・本文
+    updateNav();
+    await loadContent(EPISODES[currentIdx]);
+
+  } catch (err) {
+    document.getElementById('article-title').textContent = 'エラー';
+    document.getElementById('content').innerHTML =
+      `<div class="loading">${err.message}</div>`;
+    console.error('[viewer] init error:', err);
+  }
+})();
+</script>
+</body>
+</html>

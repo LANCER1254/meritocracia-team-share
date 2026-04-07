@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft Index | Meritocracia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #070b12;
+  --panel:  #0d1525;
+  --gold:   #c8a45a;
+  --gold2:  #e5c97e;
+  --text:   #cfc4ae;
+  --text2:  #7a6e5a;
+  --border: rgba(200,164,90,0.15);
+  --border2:rgba(200,164,90,0.35);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  min-height: 100vh;
+}
+
+body::before {
+  content:''; position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(12,18,32,0.9) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(200,164,90,0.015) 80px, rgba(200,164,90,0.015) 81px);
+  pointer-events:none; z-index:0;
+}
+
+.shell {
+  position:relative; z-index:1;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* ヘッダー */
+.portal-header {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px;
+  color:var(--text2); text-decoration:none; margin-bottom:28px;
+  transition:color 0.2s; display:block;
+}
+.back-link:hover { color:var(--gold); }
+
+.portal-eyebrow {
+  font-family:'Cinzel',serif; font-size:9px; letter-spacing:5px;
+  color:var(--gold); opacity:0.5; margin-bottom:10px;
+}
+
+.portal-title {
+  font-family:'Cinzel',serif; font-size:clamp(1.6rem,5vw,2.6rem);
+  font-weight:400; color:var(--text); letter-spacing:0.1em; margin-bottom:8px;
+}
+
+.portal-desc {
+  font-size:12px; color:var(--text2); letter-spacing:1px; line-height:1.8;
+}
+
+/* エピソードカード */
+.ep-list { display:flex; flex-direction:column; gap:10px; }
+
+.ep-card {
+  display:block; text-decoration:none;
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:20px 24px;
+  transition:border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  position:relative; overflow:hidden;
+}
+
+.ep-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0;
+  width:2px; background:var(--border2);
+  transition:background 0.2s;
+}
+
+.ep-card:hover {
+  border-color:var(--border2);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  transform:translateX(2px);
+}
+.ep-card:hover::before { background:var(--gold); }
+
+.ep-card-num {
+  font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px;
+  color:var(--text2); margin-bottom:4px;
+}
+
+.ep-card-title {
+  font-size:15px; font-weight:300; color:var(--text); letter-spacing:2px;
+}
+
+.ep-card-arrow {
+  position:absolute; right:20px; top:50%; transform:translateY(-50%);
+  font-family:'Cinzel',serif; font-size:10px; color:var(--text2);
+  transition:color 0.2s, right 0.2s;
+}
+.ep-card:hover .ep-card-arrow { color:var(--gold); right:16px; }
+
+/* ローディング / エラー */
+.status-msg {
+  font-family:'Cinzel',serif; font-size:11px; letter-spacing:4px;
+  color:var(--text2); padding:48px 0; text-align:center;
+}
+
+.error-msg {
+  font-size:12px; color:#e05050;
+  padding:16px; border:1px solid rgba(139,26,26,0.3);
+  background:rgba(139,26,26,0.06); margin-top:20px;
+}
+
+/* フッター */
+.portal-footer {
+  margin-top:56px; padding-top:20px;
+  border-top:1px solid var(--border);
+  font-family:'Cinzel',serif; font-size:9px;
+  letter-spacing:3px; color:var(--text2); text-align:center;
+}
+
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+@media(max-width:640px){
+  .portal-header { padding:36px 0 28px; }
+  .ep-card { padding:16px 18px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="portal-header">
+    <a class="back-link" href="../index.html">← PRODUCTION</a>
+    <div class="portal-eyebrow">MERITOCRACIA — DRAFT ARCHIVE</div>
+    <h1 class="portal-title">Draft Index</h1>
+    <p class="portal-desc">初稿原稿 一覧 / 採用順</p>
+  </div>
+
+  <div id="ep-list" class="ep-list">
+    <div class="status-msg" id="status">LOADING...</div>
+  </div>
+
+  <div id="error-msg" class="error-msg" style="display:none;"></div>
+
+  <footer class="portal-footer">MERITOCRACIA DRAFT VIEWER</footer>
+
+</div>
+
+<script>
+(async () => {
+  const listEl  = document.getElementById('ep-list');
+  const statusEl= document.getElementById('status');
+  const errorEl = document.getElementById('error-msg');
+
+  try {
+    const res = await fetch('./draft-data.json');
+    if (!res.ok) throw new Error(`draft-data.json の取得に失敗しました (${res.status})`);
+    const episodes = await res.json();
+
+    statusEl.remove();
+
+    if (!episodes.length) {
+      listEl.innerHTML = '<div class="status-msg">エピソードがありません</div>';
+      return;
+    }
+
+    for (const ep of episodes) {
+      const card = document.createElement('a');
+      card.className = 'ep-card';
+      // viewer.html へ file パラメータ付きで飛ばす
+      card.href = `./viewer.html?file=${encodeURIComponent(ep.file)}`;
+      card.innerHTML = `
+        <div class="ep-card-num">${ep.id.toUpperCase()}</div>
+        <div class="ep-card-title">${ep.title}</div>
+        <span class="ep-card-arrow">→</span>
+      `;
+      listEl.appendChild(card);
+    }
+
+  } catch (err) {
+    if (statusEl) statusEl.remove();
+    errorEl.textContent = err.message;
+    errorEl.style.display = 'block';
+    console.error('[draft index]', err);
+  }
+})();
+</script>
+</body>
+</html>
