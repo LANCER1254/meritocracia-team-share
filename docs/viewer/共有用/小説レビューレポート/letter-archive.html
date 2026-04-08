@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRIS SWEET LETTER ARCHIVE | MERITOCRACIA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0d0d0f;
+      --card:#17171b;
+      --border:#3a3025;
+      --gold:#c9a84c;
+      --text:#ece7dd;
+      --muted:#b8aa92;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top, rgba(201,168,76,0.06), transparent 40%),
+        var(--bg);
+      color:var(--text);
+      font-family:'Noto Serif JP', serif;
+      padding:48px 24px;
+    }
+
+    .wrap{
+      max-width:960px;
+      margin:0 auto;
+    }
+
+    h1{
+      font-family:'Cinzel', serif;
+      font-size:2rem;
+      margin-bottom:12px;
+      color:var(--gold);
+      letter-spacing:0.08em;
+    }
+
+    .lead{
+      color:var(--muted);
+      margin-bottom:32px;
+      line-height:1.8;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+    }
+
+    .card{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      background:var(--card);
+      border:1px solid var(--border);
+      padding:24px;
+      transition:.25s ease;
+      min-height:170px;
+    }
+
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:var(--gold);
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .tag{
+      font-size:.75rem;
+      letter-spacing:.15em;
+      color:var(--gold);
+      margin-bottom:10px;
+      display:block;
+    }
+
+    .title{
+      font-size:1.1rem;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .desc{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>IRIS SWEET LETTER ARCHIVE</h1>
+    <p class="lead">
+      アイリス・アールグレイによる甘々レビュー便箋アーカイブ。<br>
+      各テーマごとの高級レターUIを比較・閲覧できます。
+    </p>
+
+    <div class="grid">
+
+      <a class="card" href="./iris-sweet-letter-v1/index.html">
+        <span class="tag">CLASSIC</span>
+        <div class="title">クラシック便箋</div>
+        <div class="desc">Geminiベースの上品な初号機。春の夜と紅茶の余韻。</div>
+      </a>
+
+      <a class="card" href="./iris-sweet-letter-v1/luxury.html">
+        <span class="tag">LUXURY</span>
+        <div class="title">高級便箋テーマ</div>
+        <div class="desc">深緑 × 金箔 × 公爵家メイド。最上級のご褒美感。</div>
+      </a>
+
+      <a class="card" href="./iris-sweet-letter-v1/night.html">
+        <span class="tag">NIGHT LOUNGE</span>
+        <div class="title">深夜ラウンジ</div>
+        <div class="desc">黒 × 琥珀 × ランプ光。Reading Blend連動版。</div>
+      </a>
+
+      <a class="card" href="./iris-sweet-letter-v1/spring.html">
+        <span class="tag">SPRING TEA</span>
+        <div class="title">春摘みダージリン</div>
+        <div class="desc">桜色 × 新芽グリーン。春の柔らかな便箋。</div>
+      </a>
+
+    </div>
+  </div>
+</body>
+</html>

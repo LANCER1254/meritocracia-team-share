@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter from Iris | MERITOCRACIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- ▼ テーマ切替はここ1行だけ変える -->
+   <link rel="stylesheet" href="./iris-nightlounge.css">
+</head>
+<body>
+    <div class="letter-overlay"></div>
+
+    <main class="letter-container" id="container">
+        <article class="letter-paper">
+
+            <header class="letter-header">
+                <div class="tea-accent" id="tea-accent-icon">☕✨</div>
+                <p class="recipient-line"><span id="recipient"></span> 様</p>
+            </header>
+
+            <section class="letter-intro">
+                <p id="intro-text"></p>
+                <div class="tea-suggestion">
+                    よろしければ、このあとは今の季節にぴったりな<br>
+                    <strong id="tea-name"></strong> でも召し上がって、<br>
+                    ゆっくりお休みくださいませ。
+                </div>
+            </section>
+
+            <hr class="letter-divider">
+
+            <section class="review-meta">
+                <div class="read-status">STATUS: <span id="read-count"></span> READING COMPLETED</div>
+                <div class="review-summary" id="review-summary"></div>
+            </section>
+
+            <section class="letter-body" id="letter-body"></section>
+
+            <footer class="letter-footer">
+                <p class="closing">引き続き応援しております・・・！</p>
+                <div class="signature">
+                    <span class="sign-label">ーーー</span>
+                    <span id="sign-name"></span>
+                    <span class="sign-label">ーーーー</span>
+                </div>
+            </footer>
+
+        </article>
+    </main>
+
+    <script src="./letter.js"></script>
+</body>
+</html>
