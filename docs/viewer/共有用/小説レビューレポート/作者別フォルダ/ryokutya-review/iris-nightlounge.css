@@ -1,0 +1,185 @@
+/* ============================================================
+   iris-nightlounge.css — 深夜読書ラウンジ
+   🌙 黒 × 琥珀 × ランプ光 × Reading Blend 接続版
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500;700&family=IM+Fell+English:ital@0;1&display=swap');
+
+:root {
+    --ink:       #e8d8b8;   /* 羊皮紙文字色 */
+    --ink-dark:  #c8a878;
+    --paper:     #12100c;   /* 黒便箋 */
+    --paper2:    #1a160e;
+    --amber:     #c8841a;
+    --amber2:    #e8a030;
+    --amber3:    #f5c060;
+    --amber-dim: rgba(200,132,26,0.18);
+    --night-bg:  #07090f;
+    --shadow:    rgba(0,0,0,0.8);
+    --border:    rgba(200,132,26,0.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: var(--night-bg);
+    margin: 0;
+    font-family: 'Noto Serif JP', serif;
+    color: var(--ink);
+    line-height: 1.9;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 背景：ランプ光 × 深夜ラウンジ */
+.letter-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background:
+        radial-gradient(ellipse at 50% 0%,    rgba(200,132,26,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%,   rgba(200,132,26,0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 20%,   rgba(200,132,26,0.04) 0%, transparent 40%),
+        linear-gradient(180deg, #07090f 0%, #0a0c12 100%);
+    z-index: -1;
+}
+
+/* グリッド背景（Reading Blend 継承） */
+.letter-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(200,132,26,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,132,26,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+.letter-container {
+    max-width: 700px;
+    width: 100%;
+    filter: drop-shadow(0 20px 60px var(--shadow));
+    opacity: 0;
+    transition: opacity 2s ease-in;
+}
+
+/* 黒便箋 */
+.letter-paper {
+    background: linear-gradient(160deg, var(--paper2) 0%, var(--paper) 100%);
+    padding: 64px 56px;
+    position: relative;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    /* ランプ光の揺らぎ演出 */
+    background-image:
+        radial-gradient(ellipse at 30% 10%, rgba(200,132,26,0.06) 0%, transparent 50%);
+}
+
+/* 琥珀の光線（上部） */
+.letter-paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    opacity: 0.6;
+}
+
+/* 装飾枠 */
+.letter-paper::after {
+    content: '';
+    position: absolute;
+    top: 16px; bottom: 16px; left: 16px; right: 16px;
+    border: 1px solid var(--amber-dim);
+    pointer-events: none;
+    border-radius: 1px;
+}
+
+.letter-header { margin-bottom: 44px; }
+
+.tea-accent {
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+    /* 燃える琥珀イメージ */
+    filter: sepia(30%) saturate(150%);
+}
+
+.recipient-line {
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--amber);
+    display: inline-block;
+    letter-spacing: 0.06em;
+    color: var(--amber2);
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+}
+
+.letter-intro { margin-bottom: 30px; font-weight: 300; font-size: 0.97rem; }
+
+.tea-suggestion {
+    margin-top: 22px;
+    padding: 16px 20px;
+    background: rgba(200,132,26,0.07);
+    border-left: 2px solid var(--amber);
+    font-size: 0.93rem;
+    color: var(--ink-dark);
+}
+
+.letter-divider {
+    border: none;
+    border-top: 1px solid rgba(200,132,26,0.25);
+    margin: 44px 0;
+}
+
+.review-meta { margin-bottom: 30px; }
+
+.read-status {
+    font-family: 'Cinzel', serif;
+    color: var(--amber);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    opacity: 0.8;
+}
+
+.review-summary {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--amber2);
+    margin-top: 10px;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+}
+
+.letter-body p {
+    margin-bottom: 1.6em;
+    text-align: justify;
+    font-size: 0.96rem;
+    color: var(--ink);
+}
+
+.letter-footer { margin-top: 64px; text-align: right; }
+
+.closing {
+    font-weight: 300;
+    color: var(--amber);
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+}
+
+.signature {
+    font-size: 1.05rem;
+    font-weight: 400;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--amber2);
+}
+
+.sign-label { color: rgba(200,132,26,0.4); }
+
+@media (max-width: 600px) {
+    .letter-paper    { padding: 44px 28px; }
+    .recipient-line  { font-size: 1.05rem; }
+}

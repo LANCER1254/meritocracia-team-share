@@ -1,0 +1,172 @@
+/* ============================================================
+   iris-springtea.css — 春摘みダージリン
+   🌸 桜色 × 新芽グリーン × 薄金 × 柔らかい余韻
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;500;700&family=Zen+Old+Mincho:wght@400;700&display=swap');
+
+:root {
+    --ink:      #3a2830;
+    --paper:    #fff8f5;
+    --gold:     #c8a86a;
+    --sakura:   #e8a0b0;    /* 桜 */
+    --sakura2:  #f5c8d0;
+    --sprout:   #7aaa7a;    /* 新芽 */
+    --sprout2:  #a0c890;
+    --night-bg: #180f14;
+    --shadow:   rgba(60,20,40,0.25);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: var(--night-bg);
+    margin: 0;
+    font-family: 'Noto Serif JP', serif;
+    color: var(--ink);
+    line-height: 1.9;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 背景：春の朝霧 */
+.letter-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background:
+        radial-gradient(ellipse at 15% 0%,   rgba(232,160,176,0.15) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 100%,  rgba(122,170,122,0.12) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 50%,   rgba(200,168,106,0.05) 0%, transparent 60%),
+        linear-gradient(170deg, #180f14 0%, #120a0e 100%);
+    z-index: -1;
+}
+
+/* 花びら装飾（CSS only） */
+.letter-overlay::before {
+    content: '✿  ✿  ✿';
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(232,160,176,0.12);
+    font-size: 2rem;
+    letter-spacing: 2rem;
+    pointer-events: none;
+}
+
+.letter-container {
+    max-width: 680px;
+    width: 100%;
+    filter: drop-shadow(0 12px 32px var(--shadow));
+    opacity: 0;
+    transition: opacity 1.6s ease-in;
+}
+
+/* 便箋：白桃色 + 桜の薄紙感 */
+.letter-paper {
+    background-color: var(--paper);
+    padding: 64px 52px;
+    position: relative;
+    border-radius: 3px;
+    background-image:
+        radial-gradient(ellipse at 90% 5%, rgba(232,160,176,0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 10% 95%, rgba(122,170,122,0.08) 0%, transparent 40%),
+        url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+
+/* 外枠：桜色 */
+.letter-paper::before {
+    content: '';
+    position: absolute;
+    top: 18px; bottom: 18px; left: 18px; right: 18px;
+    border: 1px solid var(--sakura);
+    pointer-events: none;
+    opacity: 0.45;
+    border-radius: 2px;
+}
+
+/* 角飾り */
+.letter-paper::after {
+    content: '❀';
+    position: absolute;
+    bottom: 24px;
+    right: 28px;
+    font-size: 1.2rem;
+    color: var(--sakura);
+    opacity: 0.4;
+}
+
+.letter-header { margin-bottom: 40px; }
+
+.tea-accent {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    filter: hue-rotate(10deg);
+}
+
+.recipient-line {
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--sakura);
+    display: inline-block;
+    letter-spacing: 0.06em;
+}
+
+.letter-intro { margin-bottom: 30px; font-weight: 500; }
+
+.tea-suggestion {
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(232,160,176,0.08), rgba(122,170,122,0.06));
+    border-left: 3px solid var(--sprout);
+    font-size: 0.95rem;
+}
+
+.letter-divider {
+    border: none;
+    margin: 40px 0;
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--sakura), var(--sprout2), var(--sakura), transparent);
+    opacity: 0.5;
+}
+
+.review-meta { margin-bottom: 30px; }
+
+.read-status {
+    font-family: 'Cinzel', serif;
+    color: var(--sprout);
+    font-size: 0.82rem;
+    letter-spacing: 1.5px;
+}
+
+.review-summary {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #5a303a;
+    margin-top: 10px;
+    padding-left: 12px;
+    border-left: 3px solid var(--sakura2);
+}
+
+.letter-body p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+}
+
+.letter-footer { margin-top: 60px; text-align: right; }
+
+.closing {
+    font-weight: 700;
+    color: var(--sakura);
+    margin-bottom: 20px;
+}
+
+.signature { font-size: 1.1rem; font-weight: 500; color: var(--ink); }
+.sign-label { color: var(--sprout); }
+
+@media (max-width: 600px) {
+    .letter-paper    { padding: 44px 26px; }
+    .recipient-line  { font-size: 1.05rem; }
+}
