@@ -1,157 +1,6 @@
 {
   "week": "2025-W15",
   "weekly_progress": 42,
-  "publishing": [
-    {
-      "date": "2026-04-15",
-      "label": "ep01投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-04-18",
-      "label": "士官学校編プロット締切",
-      "type": "plot"
-    },
-    {
-      "date": "2026-04-20",
-      "label": "レビュー公開",
-      "type": "review"
-    },
-    {
-      "date": "2026-04-25",
-      "label": "Viewer Hub インフラ改修",
-      "type": "infra"
-    },
-    {
-      "date": "2026-05-01",
-      "label": "ep02投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-05-08",
-      "label": "ep03投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-05-15",
-      "label": "グローリアテスト編プロット",
-      "type": "plot"
-    },
-    {
-      "date": "2026-05-20",
-      "label": "レビュー公開",
-      "type": "review"
-    },
-    {
-      "date": "2026-05-28",
-      "label": "転職活動 面接",
-      "type": "work"
-    },
-    {
-      "date": "2026-06-01",
-      "label": "ep04投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-06-10",
-      "label": "MeritCore RAG 本番移行",
-      "type": "infra"
-    },
-    {
-      "date": "2026-06-15",
-      "label": "ep05投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-06-22",
-      "label": "レビュー公開",
-      "type": "review"
-    },
-    {
-      "date": "2026-07-01",
-      "label": "ep06投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-07-04",
-      "label": "士官学校編 第1稿完成",
-      "type": "plot"
-    },
-    {
-      "date": "2026-07-15",
-      "label": "ep07投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-08-01",
-      "label": "ep08投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-08-10",
-      "label": "夏コミ検討",
-      "type": "personal"
-    },
-    {
-      "date": "2026-09-01",
-      "label": "ep09投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-09-15",
-      "label": "レビュー公開",
-      "type": "review"
-    },
-    {
-      "date": "2026-10-01",
-      "label": "ep10投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-10-20",
-      "label": "転職活動 最終報告",
-      "type": "work"
-    },
-    {
-      "date": "2026-11-01",
-      "label": "ep11投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-11-15",
-      "label": "グローリアテスト編完結",
-      "type": "plot"
-    },
-    {
-      "date": "2026-12-01",
-      "label": "ep12投稿",
-      "type": "release"
-    },
-    {
-      "date": "2026-12-15",
-      "label": "2026年振り返りレビュー",
-      "type": "review"
-    },
-   {
-  "date": "2026-04-11",
-  "label": "土曜ナイトルーチン",
-  "type": "personal",
-  "timeline": [
-    {
-      "time": "19:00",
-      "label": "バックアップ構築及び見直し"
-    },
-    {
-      "time": "22:00",
-      "label": "アニメ鑑賞"
-    },
-    {
-      "time": "00:00",
-      "label": "創作活動"
-    }
-  ]
-}
-  ],
   "days": {
     "MON": {
       "label": "月",
@@ -338,5 +187,15 @@
         }
       ]
     }
-  }
+  },
+  "publishing": [
+    { "date": "2026-04-12", "title": "第6話 テロ事件導入", "time": "21:00", "type": "narou" },
+    { "date": "2026-04-19", "title": "第7話 潜入開始", "time": "21:00", "type": "narou" },
+    { "date": "2026-04-26", "title": "第8話 裏切りの予兆", "time": "21:00", "type": "narou" },
+    { "date": "2026-05-03", "title": "第9話 地下道の邂逅", "time": "21:00", "type": "narou" },
+    { "date": "2026-05-10", "title": "第10話 選択の刻", "time": "21:00", "type": "narou" },
+    { "date": "2026-05-24", "title": "第11話 反撃の狼煙", "time": "21:00", "type": "narou" },
+    { "date": "2026-06-07", "title": "ep06 音声収録", "time": "14:00", "type": "meeting" },
+    { "date": "2026-07-01", "title": "第1巻 書籍化締切", "time": "23:59", "type": "deadline" }
+  ]
 }

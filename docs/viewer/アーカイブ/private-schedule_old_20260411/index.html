@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MERITOCRACIA OS — 作業卓</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="ps-wrap">
+
+    <!-- ヘッダー -->
+    <div class="ps-top-bar">
+      <div class="ps-site-label">MERITOCRACIA — 作業卓</div>
+      <div class="ps-clock-block">
+        <div id="ps-clock-time">00:00:00</div>
+        <div id="ps-clock-date">----/--/--</div>
+      </div>
+    </div>
+
+    <!-- 週間プログレス -->
+    <div class="ps-weekly-progress">
+      <div class="ps-wp-header">
+        <span class="ps-wp-label">WEEKLY PROGRESS</span>
+        <span id="ps-wp-pct">0%</span>
+      </div>
+      <div class="ps-wp-bar">
+        <div class="ps-wp-fill" id="ps-wp-fill"></div>
+      </div>
+    </div>
+
+    <!-- 2カラム -->
+    <div class="ps-main-grid">
+
+      <!-- ポモドーロ -->
+      <div class="ps-card">
+        <span class="ps-card-label">POMODORO TIMER</span>
+        <div id="ps-pomo-mode">WORK</div>
+
+        <div class="ps-ring-wrap">
+          <svg class="ps-ring-svg" viewBox="0 0 100 100">
+            <circle class="ps-ring-bg" cx="50" cy="50" r="42" />
+            <circle class="ps-ring-prog" id="ps-ring" cx="50" cy="50" r="42" stroke-dasharray="263.9"
+              stroke-dashoffset="0" />
+          </svg>
+          <div class="ps-ring-center">
+            <div id="ps-pomo-timer">25:00</div>
+            <div id="ps-pomo-session">SESSION 1</div>
+          </div>
+        </div>
+
+        <div class="ps-pomo-btns">
+          <button class="ps-pomo-btn ps-primary" id="ps-btn-start">START</button>
+          <button class="ps-pomo-btn" id="ps-btn-pause">PAUSE</button>
+          <button class="ps-pomo-btn" id="ps-btn-reset">RESET</button>
+        </div>
+      </div>
+
+      <!-- 右カラム: スケジュール -->
+      <div class="ps-card ps-schedule-card">
+
+        <!-- ▼ カード内切替タブ -->
+        <div class="ps-view-tabs" id="ps-view-tabs">
+          <button class="ps-view-tab ps-view-active" data-view="weekly">週間OS</button>
+          <button class="ps-view-tab" data-view="yearly">2026 年間カレンダー</button>
+        </div>
+
+        <!-- ▼ 週間ビュー（既存内容） -->
+        <div class="ps-right-view" id="ps-view-weekly">
+          <div class="ps-day-tabs" id="ps-day-tabs">
+            <button class="ps-day-tab" data-day="MON">月</button>
+            <button class="ps-day-tab" data-day="TUE">火</button>
+            <button class="ps-day-tab" data-day="WED">水</button>
+            <button class="ps-day-tab" data-day="THU">木</button>
+            <button class="ps-day-tab" data-day="FRI">金</button>
+            <button class="ps-day-tab" data-day="SAT">土</button>
+            <button class="ps-day-tab" data-day="SUN">日</button>
+          </div>
+
+          <div class="ps-now-banner" id="ps-now-banner">
+            <div class="ps-now-label">NOW</div>
+            <div id="ps-now-task">—</div>
+            <div id="ps-now-remaining">次の予定まで —</div>
+          </div>
+
+          <div id="ps-blocks"></div>
+        </div>
+
+        <!-- ▼ 年間カレンダービュー（初期非表示） -->
+        <div class="ps-right-view ps-hidden" id="ps-view-yearly">
+          <div class="ps-yearly-grid" id="ps-yearly-grid"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="ps-footer-note">LOCAL — NO SERVER — NO EXTERNAL ASSETS</div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>
