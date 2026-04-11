@@ -3,6 +3,52 @@
   "weekly_progress": 42,
   "publishing": [
     {
+      "date": "2026-04-11",
+      "label": "土曜ナイトルーチン",
+      "type": "personal",
+      "timeline": [
+        {
+          "time": "19:00",
+          "label": "バックアップ構築及び見直し"
+        },
+        {
+          "time": "22:00",
+          "label": "アニメ鑑賞"
+        },
+        {
+          "time": "00:00",
+          "label": "創作活動"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "label": "創作再開",
+      "type": "personal",
+      "timeline": [
+        {
+          "time": "15:00",
+          "label": "創作再開"
+        },
+        {
+          "time": "10:00",
+          "label": "士官学校編 Scene46"
+        },
+        {
+          "time": "14:00",
+          "label": "昼寝"
+        },
+        {
+          "time": "15:00",
+          "label": "Scene47 キール"
+        },
+        {
+          "time": "22:00",
+          "label": "三兵団顧問制度会議"
+        }
+      ]
+    },
+    {
       "date": "2026-04-15",
       "label": "ep01投稿",
       "type": "release"
@@ -131,26 +177,7 @@
       "date": "2026-12-15",
       "label": "2026年振り返りレビュー",
       "type": "review"
-    },
-   {
-  "date": "2026-04-11",
-  "label": "土曜ナイトルーチン",
-  "type": "personal",
-  "timeline": [
-    {
-      "time": "19:00",
-      "label": "バックアップ構築及び見直し"
-    },
-    {
-      "time": "22:00",
-      "label": "アニメ鑑賞"
-    },
-    {
-      "time": "00:00",
-      "label": "創作活動"
     }
-  ]
-}
   ],
   "days": {
     "MON": {
