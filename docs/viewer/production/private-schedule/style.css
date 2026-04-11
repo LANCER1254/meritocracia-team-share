@@ -5,26 +5,26 @@
    ============================================================ */
 
 :root {
-  --ps-bg:       #07090f;
-  --ps-bg2:      #0e1320;
-  --ps-bg3:      #141c2e;
-  --ps-amber:    #c8841a;
-  --ps-amber2:   #e8a030;
-  --ps-amber3:   #f5c060;
-  --ps-dim:      #4a3c28;
-  --ps-text:     #d4c5a9;
-  --ps-text2:    #7a6e5e;
-  --ps-text3:    #4a4030;
-  --ps-green:    #2a8a4a;
-  --ps-green2:   #3dbb66;
-  --ps-blue:     #1e3a5f;
-  --ps-blue2:    #2980b9;
-  --ps-purple:   #3e1e5f;
-  --ps-purple2:  #9b59b6;
-  --ps-red:      #8a2020;
-  --ps-border:   rgba(200,132,26,0.18);
-  --ps-shadow:   rgba(0,0,0,0.6);
-  --ps-r:        16px;
+  --ps-bg: #07090f;
+  --ps-bg2: #0e1320;
+  --ps-bg3: #141c2e;
+  --ps-amber: #c8841a;
+  --ps-amber2: #e8a030;
+  --ps-amber3: #f5c060;
+  --ps-dim: #4a3c28;
+  --ps-text: #d4c5a9;
+  --ps-text2: #7a6e5e;
+  --ps-text3: #4a4030;
+  --ps-green: #2a8a4a;
+  --ps-green2: #3dbb66;
+  --ps-blue: #1e3a5f;
+  --ps-blue2: #2980b9;
+  --ps-purple: #3e1e5f;
+  --ps-purple2: #9b59b6;
+  --ps-red: #8a2020;
+  --ps-border: rgba(200, 132, 26, 0.18);
+  --ps-shadow: rgba(0, 0, 0, 0.6);
+  --ps-r: 16px;
 }
 
 /* ────── リセット ────── */
@@ -48,8 +48,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(200,132,26,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200,132,26,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(200, 132, 26, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 132, 26, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -63,7 +63,7 @@ body::after {
   transform: translateX(-50%);
   width: 600px;
   height: 400px;
-  background: radial-gradient(ellipse, rgba(200,132,26,0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(200, 132, 26, 0.06) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -93,7 +93,9 @@ body::after {
   opacity: 0.7;
 }
 
-.ps-clock-block { text-align: right; }
+.ps-clock-block {
+  text-align: right;
+}
 
 #ps-clock-time {
   font-size: clamp(28px, 6vw, 48px);
@@ -125,7 +127,9 @@ body::after {
   margin-bottom: 6px;
 }
 
-#ps-wp-pct { color: var(--ps-amber); }
+#ps-wp-pct {
+  color: var(--ps-amber);
+}
 
 .ps-wp-bar {
   height: 3px;
@@ -151,7 +155,9 @@ body::after {
 }
 
 @media (max-width: 640px) {
-  .ps-main-grid { grid-template-columns: 1fr; }
+  .ps-main-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ────── カード ────── */
@@ -180,7 +186,10 @@ body::after {
   margin-bottom: 12px;
   transition: color 0.5s;
 }
-#ps-pomo-mode.ps-break { color: var(--ps-green2); }
+
+#ps-pomo-mode.ps-break {
+  color: var(--ps-green2);
+}
 
 .ps-ring-wrap {
   display: flex;
@@ -208,8 +217,11 @@ body::after {
   stroke-linecap: round;
   transition: stroke-dashoffset 1s linear, stroke 0.5s;
 }
+
 /* Firefox SVG safe: classListでトグル */
-.ps-ring-prog.ps-break { stroke: var(--ps-green2); }
+.ps-ring-prog.ps-break {
+  stroke: var(--ps-green2);
+}
 
 .ps-ring-center {
   position: absolute;
@@ -255,19 +267,19 @@ body::after {
 }
 
 .ps-pomo-btn:hover {
-  background: rgba(200,132,26,0.12);
+  background: rgba(200, 132, 26, 0.12);
   color: var(--ps-amber2);
   border-color: var(--ps-amber);
 }
 
 .ps-pomo-btn.ps-primary {
-  background: rgba(200,132,26,0.15);
+  background: rgba(200, 132, 26, 0.15);
   color: var(--ps-amber2);
   border-color: var(--ps-amber);
 }
 
 .ps-pomo-btn.ps-primary:hover {
-  background: rgba(200,132,26,0.28);
+  background: rgba(200, 132, 26, 0.28);
   color: var(--ps-amber3);
 }
 
@@ -286,7 +298,10 @@ body::after {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.ps-day-tabs::-webkit-scrollbar { display: none; }
+
+.ps-day-tabs::-webkit-scrollbar {
+  display: none;
+}
 
 .ps-day-tab {
   flex: 1;
@@ -306,19 +321,21 @@ body::after {
 
 .ps-day-tab:hover {
   color: var(--ps-text);
-  border-color: rgba(200,132,26,0.3);
+  border-color: rgba(200, 132, 26, 0.3);
 }
 
 .ps-day-tab.ps-active {
-  background: rgba(200,132,26,0.12);
+  background: rgba(200, 132, 26, 0.12);
   border-color: var(--ps-amber);
-  border-bottom-color: var(--ps-bg2); /* カードに溶け込む */
+  border-bottom-color: var(--ps-bg2);
+  /* カードに溶け込む */
   color: var(--ps-amber2);
 }
 
 .ps-day-tab.ps-today {
   position: relative;
 }
+
 .ps-day-tab.ps-today::after {
   content: '';
   position: absolute;
@@ -333,14 +350,17 @@ body::after {
 
 /* NOWバナー */
 .ps-now-banner {
-  background: linear-gradient(135deg, rgba(200,132,26,0.15), rgba(200,132,26,0.05));
-  border: 1px solid rgba(200,132,26,0.35);
+  background: linear-gradient(135deg, rgba(200, 132, 26, 0.15), rgba(200, 132, 26, 0.05));
+  border: 1px solid rgba(200, 132, 26, 0.35);
   border-radius: 10px;
   padding: 10px 14px;
   margin-bottom: 12px;
   transition: opacity 0.3s;
 }
-.ps-now-banner.ps-hidden { display: none; }
+
+.ps-now-banner.ps-hidden {
+  display: none;
+}
 
 .ps-now-label {
   font-size: 9px;
@@ -377,6 +397,7 @@ body::after {
   align-items: center;
   gap: 8px;
 }
+
 .ps-block-label::after {
   content: '';
   flex: 1;
@@ -400,18 +421,23 @@ body::after {
 }
 
 .ps-task-card.ps-current {
-  background: rgba(200,132,26,0.10);
-  border-color: rgba(200,132,26,0.4);
+  background: rgba(200, 132, 26, 0.10);
+  border-color: rgba(200, 132, 26, 0.4);
 }
+
 .ps-task-card.ps-current::before {
   content: '';
   position: absolute;
-  left: 0; top: 0; bottom: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 3px;
   background: var(--ps-amber2);
 }
 
-.ps-task-card.ps-past { opacity: 0.35; }
+.ps-task-card.ps-past {
+  opacity: 0.35;
+}
 
 .ps-task-time {
   font-size: 12px;
@@ -421,8 +447,14 @@ body::after {
   width: 40px;
   flex-shrink: 0;
 }
-.ps-task-card.ps-past .ps-task-time { color: var(--ps-text3); }
-.ps-task-card.ps-current .ps-task-time { color: var(--ps-amber2); }
+
+.ps-task-card.ps-past .ps-task-time {
+  color: var(--ps-text3);
+}
+
+.ps-task-card.ps-current .ps-task-time {
+  color: var(--ps-amber2);
+}
 
 .ps-task-cat {
   font-size: 8px;
@@ -431,10 +463,26 @@ body::after {
   letter-spacing: 1px;
   flex-shrink: 0;
 }
-.ps-cat-writing { background: rgba(42,138,74,0.3);  color: #3dbb66; }
-.ps-cat-dev     { background: rgba(30,58,95,0.4);   color: #5dade2; }
-.ps-cat-meeting { background: rgba(62,30,95,0.4);   color: #9b59b6; }
-.ps-cat-rest    { background: rgba(74,60,40,0.4);   color: #7a6e5e; }
+
+.ps-cat-writing {
+  background: rgba(42, 138, 74, 0.3);
+  color: #3dbb66;
+}
+
+.ps-cat-dev {
+  background: rgba(30, 58, 95, 0.4);
+  color: #5dade2;
+}
+
+.ps-cat-meeting {
+  background: rgba(62, 30, 95, 0.4);
+  color: #9b59b6;
+}
+
+.ps-cat-rest {
+  background: rgba(74, 60, 40, 0.4);
+  color: #7a6e5e;
+}
 
 .ps-task-label {
   font-size: 13px;
@@ -442,7 +490,10 @@ body::after {
   letter-spacing: 0.5px;
   flex: 1;
 }
-.ps-task-card.ps-past .ps-task-label { color: var(--ps-text3); }
+
+.ps-task-card.ps-past .ps-task-label {
+  color: var(--ps-text3);
+}
 
 .ps-task-dot {
   width: 6px;
@@ -451,6 +502,7 @@ body::after {
   background: var(--ps-text3);
   flex-shrink: 0;
 }
+
 .ps-task-card.ps-current .ps-task-dot {
   background: var(--ps-amber2);
   box-shadow: 0 0 5px var(--ps-amber);
@@ -475,6 +527,191 @@ body::after {
 }
 
 /* ────── スクロールバー ────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ps-bg); }
-::-webkit-scrollbar-thumb { background: var(--ps-border); border-radius: 2px; }
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ps-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ps-border);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   v3: カード内切替タブ & 年間カレンダー
+   ============================================================ */
+
+/* ────── カード内切替タブ ────── */
+.ps-view-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.ps-view-tab {
+  flex: 1;
+  padding: 6px 8px;
+  background: var(--ps-bg3);
+  border: 1px solid var(--ps-border);
+  border-radius: 8px 8px 0 0;
+  color: var(--ps-text2);
+  font-family: 'Georgia', 'Noto Serif JP', serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+}
+
+.ps-view-tab:hover {
+  color: var(--ps-text);
+  border-color: rgba(200,132,26,0.35);
+  background: rgba(200,132,26,0.06);
+}
+
+.ps-view-tab.ps-view-active {
+  background: rgba(200,132,26,0.14);
+  border-color: var(--ps-amber);
+  border-bottom-color: var(--ps-bg2);
+  color: var(--ps-amber2);
+}
+
+/* ────── ビュー切替 ────── */
+.ps-right-view.ps-hidden { display: none; }
+
+/* 年間カレンダー表示時はレイアウト幅を広げる */
+.ps-wrap.ps-wide {
+  max-width: 1200px;
+  transition: max-width 0.3s ease;
+}
+.ps-wrap.ps-wide .ps-main-grid {
+  grid-template-columns: 280px 1fr;
+}
+
+/* ────── 年間カレンダー ────── */
+.ps-yearly-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ps-month-card {
+  background: var(--ps-bg3);
+  border: 1px solid var(--ps-border);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.ps-month-title {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--ps-amber);
+  text-align: center;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.ps-cal-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ps-cal-table th {
+  font-size: 8px;
+  font-weight: normal;
+  color: var(--ps-text3);
+  letter-spacing: 0.5px;
+  padding: 2px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(200,132,26,0.10);
+}
+.ps-cal-table th.ps-cal-sat { color: rgba(41,128,185,0.6); }
+.ps-cal-table th.ps-cal-sun { color: rgba(138,32,32,0.7); }
+
+.ps-cal-table td {
+  font-size: 9px;
+  color: var(--ps-text2);
+  text-align: center;
+  padding: 0;
+  vertical-align: top;
+  min-height: 18px;
+  border: 1px solid rgba(200,132,26,0.04);
+  position: relative;
+}
+.ps-cal-table td.ps-cal-empty { border-color: transparent; }
+
+.ps-cal-day-num {
+  display: block;
+  font-size: 9px;
+  line-height: 1;
+  padding: 2px 0 1px;
+  color: var(--ps-text2);
+}
+td.ps-cal-sat .ps-cal-day-num { color: var(--ps-blue2); }
+td.ps-cal-sun .ps-cal-day-num { color: #c04040; }
+
+/* 当日ハイライト */
+td.ps-cal-today {
+  background: rgba(192, 48, 48, 0.12);
+  border: 2px solid rgba(192, 48, 48, 0.7);
+  border-radius: 3px;
+}
+td.ps-cal-today .ps-cal-day-num {
+  color: #e06060;
+  font-weight: bold;
+}
+
+/* 予定バッジ */
+.ps-cal-events {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 1px 2px;
+}
+.ps-cal-ev {
+  font-size: 6px;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  padding: 1px 2px;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+}
+.ps-cal-ev-narou    { background: rgba(42,138,74,0.25);  color: #3dbb66; }
+.ps-cal-ev-meeting  { background: rgba(62,30,95,0.35);   color: #9b59b6; }
+.ps-cal-ev-deadline { background: rgba(138,32,32,0.35);  color: #e06060; }
+.ps-cal-ev-default  { background: rgba(200,132,26,0.18); color: var(--ps-amber2); }
+
+/* ツールチップ */
+.ps-cal-ev[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ps-bg3);
+  border: 1px solid var(--ps-amber);
+  color: var(--ps-text);
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+  .ps-wrap.ps-wide .ps-main-grid { grid-template-columns: 1fr; }
+  .ps-yearly-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .ps-yearly-grid { grid-template-columns: 1fr; }
+}
