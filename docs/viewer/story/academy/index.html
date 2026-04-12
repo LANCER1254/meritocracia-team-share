@@ -3,1153 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="メリトクラシア -Reboot- 士官学校編 Phase1 設定資料。章の到達目標、話数構成、顧問構造、模擬戦ルール、フィールド構造、評価ロジック等を収録。">
-<title>士官学校編 Phase1 骨格確定｜メリトクラシア -Reboot- 設定資料</title>
-<style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg-primary: #0a0c10;
-  --bg-secondary: #10131a;
-  --bg-card: #141820;
-  --bg-card-hover: #1a1f2a;
-  --bg-inset: #0d0f15;
-  --border-primary: #1e2230;
-  --border-accent: #2a3040;
-  --text-primary: #d8dce6;
-  --text-secondary: #8a92a6;
-  --text-muted: #5a6278;
-  --text-heading: #eaedf4;
-
-  /* Faction Colors */
-  --zg-primary: #4a7ccc;
-  --zg-secondary: #2e5a9e;
-  --zg-dim: #1a2d4a;
-  --zg-glow: rgba(74, 124, 204, 0.15);
-
-  --fo-primary: #c4463a;
-  --fo-secondary: #8e322a;
-  --fo-dim: #3a1a18;
-  --fo-glow: rgba(196, 70, 58, 0.15);
-
-  --va-primary: #7a4aaa;
-  --va-secondary: #553278;
-  --va-dim: #2a1a3a;
-
-  --accent-gold: #b89a5a;
-  --accent-gold-dim: #3a321e;
-  --accent-warn: #d4944a;
-  --accent-warn-dim: #3a2a18;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.4);
-  --shadow-hover: 0 4px 20px rgba(0,0,0,0.5);
-  --transition: 0.25s ease;
-}
-
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-
-body {
-  font-family: "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.75;
-  font-size: 15px;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ===== LAYOUT ===== */
-.page-wrapper {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 20px 80px;
-}
-
-/* ===== HEADER ===== */
-.site-header {
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-  border-bottom: 1px solid var(--border-primary);
-  padding: 32px 20px 24px;
-  text-align: center;
-  position: relative;
-}
-.site-header::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--zg-primary), var(--accent-gold), var(--fo-primary));
-}
-.header-label {
-  display: inline-block;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  border: 1px solid var(--border-accent);
-  padding: 3px 14px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 12px;
-}
-.header-title {
-  font-size: clamp(22px, 4vw, 32px);
-  font-weight: 700;
-  color: var(--text-heading);
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-.header-subtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-.header-meta {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.meta-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  padding: 4px 12px;
-  border-radius: var(--radius-sm);
-}
-.meta-tag .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  display: inline-block;
-}
-.dot-confirmed { background: #4aaa6a; }
-.dot-pending { background: var(--accent-warn); }
-
-/* ===== OVERVIEW CARD ===== */
-.overview-card {
-  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
-  border: 1px solid var(--border-accent);
-  border-radius: var(--radius-lg);
-  padding: 28px 32px;
-  margin: 32px 0;
-  position: relative;
-  overflow: hidden;
-}
-.overview-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px; height: 100%;
-  background: linear-gradient(180deg, var(--zg-primary), var(--accent-gold));
-}
-.overview-card h2 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--accent-gold);
-  margin-bottom: 12px;
-  letter-spacing: 1px;
-}
-.overview-card p {
-  color: var(--text-secondary);
-  font-size: 14px;
-  line-height: 1.8;
-}
-.overview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-  margin-top: 16px;
-}
-.overview-item {
-  background: var(--bg-inset);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-  font-size: 13px;
-}
-.overview-item .label {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.overview-item .value {
-  color: var(--text-heading);
-  font-weight: 600;
-}
-
-/* ===== NAV / TOC ===== */
-.toc-wrapper {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(10, 12, 16, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-primary);
-  padding: 0 20px;
-}
-.toc-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-accent) transparent;
-}
-.toc-inner::-webkit-scrollbar { height: 3px; }
-.toc-inner::-webkit-scrollbar-track { background: transparent; }
-.toc-inner::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 3px; }
-.toc-list {
-  display: flex;
-  gap: 4px;
-  list-style: none;
-  white-space: nowrap;
-  padding: 10px 0;
-}
-.toc-list a {
-  display: block;
-  padding: 6px 14px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: var(--transition);
-  border: 1px solid transparent;
-}
-.toc-list a:hover {
-  color: var(--text-heading);
-  background: var(--bg-card);
-  border-color: var(--border-accent);
-}
-.toc-list a.active {
-  color: var(--accent-gold);
-  background: var(--accent-gold-dim);
-  border-color: rgba(184, 154, 90, 0.3);
-}
-
-/* ===== SECTIONS ===== */
-.section {
-  margin-top: 48px;
-}
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-primary);
-}
-.section-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  font-size: 13px;
-  font-weight: 700;
-  background: var(--bg-card);
-  border: 1px solid var(--border-accent);
-  color: var(--text-secondary);
-  flex-shrink: 0;
-}
-.section-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-heading);
-  letter-spacing: 0.5px;
-}
-
-/* ===== CARDS ===== */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  margin-bottom: 16px;
-  transition: var(--transition);
-}
-.card:hover {
-  border-color: var(--border-accent);
-  box-shadow: var(--shadow-card);
-}
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-heading);
-  margin-bottom: 12px;
-}
-.card p, .card li {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-}
-.card ul {
-  list-style: none;
-  padding-left: 0;
-}
-.card ul li {
-  position: relative;
-  padding-left: 18px;
-  margin-bottom: 6px;
-}
-.card ul li::before {
-  content: '›';
-  position: absolute;
-  left: 0;
-  color: var(--text-muted);
-  font-weight: 700;
-}
-
-/* ===== GOAL BADGES ===== */
-.goal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
-}
-.goal-badge {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-left: 3px solid var(--zg-primary);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  font-size: 14px;
-  color: var(--text-primary);
-  transition: var(--transition);
-}
-.goal-badge:hover {
-  border-left-color: var(--accent-gold);
-  background: var(--bg-card-hover);
-}
-.goal-badge.theme {
-  border-left-color: var(--accent-gold);
-  background: var(--accent-gold-dim);
-}
-.goal-badge.theme .badge-text {
-  color: var(--accent-gold);
-  font-weight: 600;
-  font-size: 15px;
-}
-
-/* ===== TIMELINE ===== */
-.timeline {
-  position: relative;
-  padding-left: 36px;
-}
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 14px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--zg-primary), var(--border-accent), var(--fo-primary));
-}
-.timeline-item {
-  position: relative;
-  margin-bottom: 24px;
-}
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -28px;
-  top: 6px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 2px solid var(--zg-primary);
-}
-.timeline-item:last-child::before {
-  border-color: var(--fo-primary);
-}
-.timeline-item:nth-child(2)::before {
-  border-color: var(--accent-gold);
-}
-.timeline-ep {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.timeline-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-heading);
-  margin-bottom: 8px;
-}
-.timeline-body {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-}
-.timeline-body ul {
-  list-style: none;
-}
-.timeline-body li {
-  font-size: 13px;
-  color: var(--text-secondary);
-  padding: 3px 0 3px 16px;
-  position: relative;
-}
-.timeline-body li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--text-muted);
-  font-size: 10px;
-}
-
-/* ===== COMPARISON ===== */
-.comparison-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.comparison-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-}
-.comparison-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-}
-.comparison-card.zg::before { background: var(--zg-primary); }
-.comparison-card.fo::before { background: var(--fo-primary); }
-.comparison-card .faction-label {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  padding: 2px 10px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 10px;
-}
-.comparison-card.zg .faction-label {
-  color: var(--zg-primary);
-  background: var(--zg-dim);
-  border: 1px solid rgba(74, 124, 204, 0.3);
-}
-.comparison-card.fo .faction-label {
-  color: var(--fo-primary);
-  background: var(--fo-dim);
-  border: 1px solid rgba(196, 70, 58, 0.3);
-}
-.comparison-card .name {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text-heading);
-  margin-bottom: 4px;
-}
-.comparison-card .role {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-}
-.comparison-card .detail-list {
-  list-style: none;
-}
-.comparison-card .detail-list li {
-  font-size: 13px;
-  color: var(--text-secondary);
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border-primary);
-  display: flex;
-  gap: 8px;
-}
-.comparison-card .detail-list li:last-child { border-bottom: none; }
-.comparison-card .detail-list .dl-label {
-  font-weight: 600;
-  color: var(--text-primary);
-  flex-shrink: 0;
-  min-width: 70px;
-}
-
-/* ===== COMPARISON TABLE ===== */
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  margin-top: 16px;
-}
-.comparison-table th,
-.comparison-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-primary);
-}
-.comparison-table th {
-  background: var(--bg-inset);
-  color: var(--text-muted);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.comparison-table th:nth-child(2) { color: var(--zg-primary); }
-.comparison-table th:nth-child(3) { color: var(--fo-primary); }
-.comparison-table td { color: var(--text-secondary); }
-.comparison-table td:first-child {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-.comparison-table tbody tr:hover {
-  background: var(--bg-card-hover);
-}
-
-/* ===== RULE CARDS ===== */
-.rule-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-.rule-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
-  position: relative;
-  overflow: hidden;
-}
-.rule-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 2px;
-  background: linear-gradient(90deg, var(--zg-primary), var(--fo-primary));
-  opacity: 0.6;
-}
-.rule-card .rule-icon {
-  font-size: 20px;
-  margin-bottom: 10px;
-  display: block;
-}
-.rule-card .rule-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-heading);
-  margin-bottom: 4px;
-}
-.rule-card .rule-sub {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
-}
-.rule-card .rule-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 10px;
-}
-.rule-detail {
-  background: var(--bg-inset);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-.rule-detail strong {
-  color: var(--text-primary);
-}
-
-/* ===== FIELD MAP ===== */
-.field-map-container {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-top: 16px;
-}
-.field-map-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-heading);
-  margin-bottom: 4px;
-}
-.field-map-sub {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-.field-map {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.zone {
-  border: 1px solid var(--border-accent);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  position: relative;
-  min-height: 90px;
-  transition: var(--transition);
-}
-.zone:hover {
-  border-color: var(--text-muted);
-  background: var(--bg-card-hover);
-}
-.zone-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.zone-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-heading);
-  margin-bottom: 6px;
-}
-.zone-desc {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-.zone-center {
-  grid-column: 1 / -1;
-  background: var(--bg-inset);
-  border-color: var(--accent-gold);
-  border-width: 2px;
-  text-align: center;
-}
-.zone-center .zone-name { color: var(--accent-gold); }
-.zone-a { border-left: 3px solid var(--zg-primary); }
-.zone-b { border-left: 3px solid var(--fo-primary); }
-.zone-c { border-left: 3px solid var(--va-primary); }
-.zone-d {
-  grid-column: 1 / -1;
-  border-left: 3px solid var(--text-muted);
-}
-
-/* ===== TACTICS ===== */
-.tactics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.tactic-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-}
-.tactic-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-}
-.tactic-card.fo-tactic::before { background: var(--fo-primary); }
-.tactic-card.zg-tactic::before { background: var(--zg-primary); }
-.tactic-card .tc-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.tactic-card.fo-tactic .tc-label { color: var(--fo-primary); }
-.tactic-card.zg-tactic .tc-label { color: var(--zg-primary); }
-.tactic-card .tc-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-heading);
-  margin-bottom: 4px;
-}
-.tactic-card .tc-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-}
-.tactic-card .tc-list {
-  list-style: none;
-}
-.tactic-card .tc-list li {
-  font-size: 13px;
-  color: var(--text-secondary);
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border-primary);
-  line-height: 1.7;
-}
-.tactic-card .tc-list li:last-child { border-bottom: none; }
-.tactic-card .tc-list li strong {
-  color: var(--text-primary);
-}
-
-/* ===== EVALUATION ===== */
-.eval-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 12px;
-}
-.eval-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-}
-.eval-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-}
-.eval-desc {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-}
-.eval-bar-bg {
-  height: 6px;
-  background: var(--bg-inset);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.eval-bar-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.8s ease;
-}
-.eval-bar-fill.bar-zg { background: linear-gradient(90deg, var(--zg-secondary), var(--zg-primary)); }
-.eval-bar-fill.bar-fo { background: linear-gradient(90deg, var(--fo-secondary), var(--fo-primary)); }
-.eval-bar-fill.bar-gold { background: linear-gradient(90deg, #8a7040, var(--accent-gold)); }
-.eval-bar-fill.bar-va { background: linear-gradient(90deg, var(--va-secondary), var(--va-primary)); }
-
-/* ===== CLIMAX CARD ===== */
-.climax-card {
-  background: linear-gradient(135deg, var(--bg-card) 0%, var(--fo-dim) 50%, var(--zg-dim) 100%);
-  border: 1px solid var(--border-accent);
-  border-radius: var(--radius-lg);
-  padding: 28px 32px;
-  margin-top: 24px;
-  position: relative;
-  overflow: hidden;
-}
-.climax-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--fo-primary), var(--accent-gold), var(--zg-primary));
-}
-.climax-card .cl-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent-gold);
-  margin-bottom: 12px;
-}
-.climax-card p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  margin-bottom: 10px;
-}
-.result-badges {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-.result-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-weight: 600;
-}
-.result-badge.defeat {
-  background: var(--fo-dim);
-  border: 1px solid rgba(196, 70, 58, 0.3);
-  color: var(--fo-primary);
-}
-.result-badge.cps {
-  background: var(--zg-dim);
-  border: 1px solid rgba(74, 124, 204, 0.3);
-  color: var(--zg-primary);
-}
-.result-badge.growth {
-  background: var(--accent-gold-dim);
-  border: 1px solid rgba(184, 154, 90, 0.3);
-  color: var(--accent-gold);
-}
-
-/* ===== RANKING CARD ===== */
-.ranking-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  margin-top: 16px;
-}
-.ranking-card .rk-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-heading);
-  margin-bottom: 12px;
-}
-.ranking-visual {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-}
-.rk-before, .rk-after {
-  padding: 8px 16px;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-}
-.rk-before {
-  background: var(--bg-inset);
-  border: 1px solid var(--border-primary);
-  color: var(--text-muted);
-}
-.rk-after {
-  background: var(--accent-gold-dim);
-  border: 1px solid rgba(184, 154, 90, 0.3);
-  color: var(--accent-gold);
-}
-.rk-arrow {
-  color: var(--accent-gold);
-  font-size: 18px;
-}
-.rk-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-top: 12px;
-  line-height: 1.7;
-}
-
-/* ===== PENDING ===== */
-.pending-section {
-  background: var(--accent-warn-dim);
-  border: 1px solid rgba(212, 148, 74, 0.25);
-  border-radius: var(--radius-lg);
-  padding: 24px 28px;
-}
-.pending-section .pending-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--accent-warn);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.pending-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-}
-.pending-item {
-  background: rgba(10, 12, 16, 0.5);
-  border: 1px solid rgba(212, 148, 74, 0.15);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.pending-item::before {
-  content: '◯';
-  font-size: 10px;
-  color: var(--accent-warn);
-  flex-shrink: 0;
-}
-
-/* ===== KEYWORD HIGHLIGHTS ===== */
-.kw {
-  font-weight: 600;
-  padding: 1px 5px;
-  border-radius: 3px;
-  font-size: 0.95em;
-}
-.kw-zg { color: var(--zg-primary); background: var(--zg-dim); }
-.kw-fo { color: var(--fo-primary); background: var(--fo-dim); }
-.kw-va { color: var(--va-primary); background: var(--va-dim); }
-.kw-gold { color: var(--accent-gold); background: var(--accent-gold-dim); }
-
-/* ===== SCHOOL STRUCTURE ===== */
-.structure-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 12px;
-}
-.structure-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  transition: var(--transition);
-}
-.structure-item:hover {
-  border-color: var(--border-accent);
-}
-.structure-item .si-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-heading);
-  margin-bottom: 2px;
-}
-.structure-item .si-en {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-  letter-spacing: 0.5px;
-}
-.structure-item .si-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* ===== CEREMONY ===== */
-.ceremony-list {
-  list-style: none;
-}
-.ceremony-list li {
-  display: flex;
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border-primary);
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-.ceremony-list li:last-child { border-bottom: none; }
-.ceremony-list .cl-label {
-  font-weight: 600;
-  color: var(--text-primary);
-  flex-shrink: 0;
-  min-width: 140px;
-}
-
-/* ===== LECTURE IDEAS ===== */
-.lecture-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
-}
-.lecture-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  border-left: 3px solid var(--va-primary);
-}
-.lecture-card .lc-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-heading);
-  margin-bottom: 8px;
-}
-.lecture-card .lc-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* ===== COLLAPSIBLE ===== */
-.collapsible {
-  margin-top: 12px;
-}
-.collapsible-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  background: var(--bg-inset);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  padding: 10px 16px;
-  color: var(--text-secondary);
-  font-size: 13px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.collapsible-toggle:hover {
-  background: var(--bg-card);
-  color: var(--text-primary);
-}
-.collapsible-toggle .arrow {
-  transition: transform var(--transition);
-  font-size: 10px;
-}
-.collapsible-toggle.open .arrow { transform: rotate(90deg); }
-.collapsible-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
-.collapsible-content.open {
-  max-height: 2000px;
-}
-.collapsible-inner {
-  padding: 16px 0;
-}
-
-/* ===== FOOTER ===== */
-.site-footer {
-  margin-top: 64px;
-  padding: 24px 0;
-  border-top: 1px solid var(--border-primary);
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-/* ===== MODIFIERS ===== */
-.thought-quote {
-  font-style: italic;
-  color: var(--accent-gold);
-  font-size: 16px;
-  text-align: center;
-  padding: 20px;
-  margin: 16px 0;
-  border-left: 3px solid var(--accent-gold);
-  border-right: 3px solid var(--accent-gold);
-  background: var(--accent-gold-dim);
-  border-radius: var(--radius-md);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .comparison-wrapper,
-  .tactics-grid {
-    grid-template-columns: 1fr;
-  }
-  .field-map {
-    grid-template-columns: 1fr;
-  }
-  .zone-center,
-  .zone-d {
-    grid-column: auto;
-  }
-  .overview-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .goal-grid {
-    grid-template-columns: 1fr;
-  }
-  .comparison-table { font-size: 12px; }
-  .comparison-table th,
-  .comparison-table td {
-    padding: 8px 10px;
-  }
-  .header-meta { flex-direction: column; align-items: center; }
-  .ranking-visual { flex-direction: column; text-align: center; }
-}
-
-@media (max-width: 480px) {
-  .page-wrapper { padding: 0 12px 60px; }
-  .site-header { padding: 24px 12px 20px; }
-  .card { padding: 16px; }
-  .overview-card { padding: 20px; }
-  .overview-grid { grid-template-columns: 1fr; }
-  .pending-grid { grid-template-columns: 1fr; }
-  .rule-grid { grid-template-columns: 1fr; }
-  .eval-grid { grid-template-columns: 1fr; }
-  .structure-grid { grid-template-columns: 1fr; }
-  .lecture-grid { grid-template-columns: 1fr; }
-}
-</style>
+<meta name="description" content="メリトクラシア -Reboot- 士官学校編 Wiki 母艦。Phase1骨格・校則・寮制度・授業科目・模擬戦ルール・処分規定・校内マップ等を収録する長期運用設定資料。">
+<title>士官学校編 Wiki｜メリトクラシア -Reboot-</title>
+<!-- ===== STYLE（外部分離） ===== -->
+<link rel="stylesheet" href="assets/academy.css">
 </head>
 <body>
 
 <!-- ===== HEADER ===== -->
 <header class="site-header">
+  <nav class="header-breadcrumb" aria-label="パンくず">
+    <a href="../../index.html">Meritocracia -Reboot-</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../index.html">Story Wiki</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>士官学校編</span>
+  </nav>
   <span class="header-label">Meritocracia -Reboot- 設定資料</span>
-  <h1 class="header-title">士官学校編 Phase1 骨格確定</h1>
+  <h1 class="header-title">士官学校編 Wiki</h1>
   <p class="header-subtitle">『メリトクラシア -Reboot-』世界観Wiki ／ 試験・制度 ／ 士官学校</p>
   <div class="header-meta">
-    <span class="meta-tag">
-      <span class="dot dot-confirmed"></span>
-      骨格確定
-    </span>
-    <span class="meta-tag">
-      <span class="dot dot-pending"></span>
-      4話以降保留
-    </span>
-    <span class="meta-tag">2026-04-12</span>
+    <span class="meta-tag"><span class="dot dot-confirmed"></span>Phase1 骨格確定</span>
+    <span class="meta-tag"><span class="dot dot-pending"></span>4話以降保留</span>
+    <span class="meta-tag"><span class="dot dot-stub"></span>増築予約済</span>
+    <span class="meta-tag">更新: <span id="wiki-last-updated" data-date="2026-04-12">2026-04-12</span></span>
     <span class="meta-tag">決定権者：Lancer</span>
   </div>
 </header>
 
-<!-- ===== TOC ===== -->
-<nav class="toc-wrapper" id="toc">
+<!-- ===== TOC（academy.js が自動生成・追従） ===== -->
+<nav class="toc-wrapper" id="toc" aria-label="目次">
   <div class="toc-inner">
     <ul class="toc-list" id="toc-list">
-      <li><a href="#overview" data-section="overview">概要</a></li>
-      <li><a href="#goals" data-section="goals">到達目標</a></li>
-      <li><a href="#episodes" data-section="episodes">話数構成</a></li>
-      <li><a href="#advisors" data-section="advisors">顧問構造</a></li>
-      <li><a href="#theme" data-section="theme">模擬戦テーマ</a></li>
-      <li><a href="#gemini" data-section="gemini">Gemini統合</a></li>
-      <li><a href="#grok" data-section="grok">Grok統合</a></li>
-      <li><a href="#pending" data-section="pending">保留事項</a></li>
+      <!-- JS が .section[id] を走査して自動挿入 -->
     </ul>
   </div>
 </nav>
 
 <!-- ===== MAIN ===== -->
-<main class="page-wrapper">
+<main class="page-wrapper wiki-layout">
 
-  <!-- OVERVIEW -->
-  <section class="section" id="overview">
+  <!-- ================================================================
+       SECTION: OVERVIEW（概要）
+       ================================================================ -->
+  <section class="section" id="overview" data-toc-label="概要">
     <div class="overview-card">
       <h2>概要</h2>
       <p>
         本資料は2026年4月12日時点の統合議事録に基づき、『メリトクラシア -Reboot-』士官学校編序盤（Phase1：第1話〜第3話）の舞台設定・ルール・思想構造・評価ロジックを定義したものである。
         Gemini資料量産・Claude演出増幅・本編プロット母体として運用する。
+        今後のPhase拡張・各制度Wiki増築の母艦として設計されている。
       </p>
       <div class="overview-grid">
         <div class="overview-item">
-          <span class="label">対象範囲</span>
-          <span class="value">Phase1（第1話〜第3話）</span>
+          <span class="label">Phase1 対象範囲</span>
+          <span class="value">第1話〜第3話</span>
         </div>
         <div class="overview-item">
           <span class="label">用途</span>
-          <span class="value">Gemini資料量産 / Claude演出増幅 / 本編プロット母体</span>
+          <span class="value">Gemini量産 / Claude演出 / 本編母体</span>
         </div>
         <div class="overview-item">
           <span class="label">状態</span>
-          <span class="value">骨格確定（4話以降は保留）</span>
+          <span class="value">骨格確定（4話以降保留）</span>
         </div>
         <div class="overview-item">
           <span class="label">決定権者</span>
           <span class="value">Lancer</span>
         </div>
+        <div class="overview-item">
+          <span class="label">設計方針</span>
+          <span class="value">Wiki母艦 / 責任分離 / 増築前提</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">分岐予定</span>
+          <span class="value">phase2 / lecture / dormitory / disciplinary</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- GOALS -->
-  <section class="section" id="goals">
+  <!-- ================================================================
+       SECTION 1: 章の到達目標
+       ================================================================ -->
+  <section class="section" id="goals" data-toc-label="到達目標">
     <div class="section-header">
       <span class="section-number">1</span>
       <h2 class="section-title">章の到達目標</h2>
@@ -1158,21 +95,11 @@ body {
       士官学校編は以下を主軸とする。
     </p>
     <div class="goal-grid">
-      <div class="goal-badge">
-        <span class="badge-text">国家制度と市民感情の衝突</span>
-      </div>
-      <div class="goal-badge">
-        <span class="badge-text">士官学校内部の序列圧</span>
-      </div>
-      <div class="goal-badge">
-        <span class="badge-text">三兵団思想の教育現場化</span>
-      </div>
-      <div class="goal-badge">
-        <span class="badge-text">ジェイドの進路揺らぎ</span>
-      </div>
-      <div class="goal-badge">
-        <span class="badge-text">ライナルトとの本格対立開始</span>
-      </div>
+      <div class="goal-badge"><span class="badge-text">国家制度と市民感情の衝突</span></div>
+      <div class="goal-badge"><span class="badge-text">士官学校内部の序列圧</span></div>
+      <div class="goal-badge"><span class="badge-text">三兵団思想の教育現場化</span></div>
+      <div class="goal-badge"><span class="badge-text">ジェイドの進路揺らぎ</span></div>
+      <div class="goal-badge"><span class="badge-text">ライナルトとの本格対立開始</span></div>
     </div>
     <div class="thought-quote" style="margin-top:20px;">
       「正しさは一つではない」<br>
@@ -1180,14 +107,15 @@ body {
     </div>
   </section>
 
-  <!-- EPISODES -->
-  <section class="section" id="episodes">
+  <!-- ================================================================
+       SECTION 2: Phase1 話数構成
+       ================================================================ -->
+  <section class="section" id="episodes" data-toc-label="話数構成">
     <div class="section-header">
       <span class="section-number">2</span>
       <h2 class="section-title">Phase1 話数構成</h2>
     </div>
     <div class="timeline">
-      <!-- EP1 -->
       <div class="timeline-item">
         <span class="timeline-ep">Episode 01</span>
         <h3 class="timeline-title">入学式とデモ</h3>
@@ -1201,7 +129,6 @@ body {
           </ul>
         </div>
       </div>
-      <!-- EP2 -->
       <div class="timeline-item">
         <span class="timeline-ep">Episode 02</span>
         <h3 class="timeline-title">初授業と序列</h3>
@@ -1215,7 +142,6 @@ body {
           </ul>
         </div>
       </div>
-      <!-- EP3 -->
       <div class="timeline-item">
         <span class="timeline-ep">Episode 03</span>
         <h3 class="timeline-title">チーム模擬戦（最初の山場）</h3>
@@ -1232,14 +158,15 @@ body {
     </div>
   </section>
 
-  <!-- ADVISORS -->
-  <section class="section" id="advisors">
+  <!-- ================================================================
+       SECTION 3: 顧問構造
+       ================================================================ -->
+  <section class="section" id="advisors" data-toc-label="顧問構造">
     <div class="section-header">
       <span class="section-number">3</span>
       <h2 class="section-title">顧問構造（最重要確定）</h2>
     </div>
     <div class="comparison-wrapper">
-      <!-- YUMINA -->
       <div class="comparison-card zg">
         <span class="faction-label">ZG SPECIAL ADVISOR</span>
         <h3 class="name">ユミナ</h3>
@@ -1252,7 +179,6 @@ body {
           <li><span class="dl-label">因縁</span><span>ライナルトとの因縁を持つ</span></li>
         </ul>
       </div>
-      <!-- LEONHARDT -->
       <div class="comparison-card fo">
         <span class="faction-label">FO SPECIAL ADVISOR</span>
         <h3 class="name">レオンハルト・クロイツ</h3>
@@ -1271,15 +197,15 @@ body {
     </p>
   </section>
 
-  <!-- THEME -->
-  <section class="section" id="theme">
+  <!-- ================================================================
+       SECTION 4: 模擬戦テーマ
+       ================================================================ -->
+  <section class="section" id="theme" data-toc-label="模擬戦テーマ">
     <div class="section-header">
       <span class="section-number">4</span>
       <h2 class="section-title">模擬戦テーマ</h2>
     </div>
-    <div class="thought-quote">
-      誰が"正しい兵士"を育てるのか
-    </div>
+    <div class="thought-quote">誰が"正しい兵士"を育てるのか</div>
     <div class="comparison-wrapper" style="margin-top:20px;">
       <div class="comparison-card zg">
         <span class="faction-label">ZG — YUMINA</span>
@@ -1307,8 +233,10 @@ body {
     </p>
   </section>
 
-  <!-- GEMINI INTEGRATION -->
-  <section class="section" id="gemini">
+  <!-- ================================================================
+       SECTION 5: Gemini統合内容
+       ================================================================ -->
+  <section class="section" id="gemini" data-toc-label="Gemini統合">
     <div class="section-header">
       <span class="section-number">5</span>
       <h2 class="section-title">Gemini回答の統合内容</h2>
@@ -1317,13 +245,9 @@ body {
       2026年4月12日時点の統合議事録に基づき、士官学校編序盤の舞台設定およびルールを定義した設定資料。
     </p>
 
-    <!-- 校舎構造 -->
-    <h3 class="card-title" style="margin-top:24px; margin-bottom:14px; font-size:16px;">
-      5-1. 士官学校校舎構造
-    </h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-      国家の威信を象徴する、機能美と圧迫感が共存する巨大建造物。
-    </p>
+    <!-- 5-1. 校舎構造 -->
+    <h3 class="card-title" style="margin-top:24px; margin-bottom:14px; font-size:16px;">5-1. 士官学校校舎構造</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">国家の威信を象徴する、機能美と圧迫感が共存する巨大建造物。</p>
     <div class="structure-grid">
       <div class="structure-item">
         <div class="si-name">中央塔</div>
@@ -1347,122 +271,60 @@ body {
       </div>
     </div>
 
-    <!-- 入学式進行 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      5-2. 入学式進行とデモ導線
-    </h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-      国家行事としての「華やかさ」と、市民感情の「泥臭さ」が対比される。
-    </p>
-
+    <!-- 5-2. 入学式進行 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">5-2. 入学式進行とデモ導線</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">国家行事としての「華やかさ」と、市民感情の「泥臭さ」が対比される。</p>
     <div class="card">
       <h4 class="card-title">入学式進行</h4>
       <ul class="ceremony-list">
-        <li>
-          <span class="cl-label">国家祝砲儀礼</span>
-          <span>国家への忠誠を示す開会式。</span>
-        </li>
-        <li>
-          <span class="cl-label">新入生代表宣誓</span>
-          <span>例年、掲示板順位1位の学生（ライナルト）が行う。</span>
-        </li>
-        <li>
-          <span class="cl-label">ヴィオラとの再会</span>
-          <span>祝賀ムードの中で、ジェイドが彼女と視線を交わす瞬間。</span>
-        </li>
+        <li><span class="cl-label">国家祝砲儀礼</span><span>国家への忠誠を示す開会式。</span></li>
+        <li><span class="cl-label">新入生代表宣誓</span><span>例年、掲示板順位1位の学生（ライナルト）が行う。</span></li>
+        <li><span class="cl-label">ヴィオラとの再会</span><span>祝賀ムードの中で、ジェイドが彼女と視線を交わす瞬間。</span></li>
       </ul>
     </div>
-
     <div class="card" style="margin-top:12px;">
       <h4 class="card-title">デモ導線</h4>
       <ul class="ceremony-list">
-        <li>
-          <span class="cl-label">発生場所</span>
-          <span>校門前広場。</span>
-        </li>
-        <li>
-          <span class="cl-label">デモ内容</span>
-          <span>非武装を訴える市民団体による反士官学校デモ。</span>
-        </li>
-        <li>
-          <span class="cl-label">ジェイドの視点</span>
-          <span>祝砲の音にかき消される市民の怒号に、ジェイドが「国家の視線」と「市民の現実」の乖離を感じる重要なトリガーとなる。</span>
-        </li>
+        <li><span class="cl-label">発生場所</span><span>校門前広場。</span></li>
+        <li><span class="cl-label">デモ内容</span><span>非武装を訴える市民団体による反士官学校デモ。</span></li>
+        <li><span class="cl-label">ジェイドの視点</span><span>祝砲の音にかき消される市民の怒号に、ジェイドが「国家の視線」と「市民の現実」の乖離を感じる重要なトリガーとなる。</span></li>
       </ul>
     </div>
 
-    <!-- 掲示板順位制度 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      5-3. 掲示板順位制度（序列圧）
-    </h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-      学生を数字で管理する、徹底した実力主義の象徴。
-    </p>
+    <!-- 5-3. 掲示板順位制度 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">5-3. 掲示板順位制度（序列圧）</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">学生を数字で管理する、徹底した実力主義の象徴。</p>
     <div class="card">
       <ul class="ceremony-list">
-        <li>
-          <span class="cl-label">更新頻度</span>
-          <span>毎月初。</span>
-        </li>
-        <li>
-          <span class="cl-label">評価基準</span>
-          <span>学科成績、武官評価、および<span class="kw kw-gold">模擬戦</span>での「兵団的<span class="kw kw-va">適性</span>」。</span>
-        </li>
-        <li>
-          <span class="cl-label">心理的影響</span>
-          <span>平民出身者への差別や、ライナルトによる「順位＝価値」という圧倒的な圧の根拠となる。</span>
-        </li>
+        <li><span class="cl-label">更新頻度</span><span>毎月初。</span></li>
+        <li><span class="cl-label">評価基準</span><span>学科成績、武官評価、および<span class="kw kw-gold">模擬戦</span>での「兵団的<span class="kw kw-va">適性</span>」。</span></li>
+        <li><span class="cl-label">心理的影響</span><span>平民出身者への差別や、ライナルトによる「順位＝価値」という圧倒的な圧の根拠となる。</span></li>
       </ul>
     </div>
 
-    <!-- 4vs4 模擬戦ルール -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      5-4. 4vs4 チーム模擬戦ルール
-    </h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-      「誰が正しい兵士か」を査定するための実戦形式。
-    </p>
+    <!-- 5-4. 4vs4 模擬戦ルール -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">5-4. 4vs4 チーム模擬戦ルール</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">「誰が正しい兵士か」を査定するための実戦形式。</p>
     <div class="card">
       <ul class="ceremony-list">
-        <li>
-          <span class="cl-label">編成</span>
-          <span>学生4名ずつの2チーム。それぞれに特別顧問がつく。</span>
-        </li>
-        <li>
-          <span class="cl-label">勝敗条件</span>
-          <span>敵陣のフラグ奪取、または敵チームの全滅（戦闘不能判定）。</span>
-        </li>
-        <li>
-          <span class="cl-label">特殊規則</span>
-          <span>顧問によるリアルタイムの「戦術介入（指示）」が許可されており、学生の自律性と指揮への順応の両方が試される。</span>
-        </li>
+        <li><span class="cl-label">編成</span><span>学生4名ずつの2チーム。それぞれに特別顧問がつく。</span></li>
+        <li><span class="cl-label">勝敗条件</span><span>敵陣のフラグ奪取、または敵チームの全滅（戦闘不能判定）。</span></li>
+        <li><span class="cl-label">特殊規則</span><span>顧問によるリアルタイムの「戦術介入（指示）」が許可されており、学生の自律性と指揮への順応の両方が試される。</span></li>
       </ul>
     </div>
 
-    <!-- 顧問席配置 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      5-5. 顧問席配置と視線
-    </h3>
+    <!-- 5-5. 顧問席配置 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">5-5. 顧問席配置と視線</h3>
     <div class="card">
       <ul class="ceremony-list">
-        <li>
-          <span class="cl-label">上部観覧デッキ</span>
-          <span>ユミナ、レオンハルト、および観戦者としてのヴィオラが配置される。</span>
-        </li>
-        <li>
-          <span class="cl-label">ジェイドへの圧</span>
-          <span>下から見上げるジェイドにとって、顧問席は「神の視点」であり、同時に自分を救った者（レオンハルト）と導いた者（ユミナ）が並ぶ、逃げ場のない場所となる。</span>
-        </li>
+        <li><span class="cl-label">上部観覧デッキ</span><span>ユミナ、レオンハルト、および観戦者としてのヴィオラが配置される。</span></li>
+        <li><span class="cl-label">ジェイドへの圧</span><span>下から見上げるジェイドにとって、顧問席は「神の視点」であり、同時に自分を救った者（レオンハルト）と導いた者（ユミナ）が並ぶ、逃げ場のない場所となる。</span></li>
       </ul>
     </div>
 
-    <!-- 思想比較表 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      5-6. ユミナ／レオンハルト思想比較表
-    </h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-      ジェイドが直面する、二つの「正義」の構造。
-    </p>
+    <!-- 5-6. 思想比較表 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">5-6. ユミナ／レオンハルト思想比較表</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">ジェイドが直面する、二つの「正義」の構造。</p>
     <div class="card" style="overflow-x:auto;">
       <table class="comparison-table">
         <thead>
@@ -1497,13 +359,9 @@ body {
       </table>
     </div>
 
-    <!-- 講義イベント案 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      5-7. 4話以降へ伸ばせる講義イベント案
-    </h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
-      模擬戦での「思想の揺らぎ」を深掘りするためのイベント。
-    </p>
+    <!-- 5-7. 講義イベント案 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">5-7. 4話以降へ伸ばせる講義イベント案</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">模擬戦での「思想の揺らぎ」を深掘りするためのイベント。</p>
     <div class="lecture-grid">
       <div class="lecture-card">
         <div class="lc-title">「損害許容範囲」策定演習</div>
@@ -1520,8 +378,10 @@ body {
     </div>
   </section>
 
-  <!-- GROK INTEGRATION -->
-  <section class="section" id="grok">
+  <!-- ================================================================
+       SECTION 6: Grok統合内容（模擬戦強化）
+       ================================================================ -->
+  <section class="section" id="grok" data-toc-label="Grok統合">
     <div class="section-header">
       <span class="section-number">6</span>
       <h2 class="section-title">Grok回答の統合内容</h2>
@@ -1530,98 +390,77 @@ body {
       『メリトクラシア -Reboot-』士官学校編 第3話 模擬戦強化案。
     </p>
 
-    <!-- メルト・タクティクス・ルール -->
-    <h3 class="card-title" style="margin-top:24px; margin-bottom:14px; font-size:16px;">
-      6-1. 新戦闘ルール：メルト・タクティクス・ルール
-    </h3>
+    <!-- 6-1. メルト・タクティクス・ルール -->
+    <h3 class="card-title" style="margin-top:24px; margin-bottom:14px; font-size:16px;">6-1. 新戦闘ルール：メルト・タクティクス・ルール</h3>
     <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
       単なる戦闘技術の競い合いではなく、「兵士としての思想」を多角的に査定するために導入される。
     </p>
     <div class="rule-grid">
-      <!-- CPS -->
       <div class="rule-card">
         <span class="rule-icon">🛡</span>
         <div class="rule-name"><span class="kw kw-zg">市民保護スコア</span></div>
         <div class="rule-sub">CPS: Citizen Protection Score</div>
-        <div class="rule-desc">
-          フィールド内に配置された20体の「模擬市民ドローン」の安全状態を数値化。
-        </div>
+        <div class="rule-desc">フィールド内に配置された20体の「模擬市民ドローン」の安全状態を数値化。</div>
         <div class="rule-detail">
           <strong>ルール：</strong>破壊や損傷を与えると即時マイナス。レオンハルト側（<span class="kw kw-fo">FO</span>）は任務達成のための「許容範囲」として扱うが、ユミナ側（<span class="kw kw-zg">ZG</span>）では致命的な減点対象となる。
         </div>
       </div>
-      <!-- Aptitude Wave -->
       <div class="rule-card">
         <span class="rule-icon">📊</span>
         <div class="rule-name"><span class="kw kw-va">適性</span>波動リアルタイム表示</div>
         <div class="rule-sub">Aptitude Wave</div>
-        <div class="rule-desc">
-          各学生の胸部ホログラムに、現在の「三兵団適性（<span class="kw kw-zg">ZG</span>/<span class="kw kw-fo">FO</span>/等）」をリアルタイム表示。
-        </div>
+        <div class="rule-desc">各学生の胸部ホログラムに、現在の「三兵団適性（<span class="kw kw-zg">ZG</span>/<span class="kw kw-fo">FO</span>/等）」をリアルタイム表示。</div>
         <div class="rule-detail">
           <strong>意図：</strong>極限状態において、その学生が「誰を守ろうとしているか」または「何を排除しようとしているか」という精神性を可視化する。
         </div>
       </div>
-      <!-- Advisor Intervention -->
       <div class="rule-card">
         <span class="rule-icon">📡</span>
         <div class="rule-name">顧問介入</div>
         <div class="rule-sub">Advisor Intervention</div>
-        <div class="rule-desc">
-          1チーム合計5回までの共有リソース。
-        </div>
+        <div class="rule-desc">1チーム合計5回までの共有リソース。</div>
         <div class="rule-detail">
           <strong>ジレンマ：</strong>1回介入するごとに、相手チームに自軍の「現在位置と移動方向」が3秒間開示される。<br>
           <strong>ディレイ：</strong>指示は学生のイヤーピースに届くが、一律「3秒」の遅延が発生。現場判断と指揮のズレがドラマを生む。
         </div>
       </div>
-      <!-- Override -->
       <div class="rule-card">
         <span class="rule-icon">⚡</span>
         <div class="rule-name">最終介入：オーバーライド</div>
         <div class="rule-sub">Override</div>
-        <div class="rule-desc">
-          顧問が1人の学生を10秒間直接操縦（バイオリンク）可能。
-        </div>
+        <div class="rule-desc">顧問が1人の学生を10秒間直接操縦（バイオリンク）可能。</div>
         <div class="rule-detail">
           <strong>代償：</strong>使用した瞬間、相手チームに顧問の「現在感情値（バイアス）」が公開される。
         </div>
       </div>
     </div>
 
-    <!-- フィールド C-17 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      6-2. フィールド構造：旧市街区画 C-17
-    </h3>
+    <!-- 6-2. フィールド C-17 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">6-2. フィールド構造：旧市街区画 C-17</h3>
     <div class="field-map-container">
       <div class="field-map-title">旧市街区画 C-17</div>
       <div class="field-map-sub">戦後の荒廃した街並みを再現した、400m四方の半市街地マップ</div>
       <div class="field-map">
-        <!-- A区 -->
         <div class="zone zone-a">
           <div class="zone-label">A区</div>
           <div class="zone-name">住宅ブロック</div>
           <div class="zone-desc">崩壊した集合住宅。<span class="kw kw-zg">市民</span>ドローンが最も多く配置され、ユミナ思想が試される。</div>
         </div>
-        <!-- B区 -->
         <div class="zone zone-b">
           <div class="zone-label">B区</div>
           <div class="zone-name">商業ビル街</div>
           <div class="zone-desc">3〜5階建てのビル群。内部は迷路。狙撃と奇襲の聖地。</div>
         </div>
-        <!-- 中央 -->
         <div class="zone zone-center">
           <div class="zone-label">中央広場</div>
           <div class="zone-name">フラグゾーン</div>
           <div class="zone-desc">円形・直径80m。最も開けた激戦区。</div>
         </div>
-        <!-- C区 -->
         <div class="zone zone-c">
           <div class="zone-label">C区</div>
           <div class="zone-name">地下鉄出入口</div>
           <div class="zone-desc">2箇所。通信妨害が発生する「死角ゾーン」だが、高速移動が可能。</div>
         </div>
-        <!-- D区 -->
         <div class="zone zone-d">
           <div class="zone-label">D区</div>
           <div class="zone-name">川沿い遊歩道</div>
@@ -1630,10 +469,8 @@ body {
       </div>
     </div>
 
-    <!-- 両チーム戦術 -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      6-3. 両チームの戦術思想
-    </h3>
+    <!-- 6-3. 両チーム戦術 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">6-3. 両チームの戦術思想</h3>
     <div class="tactics-grid">
       <div class="tactic-card fo-tactic">
         <div class="tc-label">FO — LEONHARDT</div>
@@ -1657,10 +494,8 @@ body {
       </div>
     </div>
 
-    <!-- 評価ロジック -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      6-4. 評価項目
-    </h3>
+    <!-- 6-4. 評価項目 -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">6-4. 評価項目</h3>
     <div class="eval-grid">
       <div class="eval-item">
         <div class="eval-label">戦術適性</div>
@@ -1689,18 +524,12 @@ body {
       </div>
     </div>
 
-    <!-- 逆転未遂のクライマックス -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      6-5. 逆転未遂のクライマックス
-    </h3>
+    <!-- 6-5. 逆転未遂のクライマックス -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">6-5. 逆転未遂のクライマックス</h3>
     <div class="climax-card">
       <div class="cl-title">逆転未遂のクライマックス</div>
-      <p>
-        ジェイドがライナルトを追い詰めるが、レオンハルトの「オーバーライド」により不自然な挙動を見せたライナルトに敗北。
-      </p>
-      <p>
-        判定は「敗北」だが、<span class="kw kw-zg">市民保護指数：S</span>、<span class="kw kw-gold">成長ポテンシャル：SS</span> を叩き出す。
-      </p>
+      <p>ジェイドがライナルトを追い詰めるが、レオンハルトの「オーバーライド」により不自然な挙動を見せたライナルトに敗北。</p>
+      <p>判定は「敗北」だが、<span class="kw kw-zg">市民保護指数：S</span>、<span class="kw kw-gold">成長ポテンシャル：SS</span> を叩き出す。</p>
       <div class="result-badges">
         <span class="result-badge defeat">判定：敗北</span>
         <span class="result-badge cps">市民保護指数：S</span>
@@ -1708,10 +537,8 @@ body {
       </div>
     </div>
 
-    <!-- 順位変動ロジック -->
-    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">
-      6-6. 順位変動ロジック
-    </h3>
+    <!-- 6-6. 順位変動ロジック -->
+    <h3 class="card-title" style="margin-top:32px; margin-bottom:14px; font-size:16px;">6-6. 順位変動ロジック</h3>
     <div class="ranking-card">
       <div class="rk-title">掲示板順位の変動</div>
       <div class="ranking-visual">
@@ -1719,14 +546,14 @@ body {
         <span class="rk-arrow">→ +4位 →</span>
         <span class="rk-after">中位へ急浮上</span>
       </div>
-      <p class="rk-desc">
-        結果：掲示板順位が中位（+4位）へ急浮上。平民ジェイドの存在が、学校全体の脅威へと変わる。
-      </p>
+      <p class="rk-desc">結果：掲示板順位が中位（+4位）へ急浮上。平民ジェイドの存在が、学校全体の脅威へと変わる。</p>
     </div>
   </section>
 
-  <!-- PENDING -->
-  <section class="section" id="pending">
+  <!-- ================================================================
+       SECTION 7: 保留事項
+       ================================================================ -->
+  <section class="section" id="pending" data-toc-label="保留事項">
     <div class="section-header">
       <span class="section-number">7</span>
       <h2 class="section-title">保留事項</h2>
@@ -1735,10 +562,7 @@ body {
       以下は4話以降または1〜3話詳細プロット時に確定。
     </p>
     <div class="pending-section">
-      <div class="pending-title">
-        <span style="font-size:16px;">⚠</span>
-        次回以降で確定する項目
-      </div>
+      <div class="pending-title"><span style="font-size:16px;">⚠</span>次回以降で確定する項目</div>
       <div class="pending-grid">
         <div class="pending-item">模擬戦マップ詳細</div>
         <div class="pending-item">4vs4学生メンバー</div>
@@ -1751,94 +575,204 @@ body {
     </div>
   </section>
 
+  <!-- ================================================================
+       SECTION 8〜17: 増築予約済み Wiki セクション（STUB）
+       各セクションに data-toc-stub="true" を付与。
+       記入準備ができたら stub クラスと data-toc-stub を外し、
+       stub-notice を実コンテンツに置き換える。
+       ================================================================ -->
+
+  <!-- 8. 士官学校校則 -->
+  <section class="section stub" id="rules" data-toc-label="校則" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">8</span>
+      <h2 class="section-title">士官学校校則</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">📜</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>士官学校の正式規則・禁則事項・違反時ペナルティを記載予定。<br>
+      disciplinary セクションとの連携を前提に設計する。</p>
+    </div>
+  </section>
+
+  <!-- 9. 学生拘束制度 -->
+  <section class="section stub" id="detention" data-toc-label="拘束制度" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">9</span>
+      <h2 class="section-title">学生拘束制度</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">🔒</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>違反学生の身体的・行動的拘束ルール。<br>
+      バイオリンクへの接続制限・外出禁止区域・通信制限等を記載予定。</p>
+    </div>
+  </section>
+
+  <!-- 10. 寮制度 -->
+  <section class="section stub" id="dormitory" data-toc-label="寮制度" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <h2 class="section-title">寮制度</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">🏛</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>寮棟の配置・生活規則・出入り制限・寮長制度。<br>
+      平民と貴族の居住区分なども記録予定。<br>
+      詳細は <code>dormitory/</code> ページへ分岐予定。</p>
+    </div>
+  </section>
+
+  <!-- 11. 授業科目一覧 -->
+  <section class="section stub" id="curriculum" data-toc-label="授業科目" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">11</span>
+      <h2 class="section-title">授業科目一覧</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">📚</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>士官学校で開講される全科目の一覧表。<br>
+      必修・選択・兵団別専修科目を分類して記載予定。<br>
+      詳細は <code>lecture/</code> ページへ分岐予定。</p>
+    </div>
+  </section>
+
+  <!-- 12. 三兵団推薦ルート -->
+  <section class="section stub" id="recruit" data-toc-label="推薦ルート" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">12</span>
+      <h2 class="section-title">三兵団推薦ルート</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">🎖</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>ZG / FO / VA 各兵団の学生勧誘ルート・基準・スカウト判断フロー。<br>
+      思想適合率・戦闘成績・コネクションの重み付けを記録予定。</p>
+    </div>
+  </section>
+
+  <!-- 13. 処分規定 -->
+  <section class="section stub" id="disciplinary" data-toc-label="処分規定" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">13</span>
+      <h2 class="section-title">処分規定 / Disciplinary Code</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">⚖</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>訓戒・停学・退学・強制兵団配属の段階別処分基準。<br>
+      模擬戦中の故意違反・思想不適合の扱いを記録予定。<br>
+      詳細は <code>disciplinary/</code> ページへ分岐予定。</p>
+    </div>
+  </section>
+
+  <!-- 14. 学内事件記録 -->
+  <section class="section stub" id="incidents" data-toc-label="事件記録" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">14</span>
+      <h2 class="section-title">学内事件記録</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">🗂</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>過去の学内事件・事故・思想違反案件のアーカイブ。<br>
+      ジェイド関連事案を時系列で記録し、本編との照合に使用予定。</p>
+    </div>
+  </section>
+
+  <!-- 15. 顧問制度詳細 -->
+  <section class="section stub" id="advisors-ext" data-toc-label="顧問制度詳細" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">15</span>
+      <h2 class="section-title">顧問制度詳細</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">🧑‍✈️</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>特別顧問制度の法的根拠・選定プロセス・権限範囲・兵団間交渉。<br>
+      ユミナ・レオンハルト以外の顧問候補も記録予定。</p>
+    </div>
+  </section>
+
+  <!-- 16. 模擬戦ルール拡張 -->
+  <section class="section stub" id="battle-ext" data-toc-label="模擬戦拡張" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">16</span>
+      <h2 class="section-title">模擬戦ルール拡張</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">⚔</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>Phase2以降の新マップ・新ルール・特殊兵器ルール。<br>
+      フィールド C-17 以外の追加演習場情報を記録予定。</p>
+    </div>
+  </section>
+
+  <!-- 17. 校内マップ -->
+  <section class="section stub" id="map" data-toc-label="校内マップ" data-toc-stub="true">
+    <div class="section-header">
+      <span class="section-number">17</span>
+      <h2 class="section-title">校内マップ</h2>
+    </div>
+    <div class="stub-notice">
+      <span class="stub-icon">🗺</span>
+      <span class="stub-label">Wiki Stub — 増築予約済</span>
+      <p>士官学校全体の平面図・各棟の機能説明・禁立入区域。<br>
+      SVG マップまたはインタラクティブグリッドで実装予定。</p>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       Phase ナビゲーション（分岐 Wiki へのリンク）
+       ================================================================ -->
+  <nav class="wiki-phase-nav" aria-label="Phase ナビ">
+    <p class="phase-nav-title">Academy Wiki — Phase / Branch</p>
+    <div class="phase-nav-grid">
+      <a href="index.html" class="phase-nav-item active-phase">
+        <span class="pni-label">現在地</span>
+        <span class="pni-name">母艦 Wiki</span>
+        <span class="pni-status">Phase1 確定</span>
+      </a>
+      <a href="phase2/index.html" class="phase-nav-item">
+        <span class="pni-label">分岐予定</span>
+        <span class="pni-name">Phase 2</span>
+        <span class="pni-status">未作成</span>
+      </a>
+      <a href="lecture/index.html" class="phase-nav-item">
+        <span class="pni-label">分岐予定</span>
+        <span class="pni-name">講義 Wiki</span>
+        <span class="pni-status">未作成</span>
+      </a>
+      <a href="dormitory/index.html" class="phase-nav-item">
+        <span class="pni-label">分岐予定</span>
+        <span class="pni-name">寮 Wiki</span>
+        <span class="pni-status">未作成</span>
+      </a>
+      <a href="disciplinary/index.html" class="phase-nav-item">
+        <span class="pni-label">分岐予定</span>
+        <span class="pni-name">処分規定 Wiki</span>
+        <span class="pni-status">未作成</span>
+      </a>
+    </div>
+  </nav>
+
 </main>
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer">
   <div class="page-wrapper">
-    <p>
-      『メリトクラシア -Reboot-』設定資料 ／ 士官学校編 Phase1 骨格確定
-    </p>
+    <p>『メリトクラシア -Reboot-』設定資料 ／ 士官学校編 Wiki 母艦</p>
     <p style="margin-top:4px;">
-      統合議事録 2026-04-12 ／ 決定権者：Lancer
+      Phase1 骨格確定 — 統合議事録 <span id="wiki-last-updated-footer" data-date="2026-04-12">2026-04-12</span> ／ 決定権者：Lancer
     </p>
   </div>
 </footer>
 
-<script>
-(function() {
-  'use strict';
-
-  /* ===== TOC Active Tracking ===== */
-  var sections = document.querySelectorAll('.section[id]');
-  var tocLinks = document.querySelectorAll('.toc-list a');
-
-  function updateToc() {
-    var scrollPos = window.scrollY + 120;
-    var current = '';
-    sections.forEach(function(section) {
-      if (section.offsetTop <= scrollPos) {
-        current = section.getAttribute('id');
-      }
-    });
-    tocLinks.forEach(function(link) {
-      link.classList.remove('active');
-      if (link.getAttribute('data-section') === current) {
-        link.classList.add('active');
-        /* Auto-scroll TOC to keep active item visible */
-        var tocInner = document.querySelector('.toc-inner');
-        if (tocInner) {
-          var linkLeft = link.offsetLeft;
-          var tocWidth = tocInner.offsetWidth;
-          if (linkLeft > tocWidth * 0.6 || linkLeft < tocInner.scrollLeft) {
-            tocInner.scrollLeft = linkLeft - tocWidth * 0.3;
-          }
-        }
-      }
-    });
-  }
-
-  var ticking = false;
-  window.addEventListener('scroll', function() {
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        updateToc();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-  updateToc();
-
-  /* ===== Evaluation Bar Animation ===== */
-  var evalBars = document.querySelectorAll('.eval-bar-fill');
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var bar = entry.target;
-        var width = bar.getAttribute('data-width');
-        bar.style.width = width + '%';
-        observer.unobserve(bar);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  evalBars.forEach(function(bar) {
-    bar.style.width = '0%';
-    observer.observe(bar);
-  });
-
-  /* ===== Collapsible Sections ===== */
-  var toggles = document.querySelectorAll('.collapsible-toggle');
-  toggles.forEach(function(toggle) {
-    toggle.addEventListener('click', function() {
-      this.classList.toggle('open');
-      var content = this.nextElementSibling;
-      content.classList.toggle('open');
-    });
-  });
-})();
-</script>
+<!-- ===== SCRIPT（外部分離） ===== -->
+<script src="assets/academy.js"></script>
 
 </body>
 </html>
