@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中央市場テロ事件 地図 | Meritocracia Terror Map</title>
+<meta name="description" content="ZERO編 中央市場炎槍事件の地図ビューア。ロンドン地下鉄路線図の読みやすさ + Googleマップの事件ピンUI + ダークファンタジー世界観を融合。">
+<link rel="stylesheet" href="./map.css">
+</head>
+<body>
+
+<!-- Mobile sidebar toggle -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="メニュー">☰</button>
+
+<!-- Mobile backdrop -->
+<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+<div class="map-app">
+
+  <!-- ============================================================
+       SIDEBAR (LEFT PANE)
+       ============================================================ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+      <a class="sidebar-back" href="./index.html">← INCIDENT RECORD</a>
+      <div class="sidebar-tag">ZERO編 ／ TACTICAL MAP</div>
+      <h1 class="sidebar-title">中央市場炎槍事件</h1>
+      <div class="sidebar-subtitle">CENTRAL MARKET INCIDENT MAP</div>
+    </div>
+
+    <!-- Route toggles -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">ROUTE LAYERS</div>
+      <div id="route-toggles">
+        <!-- JS generates -->
+      </div>
+    </div>
+
+    <!-- Detail panel -->
+    <div class="sidebar-detail" id="detail-panel">
+      <div class="detail-empty">
+        <div class="detail-empty-icon">⊕</div>
+        <div class="detail-empty-text">地図上の要素を<br>クリックして詳細表示</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ============================================================
+       MAP VIEWPORT
+       ============================================================ -->
+  <div class="map-viewport" id="map-viewport">
+
+    <!-- Grid overlay -->
+    <div class="map-grid-overlay"></div>
+
+    <!-- SVG Map container -->
+    <div class="map-container">
+      <svg class="map-svg" id="map-svg" xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+        <!-- JS renders all layers here -->
+      </svg>
+    </div>
+
+    <!-- Zoom controls -->
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="btn-zoom-in" title="ズームイン">+</button>
+      <button class="zoom-btn" id="btn-zoom-out" title="ズームアウト">−</button>
+      <button class="zoom-btn" id="btn-zoom-reset" title="リセット">⟳</button>
+    </div>
+
+    <!-- Coordinate display -->
+    <div class="map-coords" id="map-coords">0, 0</div>
+
+    <!-- Map legend -->
+    <div class="map-legend">
+      <div class="map-legend-title">MAP LEGEND</div>
+      <div class="legend-row">
+        <span class="legend-pin" style="background:#c9a961"></span>
+        <span class="legend-label">スポット (POI)</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-pin" style="background:#60a8e0"></span>
+        <span class="legend-label">平時イベント</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-pin" style="background:#e05050"></span>
+        <span class="legend-label">攻撃イベント</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-pin" style="background:#8b1a1a"></span>
+        <span class="legend-label">死亡</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-pin" style="background:#4a7fc1"></span>
+        <span class="legend-label">FO介入</span>
+      </div>
+      <div class="legend-row">
+        <span class="legend-pin" style="background:#c9a961"></span>
+        <span class="legend-label">誓い</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       TIMELINE BAR (BOTTOM)
+       ============================================================ -->
+  <div class="timeline-bar">
+
+    <div class="timeline-controls">
+      <button class="tl-btn" id="btn-prev" title="前のイベント (←)">◀</button>
+      <button class="tl-btn" id="btn-play" title="再生/停止 (Space)">▶</button>
+      <button class="tl-btn" id="btn-next" title="次のイベント (→)">▶</button>
+    </div>
+
+    <div class="timeline-slider-wrap">
+      <span class="timeline-label" id="tl-label">ALL</span>
+      <input type="range" class="timeline-slider" id="tl-slider" min="0" max="10" value="0" step="1">
+      <span class="timeline-event-name" id="tl-event-name">全イベント表示</span>
+    </div>
+
+  </div>
+
+</div><!-- /.map-app -->
+
+<script src="./map.js"></script>
+</body>
+</html>

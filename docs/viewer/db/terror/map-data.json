@@ -1,0 +1,264 @@
+{
+  "map_id": "zero_central_market_incident_v1",
+  "districts": [
+    {
+      "district_id": "church_quarter",
+      "name": "星導教会区画",
+      "x": 200,
+      "y": 200
+    },
+    {
+      "district_id": "market_core",
+      "name": "市場中心部",
+      "x": 500,
+      "y": 500
+    },
+    {
+      "district_id": "south_market_edge",
+      "name": "市場南縁部",
+      "x": 500,
+      "y": 750
+    },
+    {
+      "district_id": "alley_belt",
+      "name": "路地裏地帯",
+      "x": 750,
+      "y": 500
+    },
+    {
+      "district_id": "fo_entry_axis",
+      "name": "FO侵入軸",
+      "x": 200,
+      "y": 800
+    },
+    {
+      "district_id": "civic_square",
+      "name": "市民広場",
+      "x": 800,
+      "y": 800
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "loc_star_church",
+      "name": "星導教会",
+      "district_id": "church_quarter",
+      "x": 200,
+      "y": 200
+    },
+    {
+      "location_id": "loc_chapel",
+      "name": "礼拝堂",
+      "district_id": "church_quarter",
+      "x": 220,
+      "y": 210
+    },
+    {
+      "location_id": "loc_underground_stairs",
+      "name": "地下階段",
+      "district_id": "church_quarter",
+      "x": 210,
+      "y": 230
+    },
+    {
+      "location_id": "loc_ritual_hall",
+      "name": "地下儀式広間",
+      "district_id": "church_quarter",
+      "x": 190,
+      "y": 250
+    },
+    {
+      "location_id": "loc_central_market",
+      "name": "中央市場",
+      "district_id": "market_core",
+      "x": 500,
+      "y": 500
+    },
+    {
+      "location_id": "loc_claras_mill",
+      "name": "クララの粉屋",
+      "district_id": "market_core",
+      "x": 520,
+      "y": 480
+    },
+    {
+      "location_id": "loc_first_explosion",
+      "name": "初爆地点",
+      "district_id": "market_core",
+      "x": 480,
+      "y": 510
+    },
+    {
+      "location_id": "loc_kernel_death",
+      "name": "カーネル死亡地点",
+      "district_id": "market_core",
+      "x": 510,
+      "y": 490
+    },
+    {
+      "location_id": "loc_nox_hideout",
+      "name": "ノクス潜伏路地",
+      "district_id": "alley_belt",
+      "x": 720,
+      "y": 520
+    },
+    {
+      "location_id": "loc_fo_entry",
+      "name": "FO侵入口",
+      "district_id": "fo_entry_axis",
+      "x": 150,
+      "y": 850
+    },
+    {
+      "location_id": "loc_public_interrogation",
+      "name": "公開尋問広場",
+      "district_id": "civic_square",
+      "x": 850,
+      "y": 850
+    },
+    {
+      "location_id": "loc_jade_oath",
+      "name": "ジェイド誓い地点",
+      "district_id": "market_core",
+      "x": 500,
+      "y": 500
+    }
+  ],
+  "routes": [
+    {
+      "route_id": "rt_kernel_move",
+      "name": "カーネル移動",
+      "points": [
+        {"x": 500, "y": 700},
+        {"x": 500, "y": 500},
+        {"x": 520, "y": 480},
+        {"x": 510, "y": 490}
+      ]
+    },
+    {
+      "route_id": "rt_luca_move",
+      "name": "ルカ移動",
+      "points": [
+        {"x": 200, "y": 200},
+        {"x": 220, "y": 210}
+      ]
+    },
+    {
+      "route_id": "rt_flamewing_invasion",
+      "name": "炎翼セル侵入",
+      "points": [
+        {"x": 190, "y": 250},
+        {"x": 720, "y": 520},
+        {"x": 480, "y": 510}
+      ]
+    },
+    {
+      "route_id": "rt_crowd_evacuation",
+      "name": "群衆避難",
+      "points": [
+        {"x": 500, "y": 500},
+        {"x": 500, "y": 200},
+        {"x": 800, "y": 500}
+      ]
+    },
+    {
+      "route_id": "rt_jade_rescue",
+      "name": "ジェイド救出",
+      "points": [
+        {"x": 510, "y": 490},
+        {"x": 150, "y": 850}
+      ]
+    },
+    {
+      "route_id": "rt_fo_suppression",
+      "name": "FO制圧",
+      "points": [
+        {"x": 150, "y": 850},
+        {"x": 500, "y": 500},
+        {"x": 750, "y": 500}
+      ]
+    }
+  ],
+  "pins": [
+    {
+      "pin_id": "pin_market_normal",
+      "name": "市場通常営業",
+      "time_order": 1,
+      "location_id": "loc_central_market",
+      "x": 500,
+      "y": 500
+    },
+    {
+      "pin_id": "pin_flamewing_deploy",
+      "name": "炎翼セル配置",
+      "time_order": 2,
+      "location_id": "loc_nox_hideout",
+      "x": 720,
+      "y": 520
+    },
+    {
+      "pin_id": "pin_first_explosion",
+      "name": "最初の爆発",
+      "time_order": 3,
+      "location_id": "loc_first_explosion",
+      "x": 480,
+      "y": 510
+    },
+    {
+      "pin_id": "pin_beast_summon",
+      "name": "召喚獣出現",
+      "time_order": 4,
+      "location_id": "loc_central_market",
+      "x": 530,
+      "y": 520
+    },
+    {
+      "pin_id": "pin_flame_spear",
+      "name": "炎槍",
+      "time_order": 5,
+      "location_id": "loc_kernel_death",
+      "x": 510,
+      "y": 490
+    },
+    {
+      "pin_id": "pin_kernel_death",
+      "name": "カーネル死亡",
+      "time_order": 6,
+      "location_id": "loc_kernel_death",
+      "x": 510,
+      "y": 490
+    },
+    {
+      "pin_id": "pin_fo_arrival",
+      "name": "FO到着",
+      "time_order": 7,
+      "location_id": "loc_fo_entry",
+      "x": 150,
+      "y": 850
+    },
+    {
+      "pin_id": "pin_battle_end",
+      "name": "戦闘終了",
+      "time_order": 8,
+      "location_id": "loc_central_market",
+      "x": 500,
+      "y": 500
+    },
+    {
+      "pin_id": "pin_public_interrogation",
+      "name": "公開尋問",
+      "time_order": 9,
+      "location_id": "loc_public_interrogation",
+      "x": 850,
+      "y": 850
+    },
+    {
+      "pin_id": "pin_jade_oath",
+      "name": "ジェイドの誓い",
+      "time_order": 10,
+      "location_id": "loc_jade_oath",
+      "x": 500,
+      "y": 500
+    }
+  ]
+}

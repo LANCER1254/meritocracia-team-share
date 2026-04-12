@@ -1,0 +1,877 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+JP:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
+
+/* ============================================================
+   CSS VARIABLES — dark fantasy + London tube aesthetic
+   ============================================================ */
+:root {
+  --bg:           #060a11;
+  --bg2:          #0a1020;
+  --bg3:          #0e1628;
+  --panel:        #0d1525;
+  --panel2:       #111d35;
+  --panel-glass:  rgba(13,21,37,0.92);
+
+  --gold:         #c9a961;
+  --gold2:        #e8c97a;
+  --gold-dim:     #7a6035;
+  --gold-glow:    rgba(201,169,97,0.15);
+
+  --text:         #d8ccb4;
+  --text2:        #7a6e58;
+  --text3:        #4a4030;
+
+  --border:       rgba(201,169,97,0.14);
+  --border2:      rgba(201,169,97,0.3);
+
+  /* District palette — muted London-map tones */
+  --dist-church:     rgba(120,80,160,0.18);
+  --dist-church-s:   rgba(120,80,160,0.35);
+  --dist-market:     rgba(200,120,60,0.18);
+  --dist-market-s:   rgba(200,120,60,0.35);
+  --dist-south:      rgba(80,140,100,0.15);
+  --dist-south-s:    rgba(80,140,100,0.30);
+  --dist-alley:      rgba(100,100,140,0.16);
+  --dist-alley-s:    rgba(100,100,140,0.32);
+  --dist-fo:         rgba(60,120,200,0.16);
+  --dist-fo-s:       rgba(60,120,200,0.32);
+  --dist-civic:      rgba(180,140,80,0.14);
+  --dist-civic-s:    rgba(180,140,80,0.30);
+
+  /* Route colors — Tube-line inspired */
+  --rt-kernel:       #e05050;
+  --rt-luca:         #b080f0;
+  --rt-flamewing:    #ff6a33;
+  --rt-crowd:        #60d0a0;
+  --rt-jade:         #60a8e0;
+  --rt-fo:           #4a7fc1;
+
+  /* Pin severity */
+  --pin-normal:      #60a8e0;
+  --pin-deploy:      #ff6a33;
+  --pin-explosion:   #e05050;
+  --pin-death:       #8b1a1a;
+  --pin-fo:          #4a7fc1;
+  --pin-end:         #60d0a0;
+  --pin-oath:        #c9a961;
+
+  --sidebar-w:       360px;
+  --timeline-h:      72px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  line-height: 1.6;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   MAIN LAYOUT — sidebar + map + bottom timeline
+   ============================================================ */
+.map-app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: 1fr var(--timeline-h);
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ============================================================
+   SIDEBAR (LEFT PANE)
+   ============================================================ */
+.sidebar {
+  grid-row: 1 / 3;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.sidebar-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  text-decoration: none;
+  transition: color 0.2s;
+  margin-bottom: 14px;
+}
+.sidebar-back:hover { color: var(--gold); }
+
+.sidebar-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 5px;
+  color: rgba(224,80,80,0.7);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.sidebar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.sidebar-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold-dim);
+}
+
+/* Route toggles */
+.sidebar-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar-section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--text2);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.route-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.route-toggle:hover { opacity: 0.8; }
+
+.route-toggle input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--border2);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+.route-toggle input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--gold);
+}
+
+.route-color-line {
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.route-toggle-label {
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+/* Detail panel */
+.sidebar-detail {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.detail-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--text2);
+  gap: 12px;
+}
+
+.detail-empty-icon {
+  font-size: 32px;
+  opacity: 0.3;
+}
+
+.detail-empty-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.detail-card {
+  animation: detail-in 0.3s ease;
+}
+
+@keyframes detail-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  padding: 3px 10px;
+  border: 1px solid var(--border2);
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.detail-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.detail-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.detail-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+.detail-field {
+  margin-bottom: 14px;
+}
+
+.detail-field-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.detail-field-value {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.detail-routes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-route-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  font-size: 12px;
+  color: var(--text);
+}
+
+.detail-route-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.detail-pin-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gold2);
+  padding: 4px 12px;
+  border: 1px solid var(--gold-dim);
+  background: rgba(201,169,97,0.06);
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   MAP VIEWPORT
+   ============================================================ */
+.map-viewport {
+  position: relative;
+  background: var(--bg2);
+  overflow: hidden;
+  cursor: grab;
+}
+.map-viewport:active { cursor: grabbing; }
+
+.map-viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(10,16,32,0) 0%, rgba(6,10,17,0.7) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Grid overlay — subtle cartography feel */
+.map-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  background-image:
+    linear-gradient(var(--gold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+.map-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.map-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   SVG ELEMENTS
+   ============================================================ */
+
+/* Districts */
+.district-shape {
+  transition: fill 0.3s, stroke-opacity 0.3s;
+  cursor: pointer;
+}
+.district-shape:hover {
+  filter: brightness(1.3);
+}
+
+.district-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  fill: var(--text2);
+  letter-spacing: 2px;
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  user-select: none;
+}
+
+.district-label-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  fill: var(--text3);
+  letter-spacing: 1px;
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  user-select: none;
+}
+
+/* Routes */
+.route-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.4s;
+}
+
+.route-line.hidden-route {
+  opacity: 0 !important;
+}
+
+.route-line-glow {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.15;
+  filter: blur(3px);
+}
+
+.route-line-glow.hidden-route {
+  opacity: 0 !important;
+}
+
+/* Route animated dash */
+.route-line.animated {
+  stroke-dasharray: 8 4;
+  animation: route-dash 1.5s linear infinite;
+}
+
+@keyframes route-dash {
+  to { stroke-dashoffset: -24; }
+}
+
+/* Station dots on route intersections */
+.route-station {
+  transition: r 0.2s, opacity 0.3s;
+  cursor: pointer;
+}
+.route-station:hover {
+  r: 6;
+}
+
+/* Locations (POI pins) */
+.location-pin-group {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.location-pin-group:hover {
+  transform: scale(1.15);
+}
+
+.location-pin-outer {
+  transition: fill-opacity 0.2s, stroke-opacity 0.2s;
+}
+
+.location-pin-inner {
+  transition: fill 0.2s;
+}
+
+.location-label {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 9px;
+  font-weight: 400;
+  fill: var(--text);
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+  paint-order: stroke;
+  stroke: var(--bg2);
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Event pins */
+.pin-group {
+  cursor: pointer;
+  transition: opacity 0.3s, transform 0.2s;
+}
+.pin-group:hover {
+  transform: scale(1.2);
+}
+.pin-group.pin-inactive {
+  opacity: 0.15;
+}
+.pin-group.pin-active {
+  opacity: 1;
+}
+
+.pin-pulse {
+  animation: pin-pulse-anim 2s ease-in-out infinite;
+}
+
+@keyframes pin-pulse-anim {
+  0%, 100% { r: 12; opacity: 0; }
+  50%      { r: 20; opacity: 0.3; }
+}
+
+.pin-marker {
+  transition: fill 0.2s;
+}
+
+.pin-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 400;
+  fill: #fff;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pin-label {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 8px;
+  font-weight: 400;
+  fill: var(--text);
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+  paint-order: stroke;
+  stroke: var(--bg2);
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Selected state highlight */
+.selected-highlight {
+  animation: selected-ring 1.5s ease-in-out infinite;
+}
+
+@keyframes selected-ring {
+  0%, 100% { r: 18; opacity: 0.15; }
+  50%      { r: 24; opacity: 0.35; }
+}
+
+/* ============================================================
+   TIMELINE BAR (BOTTOM)
+   ============================================================ */
+.timeline-bar {
+  grid-column: 2;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 14px;
+  z-index: 10;
+}
+
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.tl-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.tl-btn:hover {
+  background: rgba(201,169,97,0.1);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.tl-btn.active {
+  background: rgba(201,169,97,0.15);
+  border-color: var(--gold);
+  color: var(--gold2);
+}
+
+.timeline-slider-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timeline-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  min-width: 60px;
+}
+
+.timeline-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--bg3);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.timeline-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(201,169,97,0.4);
+  transition: transform 0.15s;
+}
+.timeline-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+.timeline-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(201,169,97,0.4);
+}
+
+.timeline-event-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 12px;
+  color: var(--gold2);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Timeline tick marks */
+.timeline-ticks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ============================================================
+   MAP LEGEND (floating)
+   ============================================================ */
+.map-legend {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: var(--panel-glass);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  max-width: 200px;
+}
+
+.map-legend-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--text2);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.legend-pin {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-size: 10px;
+  color: var(--text2);
+}
+
+/* ============================================================
+   MAP COORDINATES (floating)
+   ============================================================ */
+.map-coords {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  z-index: 5;
+  padding: 6px 10px;
+  background: var(--panel-glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   ZOOM CONTROLS
+   ============================================================ */
+.zoom-controls {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 5;
+}
+
+.zoom-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border2);
+  background: var(--panel-glass);
+  color: var(--text);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.zoom-btn:hover {
+  background: rgba(201,169,97,0.15);
+  color: var(--gold);
+}
+
+/* ============================================================
+   MOBILE SIDEBAR TOGGLE
+   ============================================================ */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border2);
+  background: var(--panel-glass);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+.sidebar-detail::-webkit-scrollbar { width: 3px; }
+.sidebar-detail::-webkit-scrollbar-track { background: transparent; }
+.sidebar-detail::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  :root {
+    --sidebar-w: 300px;
+  }
+
+  .sidebar-title { font-size: 1.2rem; }
+}
+
+@media (max-width: 640px) {
+  .map-app {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr var(--timeline-h);
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 300px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 50;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .map-viewport::before { display: none; }
+
+  .timeline-bar {
+    grid-column: 1;
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .timeline-event-name {
+    max-width: 100px;
+    font-size: 11px;
+  }
+
+  .tl-btn { width: 28px; height: 28px; font-size: 12px; }
+
+  .map-legend {
+    bottom: 8px;
+    right: 8px;
+    padding: 8px 12px;
+  }
+
+  .zoom-controls {
+    top: 56px;
+    left: 8px;
+  }
+}
+
+/* Mobile overlay backdrop */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 40;
+}
+.sidebar-backdrop.visible {
+  display: block;
+}
