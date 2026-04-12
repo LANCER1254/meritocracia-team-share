@@ -38,5 +38,21 @@
     "desc": "本編時系列配下の自動登録プロット",
     "file": "./viewer.html?file=./chapter/timeline-main/ep02_va_protection_plot.md",
     "dbLink": "../../story/"
+  },
+  {
+    "id": "ep03_timeline_plot",
+    "title": "EP 03 timeline plot",
+    "category": "timeline-main",
+    "desc": "本編時系列配下の自動登録プロット",
+    "file": "./viewer.html?file=./chapter/timeline-main/ep03_timeline_plot.md",
+    "dbLink": "../../story/"
+  },
+  {
+    "id": "ep04_timeline_plot",
+    "title": "EP 04 timeline plot",
+    "category": "timeline-main",
+    "desc": "本編時系列配下の自動登録プロット",
+    "file": "./viewer.html?file=./chapter/timeline-main/ep04_timeline_plot.md",
+    "dbLink": "../../story/"
   }
 ]
