@@ -85,18 +85,19 @@
     ]
   },
   {
-    "year": "士官学校編",
-    "title": "士官学校編",
-    "arc": "officer",
-    "events": [
-      {
-        "tag": "officer",
-        "tagLabel": "ACADEMY",
-        "title": "士官学校編・開幕",
-        "desc": "審問庁付属士官学校へ入学。AI・社会問題が背景世界として描かれる。",
-        "chars": ["ジェイド"],
-        "color": "dark"
-      }
-    ]
-  }
+  "year": "士官学校編",
+  "title": "士官学校編",
+  "arc": "officer",
+  "events": [
+    {
+      "tag": "officer",
+      "tagLabel": "ACADEMY",
+      "title": "士官学校編・Phase1 骨格確定",
+      "desc": "祝砲、デモ、序列、4vs4模擬戦──ジェイドが制度と正義の衝突を知る士官学校編の正式資料。",
+      "chars": ["ジェイド", "ライナルト", "ユミナ", "レオンハルト", "ヴィオラ"],
+      "color": "dark",
+      "link": "./academy/"
+    }
+  ]
+}
 ]
