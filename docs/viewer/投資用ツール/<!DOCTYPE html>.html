@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Merit Investment Detailed Sim</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background: #1a1a1a; color: #eee; font-family: sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: #2a2a2a; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); width: 90%; max-width: 800px; }
+        .input-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        label { font-size: 13px; color: #aaa; }
+        input { width: 100%; padding: 10px; margin-top: 5px; background: #333; border: 1px solid #444; color: #fff; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #00d4ff; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; margin-bottom: 25px; }
+        button:hover { background: #0099bb; transform: translateY(-2px); }
+        canvas { background: #222; border-radius: 8px; margin-bottom: 25px; padding: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        th, td { padding: 12px; text-align: right; border-bottom: 1px solid #444; }
+        th { background: #333; color: #00d4ff; text-align: center; }
+        tr:hover { background: #333; }
+        .year-col { text-align: center; font-weight: bold; }
+        .highlight { color: #00d4ff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="margin-top:0; color:#00d4ff;">📈 年単位・複利成長シミュレーション</h2>
+    
+    <div class="input-group">
+        <div><label>初期投資 (万円)</label><input type="number" id="init" value="100"></div>
+        <div><label>毎年積立 (万円)</label><input type="number" id="yearly" value="1000"></div>
+        <div><label>年利 (%)</label><input type="number" id="rate" value="5"></div>
+        <div><label>期間 (年)</label><input type="number" id="years" value="20"></div>
+    </div>
+
+    <button onclick="simulate()">シミュレーション開始</button>
+
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th class="year-col">経過年</th>
+                <th>投資合計</th>
+                <th>運用収益</th>
+                <th>総資産</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+let myChart = null;
+
+function simulate() {
+    const init = parseFloat(document.getElementById('init').value);
+    const yearly = parseFloat(document.getElementById('yearly').value);
+    const rate = parseFloat(document.getElementById('rate').value) / 100;
+    const years = parseInt(document.getElementById('years').value);
+
+    let currentTotal = init;
+    let totalInvested = init;
+    
+    const labels = [];
+    const dataTotal = [];
+    const dataInvested = [];
+    let tableHtml = '';
+
+    for (let i = 1; i <= years; i++) {
+        currentTotal = (currentTotal + yearly) * (1 + rate);
+        totalInvested += yearly;
+        
+        labels.push(i + '年');
+        dataTotal.push(Math.round(currentTotal));
+        dataInvested.push(totalInvested);
+
+        tableHtml += `
+            <tr>
+                <td class="year-col">${i}年目</td>
+                <td>${totalInvested.toLocaleString()} 万円</td>
+                <td style="color:#00ff88;">+${Math.round(currentTotal - totalInvested).toLocaleString()} 万円</td>
+                <td class="highlight">${Math.round(currentTotal).toLocaleString()} 万円</td>
+            </tr>
+        `;
+    }
+
+    document.getElementById('tableBody').innerHTML = tableHtml;
+    updateChart(labels, dataTotal, dataInvested);
+}
+
+function updateChart(labels, dataTotal, dataInvested) {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    if (myChart) myChart.destroy();
+    
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '総資産 (複利)',
+                data: dataTotal,
+                backgroundColor: 'rgba(0, 212, 255, 0.6)',
+                borderColor: '#00d4ff',
+                borderWidth: 1
+            }, {
+                label: '元本合計',
+                data: dataInvested,
+                type: 'line',
+                borderColor: '#ff4444',
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, grid: { color: '#444' } },
+                x: { grid: { color: '#444' } }
+            },
+            plugins: { legend: { labels: { color: '#eee' } } }
+        }
+    });
+}
+// 初回実行
+simulate();
+</script>
+</body>
+</html>

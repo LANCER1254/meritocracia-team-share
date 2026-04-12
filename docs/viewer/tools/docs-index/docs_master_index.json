@@ -1,0 +1,42 @@
+[
+  {
+    "path": "viewer/production/draft",
+    "role": "novel_draft_master",
+    "source_of_truth": true
+  },
+  {
+    "path": "viewer/production/plot",
+    "role": "plot_master",
+    "source_of_truth": true
+  },
+  {
+    "path": "viewer/db",
+    "role": "world_setting_master",
+    "source_of_truth": true
+  },
+  {
+    "path": "viewer/story",
+    "role": "timeline_master",
+    "source_of_truth": true
+  },
+  {
+    "path": "viewer/official-site",
+    "role": "public_publish",
+    "source_of_truth": false
+  },
+  {
+    "path": "viewer/memo",
+    "role": "raw_logs",
+    "source_of_truth": false
+  },
+  {
+    "path": "viewer/track",
+    "role": "task_state",
+    "source_of_truth": false
+  },
+  {
+    "path": "viewer/map",
+    "role": "world_navigation",
+    "source_of_truth": true
+  }
+]
