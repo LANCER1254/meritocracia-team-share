@@ -78,22 +78,22 @@
       "location_id": "loc_claras_mill",
       "name": "クララの粉屋",
       "district_id": "market_core",
-      "x": 520,
-      "y": 480
+      "x": 555,
+      "y": 455
     },
     {
       "location_id": "loc_first_explosion",
       "name": "初爆地点",
       "district_id": "market_core",
-      "x": 480,
-      "y": 510
+      "x": 440,
+      "y": 535
     },
     {
       "location_id": "loc_kernel_death",
       "name": "カーネル死亡地点",
       "district_id": "market_core",
-      "x": 510,
-      "y": 490
+      "x": 545,
+      "y": 555
     },
     {
       "location_id": "loc_nox_hideout",
@@ -120,7 +120,7 @@
       "location_id": "loc_jade_oath",
       "name": "ジェイド誓い地点",
       "district_id": "market_core",
-      "x": 500,
+      "x": 600,
       "y": 500
     }
   ],
@@ -129,53 +129,53 @@
       "route_id": "rt_kernel_move",
       "name": "カーネル移動",
       "points": [
-        {"x": 500, "y": 700},
-        {"x": 500, "y": 500},
-        {"x": 520, "y": 480},
-        {"x": 510, "y": 490}
+        { "x": 500, "y": 700 },
+        { "x": 500, "y": 500 },
+        { "x": 555, "y": 455 },
+        { "x": 545, "y": 555 }
       ]
     },
     {
       "route_id": "rt_luca_move",
       "name": "ルカ移動",
       "points": [
-        {"x": 200, "y": 200},
-        {"x": 220, "y": 210}
+        { "x": 200, "y": 200 },
+        { "x": 220, "y": 210 }
       ]
     },
     {
       "route_id": "rt_flamewing_invasion",
       "name": "炎翼セル侵入",
       "points": [
-        {"x": 190, "y": 250},
-        {"x": 720, "y": 520},
-        {"x": 480, "y": 510}
+        { "x": 190, "y": 250 },
+        { "x": 720, "y": 520 },
+        { "x": 440, "y": 535 }
       ]
     },
     {
       "route_id": "rt_crowd_evacuation",
       "name": "群衆避難",
       "points": [
-        {"x": 500, "y": 500},
-        {"x": 500, "y": 200},
-        {"x": 800, "y": 500}
+        { "x": 500, "y": 500 },
+        { "x": 500, "y": 200 },
+        { "x": 800, "y": 500 }
       ]
     },
     {
       "route_id": "rt_jade_rescue",
       "name": "ジェイド救出",
       "points": [
-        {"x": 510, "y": 490},
-        {"x": 150, "y": 850}
+        { "x": 545, "y": 555 },
+        { "x": 150, "y": 850 }
       ]
     },
     {
       "route_id": "rt_fo_suppression",
       "name": "FO制圧",
       "points": [
-        {"x": 150, "y": 850},
-        {"x": 500, "y": 500},
-        {"x": 750, "y": 500}
+        { "x": 150, "y": 850 },
+        { "x": 500, "y": 500 },
+        { "x": 750, "y": 500 }
       ]
     }
   ],
@@ -185,8 +185,8 @@
       "name": "市場通常営業",
       "time_order": 1,
       "location_id": "loc_central_market",
-      "x": 500,
-      "y": 500
+      "x": 485,
+      "y": 465
     },
     {
       "pin_id": "pin_flamewing_deploy",
@@ -201,8 +201,8 @@
       "name": "最初の爆発",
       "time_order": 3,
       "location_id": "loc_first_explosion",
-      "x": 480,
-      "y": 510
+      "x": 425,
+      "y": 550
     },
     {
       "pin_id": "pin_beast_summon",
@@ -217,16 +217,16 @@
       "name": "炎槍",
       "time_order": 5,
       "location_id": "loc_kernel_death",
-      "x": 510,
-      "y": 490
+      "x": 530,
+      "y": 585
     },
     {
       "pin_id": "pin_kernel_death",
       "name": "カーネル死亡",
       "time_order": 6,
       "location_id": "loc_kernel_death",
-      "x": 510,
-      "y": 490
+      "x": 570,
+      "y": 545
     },
     {
       "pin_id": "pin_fo_arrival",
@@ -241,8 +241,8 @@
       "name": "戦闘終了",
       "time_order": 8,
       "location_id": "loc_central_market",
-      "x": 500,
-      "y": 500
+      "x": 510,
+      "y": 445
     },
     {
       "pin_id": "pin_public_interrogation",
@@ -257,7 +257,7 @@
       "name": "ジェイドの誓い",
       "time_order": 10,
       "location_id": "loc_jade_oath",
-      "x": 500,
+      "x": 615,
       "y": 500
     }
   ]
