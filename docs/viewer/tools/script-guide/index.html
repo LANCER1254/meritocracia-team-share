@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MeritCore — Script Guide</title>
+<link rel="stylesheet" href="./guide.css">
+</head>
+<body>
+<div class="sg-layout">
+
+<!-- ══════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════ -->
+<aside class="sg-sidebar">
+  <div class="sg-sidebar-head">
+    <div class="sg-logo">MERIT<em>CORE</em></div>
+    <div class="sg-logo-sub">SCRIPT GUIDE</div>
+  </div>
+
+  <div class="sg-search-wrap">
+    <input class="sg-search" id="sg-search" type="search" placeholder="ページ内検索…" autocomplete="off">
+  </div>
+
+  <nav class="sg-nav">
+    <div class="sg-nav-section">CONTENTS</div>
+    <a class="sg-nav-link" href="#s1"><span class="sg-nav-num">01</span>初期セットアップ</a>
+    <a class="sg-nav-link" href="#s2"><span class="sg-nav-num">02</span>Backup / Restore</a>
+    <a class="sg-nav-link" href="#s3"><span class="sg-nav-num">03</span>執筆 / Production</a>
+    <a class="sg-nav-link" href="#s4"><span class="sg-nav-num">04</span>Viewer 更新</a>
+    <a class="sg-nav-link" href="#s5"><span class="sg-nav-num">05</span>AI / BOT</a>
+    <a class="sg-nav-link" href="#s6"><span class="sg-nav-num">06</span>RAG</a>
+    <a class="sg-nav-link" href="#s7"><span class="sg-nav-num">07</span>B2 三重保全</a>
+    <a class="sg-nav-link" href="#s8"><span class="sg-nav-num">08</span>よくある事故</a>
+  </nav>
+</aside>
+
+<!-- ══════════════════════════════════════
+     CONTENT
+══════════════════════════════════════ -->
+<div class="sg-content" id="sg-content">
+
+  <header class="sg-page-header">
+    <div class="sg-page-title">MERITOCRACIA OS — SCRIPT GUIDE</div>
+    <div class="sg-page-subtitle">実行スクリプト運用マニュアル</div>
+    <div class="sg-page-meta">
+      <span>00_core〜60_rag 全カテゴリ対応</span>
+      <span>Python 3.10+ / Ubuntu 24</span>
+    </div>
+  </header>
+
+  <!-- ════════════════════════
+       S1: 初期セットアップ
+  ════════════════════════ -->
+  <section class="sg-section" id="s1">
+    <div class="sg-section-header">
+      <span class="sg-section-num">01</span>
+      <h2 class="sg-section-title">初期セットアップ</h2>
+    </div>
+
+    <p class="sg-p">
+      新規マシン、または再インストール後に実行する初期化スクリプト群。
+      <code>00_core/</code> と <code>config/</code> カテゴリが対象。
+      原則として上から順に実行する。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">スクリプト一覧</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>役割</th></tr></thead>
+        <tbody>
+          <tr><td>setup_ubuntu.sh</td><td>Ubuntu 24 基本パッケージ / apt 設定。まず最初に実行。</td></tr>
+          <tr><td>setup_game_env.sh</td><td>ゲームエンジン・ComfyUI 周辺の依存ライブラリを整備。</td></tr>
+          <tr><td>setup_rclone_meritocracia.sh</td><td>rclone + B2 バケット設定。B2 認証情報を事前に用意すること。</td></tr>
+          <tr><td>my_aliases.sh / my_functions.sh</td><td>シェルエイリアスと関数定義。<code>.bashrc</code> に <code>source</code> するか末尾に追記。</td></tr>
+          <tr><td>meritcore_start.sh</td><td>MeritCore CLI を起動するランチャー。<code>config/</code> に配置。</td></tr>
+          <tr><td>meritmap.sh</td><td>プロジェクト全体のディレクトリマップを出力。迷子になったとき確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">実行順序</div>
+      <div class="sg-steps">
+        <div class="sg-step"><div class="sg-step-body"><code>bash setup_ubuntu.sh</code> — 基本環境を整える。sudo が必要。</div></div>
+        <div class="sg-step"><div class="sg-step-body"><code>bash setup_game_env.sh</code> — ゲーム / AI 生成環境のセットアップ。</div></div>
+        <div class="sg-step"><div class="sg-step-body">B2 の <code>keyID</code> と <code>applicationKey</code> を手元に用意してから <code>bash setup_rclone_meritocracia.sh</code> を実行。</div></div>
+        <div class="sg-step"><div class="sg-step-body"><code>~/.bashrc</code> に <code>source ~/path/to/my_aliases.sh</code> を追記し、<code>source ~/.bashrc</code> で反映。</div></div>
+        <div class="sg-step"><div class="sg-step-body"><code>bash meritcore_start.sh</code> で CLI が起動することを確認。</div></div>
+      </div>
+    </div>
+
+    <div class="sg-callout sg-callout-warn">
+      <span class="sg-callout-icon">⚠</span>
+      <div class="sg-callout-body">
+        <div class="sg-callout-title">WARNING</div>
+        <code>setup_rclone_meritocracia.sh</code> は B2 バケット名を直書きしている場合がある。
+        実行前に中身を確認し、バケット名・リージョンが現在の設定と一致しているか確認すること。
+      </div>
+    </div>
+
+    <div class="sg-callout sg-callout-tip">
+      <span class="sg-callout-icon">✦</span>
+      <div class="sg-callout-body">
+        <div class="sg-callout-title">TIP</div>
+        セットアップ完了後は <code>meritmap.sh</code> を実行してディレクトリ構造を確認しておくと、
+        後で「あのファイルどこ？」を防げる。
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S2: Backup / Restore
+  ════════════════════════ -->
+  <section class="sg-section" id="s2">
+    <div class="sg-section-header">
+      <span class="sg-section-num">02</span>
+      <h2 class="sg-section-title">Backup / Restore</h2>
+    </div>
+
+    <p class="sg-p">
+      バックアップは <code>10_backup/</code> カテゴリと <code>30_project/backup_viewer_to_b2.sh</code> が担う。
+      用途に応じてスクリプトを使い分ける。復元手順は後述の B2 セクションと合わせて読むこと。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">スクリプト一覧</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>対象</th><th>優先度</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>backup_merito.sh</td>
+            <td>Meritocracia プロジェクト全体（原稿・設定・DB）</td>
+            <td><span class="sg-badge sg-badge-red">必須</span></td>
+          </tr>
+          <tr>
+            <td>backup_viewer_to_b2.sh</td>
+            <td>Viewer Hub のデプロイ済みデータを B2 に同期</td>
+            <td><span class="sg-badge sg-badge-red">必須</span></td>
+          </tr>
+          <tr>
+            <td>env_recovery_backup.sh</td>
+            <td>venv / pip freeze / 環境変数スナップショット</td>
+            <td><span class="sg-badge sg-badge-amber">推奨</span></td>
+          </tr>
+          <tr>
+            <td>backup_linux_settings.sh</td>
+            <td>.bashrc / .gitconfig / SSH 鍵設定などのドットファイル</td>
+            <td><span class="sg-badge sg-badge-amber">推奨</span></td>
+          </tr>
+          <tr>
+            <td>backup_home_mediaver2.sh</td>
+            <td>~/DOCS メディアファイル（v2 が最新版）</td>
+            <td><span class="sg-badge sg-badge-blue">任意</span></td>
+          </tr>
+          <tr>
+            <td>backup_home_media.sh</td>
+            <td>同上の旧版。v2 で代替可能</td>
+            <td><span class="sg-badge sg-badge-blue">legacy</span></td>
+          </tr>
+          <tr>
+            <td>backup_game_saves.sh / direct_gamesave.sh / java_gamesave.sh</td>
+            <td>ゲームセーブデータ（Proton / Java ゲーム別）</td>
+            <td><span class="sg-badge sg-badge-blue">任意</span></td>
+          </tr>
+          <tr>
+            <td>backup_mp4.sh</td>
+            <td>録画・動画素材</td>
+            <td><span class="sg-badge sg-badge-blue">任意</span></td>
+          </tr>
+          <tr>
+            <td>cleanup_cache.sh</td>
+            <td>pip / npm キャッシュ・tmp 削除</td>
+            <td><span class="sg-badge sg-badge-blue">任意</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">毎日の最低限バックアップ</div>
+      <div class="sg-steps">
+        <div class="sg-step"><div class="sg-step-body">執筆セッション終了後に <code>bash backup_merito.sh</code> を実行。原稿・DB・JSON がローカルに保存される。</div></div>
+        <div class="sg-step"><div class="sg-step-body"><code>bash backup_viewer_to_b2.sh</code> で Viewer データを B2 に同期。git push とセットで行うのが理想。</div></div>
+        <div class="sg-step"><div class="sg-step-body">週 1 回、<code>bash env_recovery_backup.sh</code> で環境スナップショットを取る。pip 依存が壊れたときの保険になる。</div></div>
+      </div>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">Restore 手順（原稿・DB）</div>
+      <div class="sg-steps">
+        <div class="sg-step"><div class="sg-step-body">B2 バケットから rclone でファイルを取得する。<br><span class="sg-cmd">rclone copy b2:バケット名/meritocracia/ ~/DOCS/meritocracia-team-share/ --progress</span></div></div>
+        <div class="sg-step"><div class="sg-step-body">Viewer の <code>index.json</code> が壊れている場合は <code>bash update_viewer.sh</code> で再生成。</div></div>
+        <div class="sg-step"><div class="sg-step-body">RAG インデックスが古い場合は <code>python3 rag_v2.py build</code> を再実行。</div></div>
+      </div>
+    </div>
+
+    <div class="sg-callout sg-callout-warn">
+      <span class="sg-callout-icon">⚠</span>
+      <div class="sg-callout-body">
+        <div class="sg-callout-title">WARNING</div>
+        <code>backup_home_media.sh</code>（旧版）と <code>backup_home_mediaver2.sh</code> は同じ対象を上書きする。
+        両方を cron に登録すると二重実行になるので <strong>v2 のみ</strong>を有効にすること。
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S3: 執筆 / Production
+  ════════════════════════ -->
+  <section class="sg-section" id="s3">
+    <div class="sg-section-header">
+      <span class="sg-section-num">03</span>
+      <h2 class="sg-section-title">執筆 / Production</h2>
+    </div>
+
+    <p class="sg-p">
+      原稿執筆・プロット管理・デイリールーティンに使うスクリプト。
+      <code>30_project/</code> カテゴリのうち、実際に毎日触るコアスクリプト群。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">デイリー起動スクリプト</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>merit-daily-v4.sh</td>
+            <td>現行のデイリーランチャー。執筆開始時に実行。タスク確認・クロック表示・BOT 起動を一括で行う。</td>
+          </tr>
+          <tr>
+            <td>meritcore.sh</td>
+            <td>MeritCore CLI メインメニュー。merit-daily から呼ばれる。単体でも起動可能。</td>
+          </tr>
+          <tr>
+            <td>merit-ops.sh</td>
+            <td>DB 操作・検索・インデックス再生成などのオペレーション系メニュー。</td>
+          </tr>
+          <tr>
+            <td>merit-db.sh</td>
+            <td>MeritDB の直接操作。レコード追加・検索・エクスポート。</td>
+          </tr>
+          <tr>
+            <td>merit-tracker.sh</td>
+            <td>タスクトラッカー CLI。完了・未完了・優先度を管理。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sg-callout sg-callout-info" style="margin-top:14px">
+        <span class="sg-callout-icon">ℹ</span>
+        <div class="sg-callout-body">
+          <div class="sg-callout-title">VERSION HISTORY</div>
+          <code>merit-daily.sh</code> → v2 → v3 → <strong>v4（現行）</strong> の順に進化。
+          旧版は削除せず残してあるが、実行するのは <code>merit-daily-v4.sh</code> だけでよい。
+          v3 以前はタスクトラッカーが未統合のため不完全。
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">執筆・プロット補助</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>merit_writer_v1.7.sh</td>
+            <td>執筆支援スクリプト最新版。原稿テンプレ生成・文字数カウント・保存を一括処理。</td>
+          </tr>
+          <tr>
+            <td>new_plot_memo.sh</td>
+            <td>プロットメモを即座に新規作成して適切なディレクトリに保存。アイデアが浮かんだ瞬間に使う。</td>
+          </tr>
+          <tr>
+            <td>merit_plot_writer.sh</td>
+            <td>プロット文書の構造化テンプレを生成。シーン設計書などの雛形に。</td>
+          </tr>
+          <tr>
+            <td>sync_txt_to_md.py</td>
+            <td>.txt 形式の草稿を .md 形式に一括変換。Viewer での表示に必要。</td>
+          </tr>
+          <tr>
+            <td>move_meritocracia_md.sh</td>
+            <td>散在した .md ファイルを正しいディレクトリ構造に整理。</td>
+          </tr>
+          <tr>
+            <td>sync_nation_db.sh</td>
+            <td>国家 DB の JSON を Viewer 表示用フォーマットに変換・同期。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">日報・スケジュール管理</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>create_daily_report.sh</td>
+            <td>当日の作業ログから日報 .md を生成。Viewer の daily-report ページに反映。</td>
+          </tr>
+          <tr>
+            <td>schedule_init.sh</td>
+            <td>year-calendar-lab の <code>schedule.json</code> を初期化する。Discord BOT の <code>!schedule</code> と連携。</td>
+          </tr>
+          <tr>
+            <td>cli_calendar.sh</td>
+            <td>ターミナルから月次カレンダーを表示するユーティリティ。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">DB 検索ユーティリティ</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>meritdb_fzf.sh</td><td>fzf を使ったインタラクティブ DB 検索。ターミナルから素早く検索したいとき。</td></tr>
+          <tr><td>meritdb_find.sh</td><td>grep 系のシンプル検索。fzf が不要な場合。</td></tr>
+          <tr><td>meritdb_select.sh</td><td>カテゴリ選択式の DB ブラウザ。</td></tr>
+          <tr><td>meritdb_index.sh</td><td>DB インデックスの再構築。ファイルを大量追加したあとに実行。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S4: Viewer 更新
+  ════════════════════════ -->
+  <section class="sg-section" id="s4">
+    <div class="sg-section-header">
+      <span class="sg-section-num">04</span>
+      <h2 class="sg-section-title">Viewer 更新</h2>
+    </div>
+
+    <p class="sg-p">
+      Viewer Hub（GitHub Pages）の更新には複数のスクリプトが関与する。
+      更新対象によって使うスクリプトが異なるため、以下の分岐を把握しておく。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">更新フロー全体図</div>
+      <div class="sg-callout sg-callout-amber">
+        <span class="sg-callout-icon">→</span>
+        <div class="sg-callout-body" style="font-family: monospace; font-size: 12px; line-height: 2.1;">
+          原稿 .md 更新<br>
+          ↓ sync_txt_to_md.py &nbsp;（.txt → .md 変換が必要な場合）<br>
+          ↓ update_viewer.sh &nbsp;or&nbsp; update_viewer_index.sh<br>
+          ↓ git add . &amp;&amp; git commit -m "update" &amp;&amp; git push<br>
+          ↓ GitHub Pages 自動デプロイ<br>
+          ↓ backup_viewer_to_b2.sh &nbsp;（B2 同期）
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">スクリプト詳細</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>用途・タイミング</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>update_viewer.sh</td>
+            <td>Viewer 全体を再ビルドして index.json を再生成。原稿を追加・削除したときに実行。</td>
+          </tr>
+          <tr>
+            <td>update_viewer_index.sh</td>
+            <td>index.json だけを更新する軽量版。既存ファイルの内容変更のみの場合に使う。速い。</td>
+          </tr>
+          <tr>
+            <td>viewer-os.sh</td>
+            <td>Viewer OS（作業卓）の依存ファイルを更新するランチャー。private-schedule / ポモドーロ系の修正後に実行。</td>
+          </tr>
+          <tr>
+            <td>build_scripts_inventory.py</td>
+            <td>scripts_inventory.json の再生成。スクリプトを追加・移動したときに実行。</td>
+          </tr>
+          <tr>
+            <td>sync_nation_db.sh</td>
+            <td>国家 DB の JSON を Viewer の表示用フォーマットに変換・同期。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">index.json が壊れたとき</div>
+      <div class="sg-steps">
+        <div class="sg-step"><div class="sg-step-body"><code>python3 -m json.tool docs/viewer/index.json</code> でエラー箇所を特定。</div></div>
+        <div class="sg-step"><div class="sg-step-body">手動修正が難しければ <code>bash update_viewer.sh</code> で全体再生成。</div></div>
+        <div class="sg-step"><div class="sg-step-body">再生成後に <code>git diff docs/viewer/index.json</code> で変更内容を確認してから push。</div></div>
+      </div>
+    </div>
+
+    <div class="sg-callout sg-callout-warn">
+      <span class="sg-callout-icon">⚠</span>
+      <div class="sg-callout-body">
+        <div class="sg-callout-title">NOTE</div>
+        <code>update_viewer.sh</code>（全体再ビルド）と <code>update_viewer_index.sh</code>（index のみ）を
+        同時実行しないこと。競合して index.json が壊れる原因になる。
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S5: AI / BOT
+  ════════════════════════ -->
+  <section class="sg-section" id="s5">
+    <div class="sg-section-header">
+      <span class="sg-section-num">05</span>
+      <h2 class="sg-section-title">AI / BOT</h2>
+    </div>
+
+    <p class="sg-p">
+      AI 生成（ComfyUI / stable-diffusion 系）と Discord BOT が <code>50_ai/</code> に集中している。
+      カテゴリに 26,649 ファイルが存在するが、そのほとんどは Python パッケージの依存ライブラリ。
+      実際に手動で呼ぶスクリプトは以下の少数に限られる。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">AI 生成系</div>
+      <table class="sg-script-table">
+        <thead><tr><th>スクリプト</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ai_generate_menu.sh</td>
+            <td>ComfyUI / 生成系のメニューランチャー。個別スクリプトへのショートカット。</td>
+          </tr>
+          <tr>
+            <td>ai_model_select.sh</td>
+            <td>使用モデルを切り替えるセレクタ。モデルファイルのパスを書き換える。</td>
+          </tr>
+          <tr>
+            <td>generate_jade_sister.py</td>
+            <td>Jade / Iris のキャラクター画像生成。プロンプトは内部に埋め込み済み。</td>
+          </tr>
+          <tr>
+            <td>generate_clarra.py / generate_mireille.py / generate_meinamix.py</td>
+            <td>各キャラクター別の生成スクリプト。キャラごとに LoRA とプロンプトが異なる。</td>
+          </tr>
+          <tr>
+            <td>generate_counterfeit.py</td>
+            <td>Counterfeit モデルを使ったテスト生成。クオリティ確認用。</td>
+          </tr>
+          <tr>
+            <td>server.py</td>
+            <td>ComfyUI の ngrok サーバーラッパー。外部からアクセスする際に起動。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">Discord BOT — コマンド一覧</div>
+      <p class="sg-p">
+        BOT は <code>bot.py</code> をエントリポイントとして起動する。
+        Discord 上で <code>!mc</code> と打つと全コマンドが表示される。
+      </p>
+      <table class="sg-script-table">
+        <thead><tr><th>コマンド</th><th>機能</th><th>実装ファイル</th></tr></thead>
+        <tbody>
+          <tr><td>!memo</td><td>メモの種類を選んで保存（対話形式 / 5種類）</td><td>bot.py + backup.py</td></tr>
+          <tr><td>!task add タスク名</td><td>タスク追加・一覧</td><td>bot.py + task.py</td></tr>
+          <tr><td>!rag キーワード [type]</td><td>MeritDB を全文意味検索</td><td>bot.py + rag_v2.py</td></tr>
+          <tr><td>!run プロンプト</td><td>AI Runner 経由でプロンプト実行</td><td>bot.py → ngrok API</td></tr>
+          <tr><td>!schedule add YYYY-MM-DD HH:MM 内容</td><td>年間カレンダーに予定を登録</td><td>bot.py + schedule_handler.py</td></tr>
+          <tr><td>!mc</td><td>コマンド一覧表示</td><td>bot.py</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">BOT 起動手順</div>
+      <div class="sg-steps">
+        <div class="sg-step"><div class="sg-step-body">環境変数 <code>DISCORD_TOKEN</code> がセットされていることを確認。<br><span class="sg-cmd">echo $DISCORD_TOKEN</span></div></div>
+        <div class="sg-step"><div class="sg-step-body">venv を有効化してから起動。<br><span class="sg-cmd">source ~/merit-ai-bot/venv/bin/activate
+python3 bot.py</span></div></div>
+        <div class="sg-step"><div class="sg-step-body">「ログイン完了: BotName#xxxx」が表示されたら正常起動。</div></div>
+      </div>
+    </div>
+
+    <hr class="sg-divider">
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">おまけ</div>
+      <dl class="sg-dlist">
+        <dt>terminal_comedy.py</dt>
+        <dd>ターミナルに小ネタを流すスクリプト。深夜の息抜きに。</dd>
+        <dt>terminal_girl.py</dt>
+        <dd>ターミナルガールが話しかけてくる。やる気が出ないときに実行。</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S6: RAG
+  ════════════════════════ -->
+  <section class="sg-section" id="s6">
+    <div class="sg-section-header">
+      <span class="sg-section-num">06</span>
+      <h2 class="sg-section-title">RAG</h2>
+    </div>
+
+    <p class="sg-p">
+      MeritCore の RAG（Retrieval-Augmented Generation）は
+      プロジェクト全体の .txt / .md / .json をベクトル化して意味検索できるようにする仕組み。
+      <code>60_rag/</code> カテゴリに 11,000 件以上あるがライブラリ依存込みの数字なので、
+      実際に操作するのは <code>rag_v1.py</code> と <code>rag_v2.py</code> の 2 ファイルだけ。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">v1 vs v2 使い分け</div>
+      <table class="sg-script-table">
+        <thead><tr><th></th><th>rag_v1.py</th><th>rag_v2.py（現行）</th></tr></thead>
+        <tbody>
+          <tr><td>キャッシュ</td><td>なし</td><td>あり（_cached_data）</td></tr>
+          <tr><td>type フィルタ</td><td>なし</td><td>あり</td></tr>
+          <tr><td>BOT 連携</td><td>なし</td><td>search_rag() 関数あり</td></tr>
+          <tr><td>推奨用途</td><td>動作確認・比較用</td><td>本番・BOT・全用途</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">インデックス作成（初回 / 更新時）</div>
+      <span class="sg-cmd-label">COMMAND</span>
+      <span class="sg-cmd">python3 rag_v2.py build</span>
+      <p class="sg-p">
+        実行すると <code>meritocracia-team-share/</code> 以下の全ファイルをスキャンし、
+        <code>vectors.json</code> にベクトルデータを書き出す。
+        ファイル数が多い環境では数分かかる。原稿を大幅に追加した後は必ず再ビルドする。
+      </p>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">CLI 検索</div>
+      <span class="sg-cmd-label">基本検索</span>
+      <span class="sg-cmd">python3 rag_v2.py "ジェイド 能力"</span>
+      <span class="sg-cmd-label">type フィルタ付き</span>
+      <span class="sg-cmd">python3 rag_v2.py "士官学校 試験制度" system</span>
+      <p class="sg-p">
+        使えるフィルタ type：
+        <code>plot</code> / <code>story</code> / <code>character</code> / <code>nation</code> /
+        <code>system</code> / <code>map</code> / <code>history</code> / <code>other</code>
+      </p>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">Discord BOT から使う</div>
+      <span class="sg-cmd-label">Discord</span>
+      <span class="sg-cmd">!rag ジェイド 能力
+!rag 士官学校 system</span>
+      <p class="sg-p">
+        スペース区切りで第 3 引数を渡すと type フィルタになる。
+        引数なしならフィルタなし全検索。検索結果は上位 3 件が返ってくる。
+      </p>
+    </div>
+
+    <div class="sg-callout sg-callout-tip">
+      <span class="sg-callout-icon">✦</span>
+      <div class="sg-callout-body">
+        <div class="sg-callout-title">TIP — ai_prompts 除外について</div>
+        <code>ai_prompts/</code> ディレクトリは RAG の対象外に除外されている（<code>load_texts()</code> 内の skip 処理）。
+        AI へのプロンプトが検索結果に混入しないよう意図的に除外している。
+        この動作を変えたい場合は <code>rag_v2.py</code> の <code>load_texts()</code> を編集。
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S7: B2 三重保全
+  ════════════════════════ -->
+  <section class="sg-section" id="s7">
+    <div class="sg-section-header">
+      <span class="sg-section-num">07</span>
+      <h2 class="sg-section-title">B2 三重保全</h2>
+    </div>
+
+    <p class="sg-p">
+      MeritCore の保全戦略は「ローカル / GitHub / B2」の三層で構成する。
+      どれか一つが死んでも残り二つから復元できる状態を常に維持する。
+    </p>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">三層構成</div>
+      <table class="sg-script-table">
+        <thead><tr><th>レイヤー</th><th>場所</th><th>担当スクリプト</th><th>更新頻度</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="sg-badge sg-badge-amber">L1</span> ローカル</td>
+            <td>~/DOCS/meritocracia-team-share/</td>
+            <td>backup_merito.sh</td>
+            <td>毎日</td>
+          </tr>
+          <tr>
+            <td><span class="sg-badge sg-badge-green">L2</span> GitHub</td>
+            <td>meritocracia-team-share (private)</td>
+            <td>git push（手動）</td>
+            <td>セッション終了時</td>
+          </tr>
+          <tr>
+            <td><span class="sg-badge sg-badge-blue">L3</span> B2</td>
+            <td>Backblaze B2 バケット</td>
+            <td>backup_viewer_to_b2.sh / rclone sync</td>
+            <td>毎日〜週 3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">B2 同期コマンド（手動実行）</div>
+      <span class="sg-cmd-label">Viewer → B2</span>
+      <span class="sg-cmd">bash backup_viewer_to_b2.sh</span>
+      <span class="sg-cmd-label">ローカル全体 → B2</span>
+      <span class="sg-cmd">rclone sync ~/DOCS/meritocracia-team-share/ b2:バケット名/meritocracia/ \
+  --progress --exclude "*.pyc" --exclude "__pycache__/**"</span>
+      <span class="sg-cmd-label">B2 → ローカル（復元）</span>
+      <span class="sg-cmd">rclone copy b2:バケット名/meritocracia/ ~/DOCS/meritocracia-team-share/ --progress</span>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">B2 の状態確認</div>
+      <span class="sg-cmd">rclone ls b2:バケット名/meritocracia/ | head -30
+rclone size b2:バケット名/meritocracia/</span>
+    </div>
+
+    <div class="sg-callout sg-callout-warn">
+      <span class="sg-callout-icon">⚠</span>
+      <div class="sg-callout-body">
+        <div class="sg-callout-title">WARNING — rclone sync は破壊的</div>
+        <code>rclone sync</code> は送信元にないファイルを送信先から<strong>削除する</strong>。
+        復元時に使う方向を間違えると B2 のデータが消える。
+        迷ったら削除なしの <code>rclone copy</code> を使うこと。
+      </div>
+    </div>
+
+    <div class="sg-sub">
+      <div class="sg-sub-title">障害シナリオ別対応</div>
+      <table class="sg-script-table">
+        <thead><tr><th>障害</th><th>対応</th></tr></thead>
+        <tbody>
+          <tr><td>ローカルディスク障害</td><td>B2 または GitHub から <code>rclone copy</code> で復元。env は <code>env_recovery_backup.sh</code> スナップショットから再構築。</td></tr>
+          <tr><td>GitHub リポジトリ削除</td><td>ローカルから <code>git push</code> で再作成。B2 から原稿を補完。</td></tr>
+          <tr><td>B2 バケット障害</td><td>ローカル + GitHub が生きていれば即復旧可能。<code>setup_rclone_meritocracia.sh</code> で再設定。</td></tr>
+          <tr><td>index.json 破損のみ</td><td><code>bash update_viewer.sh</code> で再生成。他レイヤーへの影響なし。</td></tr>
+          <tr><td>vectors.json 破損のみ</td><td><code>python3 rag_v2.py build</code> で再ビルド。他レイヤーへの影響なし。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+       S8: よくある事故
+  ════════════════════════ -->
+  <section class="sg-section" id="s8">
+    <div class="sg-section-header">
+      <span class="sg-section-num">08</span>
+      <h2 class="sg-section-title">よくある事故</h2>
+    </div>
+
+    <p class="sg-p">
+      実際に発生した、または発生しやすいトラブルと対処法。
+      パニックにならず、まず状況を確認してから動くこと。
+    </p>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🔴</span>
+        <span class="sg-accident-title">Viewer が真っ白 / カードが表示されない</span>
+      </div>
+      <div class="sg-accident-body">
+        <p class="sg-p"><strong>原因の 90%：</strong><code>index.json</code> の書式エラーか配置場所のズレ。</p>
+        <div class="sg-steps">
+          <div class="sg-step"><div class="sg-step-body">ブラウザのコンソールを開いて fetch エラーを確認。<code>404</code> なら配置ミス、<code>JSON parse error</code> なら書式エラー。</div></div>
+          <div class="sg-step"><div class="sg-step-body"><code>python3 -m json.tool docs/viewer/index.json</code> で構文チェック。エラー行を修正。</div></div>
+          <div class="sg-step"><div class="sg-step-body">直しきれない場合は <code>bash update_viewer.sh</code> で全体再生成。</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🔴</span>
+        <span class="sg-accident-title">RAG 検索結果がすべて古い内容を返す</span>
+      </div>
+      <div class="sg-accident-body">
+        <p class="sg-p"><strong>原因：</strong>原稿追加後に <code>vectors.json</code> を rebuild していない。または BOT がメモリに古いキャッシュを保持している。</p>
+        <span class="sg-cmd">python3 rag_v2.py build</span>
+        <p class="sg-p">rebuild 後は BOT を再起動する（<code>_cached_data</code> がメモリに残っているため）。</p>
+      </div>
+    </div>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🔴</span>
+        <span class="sg-accident-title">Discord BOT が無反応</span>
+      </div>
+      <div class="sg-accident-body">
+        <div class="sg-steps">
+          <div class="sg-step"><div class="sg-step-body"><code>echo $DISCORD_TOKEN</code> でトークンの有無を確認。空なら <code>export DISCORD_TOKEN=xxxx</code> をセット。</div></div>
+          <div class="sg-step"><div class="sg-step-body">プロセスが生きているか確認。<br><span class="sg-cmd">ps aux | grep bot.py</span></div></div>
+          <div class="sg-step"><div class="sg-step-body">死んでいれば venv を有効化して再起動。<br><span class="sg-cmd">source venv/bin/activate && python3 bot.py</span></div></div>
+          <div class="sg-step"><div class="sg-step-body">「ログイン完了」が出ない場合は Discord Developer Portal でトークンを再発行。</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🔴</span>
+        <span class="sg-accident-title">ComfyUI / AI 生成が起動しない</span>
+      </div>
+      <div class="sg-accident-body">
+        <p class="sg-p"><strong>よくある原因：</strong>pip 依存破損 / CUDA バージョンずれ / モデルファイルのパスずれ。</p>
+        <div class="sg-steps">
+          <div class="sg-step"><div class="sg-step-body"><code>python3 generate.py</code> でエラー内容を確認。<code>ModuleNotFoundError</code> なら pip 再インストール。</div></div>
+          <div class="sg-step"><div class="sg-step-body"><span class="sg-cmd">pip install -r requirements.txt --break-system-packages</span></div></div>
+          <div class="sg-step"><div class="sg-step-body">モデルパスのエラーなら <code>ai_model_select.sh</code> でパスを再設定。</div></div>
+          <div class="sg-step"><div class="sg-step-body">それでも直らない場合は <code>env_recovery_backup.sh</code> のスナップショットから環境を復元。</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🟡</span>
+        <span class="sg-accident-title">rclone sync で B2 のファイルを誤削除した</span>
+      </div>
+      <div class="sg-accident-body">
+        <p class="sg-p">Backblaze B2 はデフォルトでバージョニングが有効。削除されたファイルも一定期間は「隠しファイル」として残る。</p>
+        <div class="sg-steps">
+          <div class="sg-step"><div class="sg-step-body">B2 Web コンソール → バケット → 「Show hidden files」を有効にして削除されたファイルを探す。</div></div>
+          <div class="sg-step"><div class="sg-step-body">対象ファイルを選択して「Restore」。または <code>rclone --b2-versions</code> フラグで旧バージョンを取得。</div></div>
+        </div>
+        <div class="sg-callout sg-callout-info" style="margin-top:10px">
+          <span class="sg-callout-icon">ℹ</span>
+          <div class="sg-callout-body">
+            <div class="sg-callout-title">INFO</div>
+            バージョニングの保持期間は Lifecycle Rules で決まる。
+            設定は B2 コンソール → バケット → Lifecycle Rules で確認。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🟡</span>
+        <span class="sg-accident-title">schedule.json に不正な JSON が入った</span>
+      </div>
+      <div class="sg-accident-body">
+        <p class="sg-p">Discord BOT の <code>!schedule</code> で特殊文字・改行が混入した場合。</p>
+        <div class="sg-steps">
+          <div class="sg-step"><div class="sg-step-body"><code>python3 -m json.tool schedule.json</code> でエラー行を特定。</div></div>
+          <div class="sg-step"><div class="sg-step-body">エラー箇所の前後のエントリを手動で確認・削除。</div></div>
+          <div class="sg-step"><div class="sg-step-body">再度 <code>python3 -m json.tool</code> でエラーがなくなったことを確認してから BOT を再起動。</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-accident">
+      <div class="sg-accident-head">
+        <span>🟡</span>
+        <span class="sg-accident-title">merit-daily-v4.sh が途中で止まる</span>
+      </div>
+      <div class="sg-accident-body">
+        <p class="sg-p">スクリプト内部で呼んでいる外部コマンドが存在しない・パスが違う場合。</p>
+        <div class="sg-steps">
+          <div class="sg-step"><div class="sg-step-body"><code>bash -x merit-daily-v4.sh 2&gt;&amp;1 | head -50</code> でデバッグ出力を確認。どの行で止まるかを特定。</div></div>
+          <div class="sg-step"><div class="sg-step-body">存在しないパスが原因なら <code>meritmap.sh</code> で現在の構造を確認してスクリプト内のパスを修正。</div></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="sg-footer">
+    MERITOCRACIA OS — SCRIPT GUIDE &nbsp;|&nbsp; LOCAL — NO SERVER — NO EXTERNAL ASSETS
+  </footer>
+
+</div><!-- /sg-content -->
+</div><!-- /sg-layout -->
+
+<script src="./guide.js"></script>
+</body>
+</html>

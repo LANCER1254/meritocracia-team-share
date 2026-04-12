@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MeritCore — Script Manual</title>
+<link rel="stylesheet" href="./manual.css">
+</head>
+<body>
+
+<div class="sm-layout">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="sm-sidebar" id="sm-sidebar">
+    <div class="sm-sidebar-header">
+      <div class="sm-logo">MERIT<span>CORE</span></div>
+      <div class="sm-logo-sub">SCRIPT MANUAL</div>
+    </div>
+
+    <div class="sm-stat-row">
+      <span class="sm-stat" id="sm-stat-total">— scripts</span>
+      <span class="sm-stat sm-stat-dim" id="sm-stat-filtered"></span>
+    </div>
+
+    <nav class="sm-cat-nav" id="sm-cat-nav">
+      <!-- dynamically populated -->
+    </nav>
+
+    <div class="sm-ext-filter">
+      <div class="sm-filter-label">EXTENSION</div>
+      <div class="sm-ext-btns" id="sm-ext-btns">
+        <button class="sm-ext-btn sm-active" data-ext="ALL">ALL</button>
+        <button class="sm-ext-btn" data-ext="sh">.sh</button>
+        <button class="sm-ext-btn" data-ext="py">.py</button>
+        <button class="sm-ext-btn" data-ext="js">.js</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="sm-main">
+
+    <!-- topbar -->
+    <header class="sm-topbar">
+      <div class="sm-search-wrap">
+        <span class="sm-search-icon">⌕</span>
+        <input
+          class="sm-search"
+          id="sm-search"
+          type="search"
+          placeholder="filename を検索…"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <span class="sm-search-clear" id="sm-search-clear">✕</span>
+      </div>
+      <div class="sm-topbar-right">
+        <span class="sm-result-label" id="sm-result-label">Loading…</span>
+      </div>
+    </header>
+
+    <!-- virtual scroll host -->
+    <div class="sm-scroll-host" id="sm-scroll-host">
+      <div class="sm-scroll-sizer" id="sm-scroll-sizer"></div>
+      <div class="sm-cards-viewport" id="sm-cards-viewport"></div>
+    </div>
+
+    <!-- empty state -->
+    <div class="sm-empty sm-hidden" id="sm-empty">
+      <div class="sm-empty-icon">∅</div>
+      <div class="sm-empty-msg">該当スクリプトなし</div>
+    </div>
+
+    <!-- loading overlay -->
+    <div class="sm-loading" id="sm-loading">
+      <div class="sm-loading-ring"></div>
+      <div class="sm-loading-text">Loading scripts_inventory.json…</div>
+    </div>
+
+  </main>
+</div>
+
+<script src="./manual.js"></script>
+</body>
+</html>
